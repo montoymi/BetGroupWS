@@ -4,6 +4,7 @@ import com.amadeus.betgroup.model.Person;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+// Clase de ejemplo
 public class PersonDAO {
     private SqlSessionFactory sqlSessionFactory;
 
