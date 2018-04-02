@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Group">
+
+    <resultMap id="selectResult" type="Group">
+        <result property="groupId" column="id"/>
+        <result property="phaseId" column="phaseId"/>
+        <result property="groupName" column="groupName"/>
+        <result property="groupOrder" column="groupOrder"/>
+        <result property="enabled_flag" column="status"/>
+        <result property="groupCode" column="groupCode"/>
+
+    </resultMap>
+
+    <insert id="insert" parameterType="Group" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO groups (
+        phase_id, group_name, group_order, status, group_code)
+        VALUES (
+        #{firstName}, #{groupName}, #{groupOrder}, #{enabled_flag}, #{groupCode} )
+    </insert>
+
+    <update id="update" parameterType="Group">
+        UPDATE groups
+        SET
+        firstName = #{firstName} AND
+
+        WHERE id = #{groupId}
+    </update>
+
+    <select id="selectById" parameterType="map" resultMap="selectResult">
+        SELECT
+        id,phase_id, group_name, group_order, status, group_code
+        FROM groups
+        WHERE id = #{groupId}
+    </select>
+
+</mapper>

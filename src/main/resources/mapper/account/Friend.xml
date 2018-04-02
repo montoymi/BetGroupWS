@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Friend">
+    <resultMap id="selectResult" type="User">
+        <result property="userId" column="user_id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="email" column="email_address"/>
+        <result property="username" column="nickname"/>
+        <result property="password" column="user_password"/>
+
+        <collection property="friendList" ofType="Friend">
+            <id property="id" column="friend_id"/>
+            <result property="idUser" column="user_friend_id"/>
+            <result property="idFriend" column="friend_user_id"/>
+            <result property="status" column="friend_status"/>
+
+            <result property="amigo.userId" column="ffriend_user_id"/>
+            <result property="amigo.firstName" column="friend_first_name"/>
+            <result property="amigo.lastName" column="friend_last_name"/>
+            <result property="amigo.username" column="friend_nickname"/>
+            <result property="amigo.email" column="friend_email"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="getFriendListByUserId" parameterType="int" resultMap="selectResult">
+        select us.user_id,
+        us.first_name,
+        us.last_name,
+        us.nickname,
+        us.email_address,
+        fr.id as friend_id,
+        fr.friend_id as user_friend_id,
+        fr.user_id as friend_user_id,
+        fr.status as friend_status,
+        frus.user_id as ffriend_user_id,
+        frus.first_name as friend_first_name,
+        frus.last_name as friend_last_name,
+        frus.nickname as friend_nickname,
+        frus.email_address as friend_email
+        from friends as fr,
+        users   as us,
+        users   as frus
+        where us.user_id = fr.user_id
+        and fr.friend_id = frus.user_id
+        and fr.user_id = #{userId}
+    </select>
+
+    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO friends (
+        user_id, friend_id, status)
+        VALUES (
+        #{idUser}, #{idFriend}, #{status})
+    </insert>
+
+
+</mapper>

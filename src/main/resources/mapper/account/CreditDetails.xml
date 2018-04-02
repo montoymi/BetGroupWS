@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CreditDetails">
+
+    <resultMap id="selectResult" type="CreditDetail">
+        <result property="creditDetailId" column="id"/>
+        <result property="transactionTypeId" column="transaction_type_id"/>
+        <result property="transactionDate" column="transaction_date"/>
+        <result property="creditAmount" column="credit_amount"/>
+        <result property="status" column="status"/>
+        <result property="comments" column="comments"/>
+        <result property="userId" column="user_id"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="lastUpdatedBy" column="last_updated_by"/>
+        <result property="lastUpdatedDate" column="last_updated_date"/>
+    </resultMap>
+
+
+    <select id="getCreditTransactionsByUserId" parameterType="int" resultMap="selectResult">
+        SELECT
+        id, transaction_type_id, transaction_date, credit_amount, status,
+        comments, user_id, created_by, creation_date, last_updated_by, last_updated_date
+        FROM credit_transactions
+        WHERE user_id = #{userId}
+    </select>
+
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TemplateDetails">
+    <resultMap id="templateDetailResult" type="TemplateDetail">
+        <result property="templateDetailId" column="temp_detail_id"/>
+        <result property="templateHeaderId" column="template_header_id"/>
+        <result property="matchId" column="td_match_id"/>
+        <result property="match.matchId" column="id"/>
+        <result property="match.matchCode" column="match_code"/>
+        <result property="match.matchDate" column="match_date"/>
+        <result property="match.matchPlace" column="match_place"/>
+        <result property="match.resultMatch" column="result_match"/>
+        <result property="match.scoreLocal" column="local_score"/>
+        <result property="match.scoreVisitor" column="visitor_score"/>
+        <result property="match.enabled_flag" column="position"/>
+        <result property="match.localId" column="local_team_id"/>
+        <result property="match.localTeam.teamId" column="local_team_id"/>
+        <result property="match.localTeam.teamName" column="local_team_name"/>
+        <result property="match.localTeam.image" column="image_local"/>
+        <result property="match.visitorId" column="visitor_team_id"/>
+        <result property="match.visitorTeam.teamId" column="visitor_team_id"/>
+        <result property="match.visitorTeam.teamName" column="visitor_team_name"/>
+        <result property="match.visitorTeam.image" column="image_visitor"/>
+    </resultMap>
+
+    <select id="getTemplateDetailsByTempHeader" parameterType="int" resultMap="templateDetailResult">
+        select td.id as temp_detail_id, td.template_header_id, td.match_id as td_match_id,
+              m.id, m.local_team_id, tl.team_name as local_team_name, tl.image as image_local,
+              m.visitor_team_id, tv.team_name as visitor_team_name, tv.image as image_visitor,
+              m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_place, m.match_code, m.status
+          from matchs as m, teams as tl, teams as tv, template_details as td
+        where td.match_id = m.id
+              and m.local_team_id = tl.id
+              and m.visitor_team_id = tv.id
+              and td.template_header_id = #{templateHeaderId} order by m.match_date;
+
+    </select>
+
+</mapper>

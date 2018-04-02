@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PollaMatches">
+    <resultMap id="pollaMatchResults" type="PollaMatch">
+        <result property="pollaMatchId" column="polla_match_id"/>
+        <result property="pollaHeaderId" column="polla_header_id"/>
+        <result property="matchId" column="id"/>
+        <result property="match.matchId" column="id"/>
+        <result property="match.matchCode" column="match_code"/>
+        <result property="match.matchDate" column="match_date"/>
+        <result property="match.matchPlace" column="match_place"/>
+        <result property="match.resultMatch" column="result_match"/>
+        <result property="match.scoreLocal" column="local_score"/>
+        <result property="match.scoreVisitor" column="visitor_score"/>
+        <result property="match.enabled_flag" column="position"/>
+        <result property="match.localId" column="local_team_id"/>
+        <result property="match.localTeam.teamId" column="local_team_id"/>
+        <result property="match.localTeam.teamName" column="local_team_name"/>
+        <result property="match.localTeam.image" column="image_local"/>
+        <result property="match.visitorId" column="visitor_team_id"/>
+        <result property="match.visitorTeam.teamId" column="visitor_team_id"/>
+        <result property="match.visitorTeam.teamName" column="visitor_team_name"/>
+        <result property="match.visitorTeam.image" column="image_visitor"/>
+    </resultMap>
+
+    <select id="getPollaMatchesByPollaId" parameterType="int" resultMap="pollaMatchResults">
+        select pm.id as polla_match_id, pm.polla_header_id, pm.match_id,
+              m.id, m.local_team_id, tl.team_name as local_team_name, tl.image as image_local,
+              m.visitor_team_id, tv.team_name as visitor_team_name, tv.image as image_visitor,
+              m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_place, m.match_code, m.status
+              from matchs as m, teams as tl, teams as tv, polla_matches as pm
+              where pm.match_id = m.id
+              and m.local_team_id = tl.id
+              and m.visitor_team_id = tv.id
+              and pm.polla_header_id = #{pollaHeaderId} order by m.match_date;
+
+    </select>
+
+    <select id="getFullMatchesByPollaHeaderId" parameterType="int" resultMap="pollaMatchResults">
+        select sp.id, sp.code, sp.firstName, sp.logo,
+        t.id, t.sport_id, t.tournament_name, t.status, t.start_date,
+        p.id, p.tournament_id, p.phase_name, p.phase_order, p.status,
+        g.id, g.phase_id, g.group_name, g.status, g.group_code,
+        m.id, m.group_id,
+        m.local_team_id, tl.team_name as local_team_name, tl.image as image_local,
+        m.visitor_team_id, tv.team_name as visitor_team_name, tv.image as image_visitor,
+        m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_place, m.match_code, m.status,
+        pm.id, pm.polla_header_id, pm.match_id
+        from matchs as m, teams as tl, teams as tv, groups as g, phases as p, tournaments as t, polla_matches as pm, sports as sp
+        where m.local_team_id = tl.id
+        and sp.id = t.sport_id
+        and m.visitor_team_id = tv.id
+        and m.group_id = g.id
+        and g.phase_id = p.id
+        and p.tournament_id = t.id
+        and m.id = pm.match_id
+        and pm.polla_header_id = #{pollaHeaderId};
+
+    </select>
+
+</mapper>

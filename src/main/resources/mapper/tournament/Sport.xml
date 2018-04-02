@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Sport">
+    <resultMap id="selectResult" type="Sport">
+        <result property="sportId" column="id"/>
+        <result property="sportCode" column="code"/>
+        <result property="sportName" column="firstName"/>
+        <result property="logo" column="logo"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="Sport" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sports (code, firstName, logo)
+        VALUES (#{sportCode}, #{sportName}, #{logo})
+    </insert>
+
+    <update id="update" parameterType="Sport">
+        UPDATE sports
+        SET
+        firstName = #{sportName} AND code = #{sportCode} and logo = #{logo}
+        WHERE id = #{sportId}
+    </update>
+
+    <select id="selectById" parameterType="map" resultMap="selectResult">
+        SELECT
+        id, code, firstName, logo
+        FROM sports
+        WHERE id = #{sportId}
+    </select>
+
+</mapper>

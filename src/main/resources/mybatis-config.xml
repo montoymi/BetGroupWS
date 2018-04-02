@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <typeAliases>
+        <typeAlias alias="Person" type="com.amadeus.betgroup.model.Person"/>
+        <typeAlias alias="User" type="com.amadeus.betgroup.model.account.User"/>
+        <typeAlias alias="Friend" type="com.amadeus.betgroup.model.account.Friend"/>
+        <typeAlias alias="CreditDetail" type="com.amadeus.betgroup.model.account.CreditDetail"/>
+        <typeAlias alias="Credit" type="com.amadeus.betgroup.model.account.Credit"/>
+        <typeAlias alias="PollaHeader" type="com.amadeus.betgroup.model.polla.PollaHeader"/>
+        <typeAlias alias="PollaParticipant" type="com.amadeus.betgroup.model.polla.PollaParticipant"/>
+        <typeAlias alias="PollaMatch" type="com.amadeus.betgroup.model.polla.PollaMatch"/>
+        <typeAlias alias="Match" type="com.amadeus.betgroup.model.tournament.Match"/>
+        <typeAlias alias="TemplateHeader" type="com.amadeus.betgroup.model.template.TemplateHeader"/>
+        <typeAlias alias="TemplateDetail" type="com.amadeus.betgroup.model.template.TemplateDetail"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <!--  connecting to Local MySql -->
+            <dataSource type="POOLED">
+                <property name="driver" value="org.postgresql.Driver"/>
+                <property name="url" value="jdbc:postgresql://173.249.6.111:5489/polla"/>
+                <property name="username" value="postgres"/>
+                <property name="password" value="IntiTec02"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mapper/Person.xml"/>
+        <mapper resource="mapper/account/User.xml"/>
+        <mapper resource="mapper/account/Credits.xml"/>
+        <mapper resource="mapper/account/CreditDetails.xml"/>
+        <mapper resource="mapper/polla/PollaHeaders.xml"/>
+        <mapper resource="mapper/polla/PollaParticipants.xml"/>
+        <mapper resource="mapper/polla/PollaMatches.xml"/>
+        <mapper resource="mapper/tournament/Match.xml"/>
+        <mapper resource="mapper/account/Friend.xml"/>
+        <mapper resource="mapper/template/TemplateHeaders.xml"/>
+        <mapper resource="mapper/template/TemplateDetails.xml"/>
+    </mappers>
+
+</configuration>

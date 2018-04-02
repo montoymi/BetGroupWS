@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Phase">
+    <resultMap id="selectResult" type="Phase">
+        <result property="phaseId" column="id"/>
+        <result property="tournamentId" column="tournament_id"/>
+        <result property="phaseName" column="phase_name"/>
+        <result property="phaseNumber" column="phase_order"/>
+        <result property="enabled_flag" column="status"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="Phase" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO phases ( tournament_id, phase_name, phase_order, status)
+        VALUES ( #{tournamentId}, #{phaseName}, #{phaseNumber}, #{enabled_flag})
+    </insert>
+
+    <update id="update" parameterType="Phase">
+        UPDATE phases
+        SET
+        tournament_id = #{tournamentId} AND
+        phase_name = #{phaseName} AND
+        phase_order = #{phaseNumber} AND
+        status = #{enabled_flag}
+        WHERE id = #{phaseId}
+    </update>
+
+    <select id="selectById" parameterType="map" resultMap="selectResult">
+        SELECT
+        id,tournament_id, phase_name, phase_order, status
+        FROM phases
+        WHERE id = #{phaseId}
+    </select>
+</mapper>

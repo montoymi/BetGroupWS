@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Person">
+
+    <resultMap id="selectResult" type="Person">
+        <result property="id" column="id"/>
+        <result property="firstName" column="firstName"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="Person" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO person (
+            firstName)
+        VALUES (
+            #{firstName})
+    </insert>
+
+    <update id="update" parameterType="Person">
+        UPDATE person
+        SET
+            firstName = #{firstName}
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="map" resultMap="selectResult">
+        SELECT
+            id,
+            firstName
+        FROM person
+        WHERE id = #{id}
+    </select>
+
+</mapper>
