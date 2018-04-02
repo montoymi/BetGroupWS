@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="betgroup-ws" />
+        <module name="BetGroupWS" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="betgroup-ws" target="1.8" />
+      <module name="BetGroupWS" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
