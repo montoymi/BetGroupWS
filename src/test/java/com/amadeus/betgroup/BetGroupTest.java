@@ -95,10 +95,10 @@ public class BetGroupTest {
             }
 
 */
-            opcionCrearJuego();
+         //   opcionCrearJuego();
          //   opcionJuegosDisponibles();
-         //   registrarUsuario();
-         //   actualizarPerfilUsuario();
+            registrarUsuario();
+            actualizarPerfilUsuario();
          //   historialCreditosByUser();
 
 
@@ -280,6 +280,7 @@ public class BetGroupTest {
             userBE = userService.checkUsernameExists(username);
             if( userBE != null ){
                 System.out.println("Este username ya se encuentra usado. Porfavor, ingrese otro nickname: ");
+                //MIGUEL DIME QUE CODIGO QUIERES QUE USE:
             }else{
                 flagRegistro = true;
             }
@@ -293,6 +294,7 @@ public class BetGroupTest {
 
             if( userBE != null ){
                 System.out.println("Este email ya se encuentra usado. Porfavor, ingrese otro email: ");
+                //MIGUEL DIME QUE CODIGO QUIERES QUE USE:
             }else{
                 flagRegistro = true;
             }
@@ -318,6 +320,7 @@ public class BetGroupTest {
         userBE.setUsername(username);
         userBE.setPassword(password);
 
+// encapsular metodos de checkusername y checkemail dentro del metodo registra usuario del service.
         userService.registraUsuario(userBE);
         userBE = userService.validateLogin(userBE.getUsername(), userBE.getPassword());
 
