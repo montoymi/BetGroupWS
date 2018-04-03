@@ -23,7 +23,7 @@
         WHERE ph.id = pp.polla_header_id AND pp.user_id = #{userId}
     </select>
 
-    <select id="getPollasDisponiblesByUserId" parameterType="int" resultMap="selectResult">
+    <select id="getPollasDisponiblesByUserId" parameterType="PollaHeader" resultMap="selectResult">
         select *
         from polla_headers as ph
         where not exists (select 1
@@ -32,6 +32,12 @@
         and pp.user_id = #{userId})
     </select>
 
-
+<select id="createBetGroup" statementType="CALLABLE" parameterType="PollaHeader">
+    { call xx_validate_login (
+        #{pollaName, mode=IN, jdbcType=VARCHAR},
+        #{password, mode=IN, jdbcType=VARCHAR},
+        #{pollaName, mode=OUT, jdbcType=VARCHAR}
+    )}
+</select>
 
 </mapper>

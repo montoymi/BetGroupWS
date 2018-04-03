@@ -10,7 +10,7 @@ public class TemplateDetailService {
     private TemplateDetailDAO templateDetailDAO = new TemplateDetailDAO(MyBatisSqlSession.getSqlSessionFactory());
 
 
-    public List<TemplateDetail> getAllTemplateHeaderList( int template_header_id) {
+    public List<TemplateDetail> getTemplateDetailsByTempHeader( int template_header_id) {
         List<TemplateDetail> templateDetailList = templateDetailDAO.getTemplateDetailsByTempHeader(template_header_id);
         return templateDetailList;
     }

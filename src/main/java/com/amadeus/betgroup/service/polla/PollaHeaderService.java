@@ -36,4 +36,8 @@ public class PollaHeaderService {
             System.out.println(" No tiene creditos suficientes para inscribirse en la polla.");
         }
     }
+
+    public void crearPolla (PollaHeader pollaHeader) {
+        pollaHeaderDAO.crearPolla(pollaHeader);
+    }
 }

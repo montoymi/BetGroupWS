@@ -1,5 +1,6 @@
 package com.amadeus.betgroup;
 
+import com.amadeus.betgroup.dao.polla.PollaHeaderDAO;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaHeader;
@@ -30,30 +31,6 @@ public class BetGroupTest {
     public static void main(String args[]) throws Exception{
         try{
 /*
-            UserService userS = new UserService();
-            User userBE;
-            String username = null;
-            String password = null;
-
-            Scanner in = new Scanner(System.in);
-            System.out.print("Please enter user name : ");
-            username = in.nextLine();
-            System.out.print("Please enter password :");
-            password = in.nextLine();
-
-            userBE = userS.validateLogin(username,  password);
-            System.out.println( "Informacion de usuario " + userBE.getUsername());
-            System.out.println( "userid = " + userBE.getUserId());
-            System.out.println( "Name = " + userBE.getFirstName());
-            System.out.println( "email = " + userBE.getEmail());
-            System.out.println( "*********************");
-
-            CreditService creditS = new CreditService();
-            Credit creditHistory = creditS.getCreditHistoryByUserId(userBE.getUserId());
-            System.out.println( "Resumen de creditos para : " + userBE.getUsername() );
-            System.out.println( "Total Creditos en cuenta = " + creditHistory.getTotalCreditos());
-            System.out.println( "*********************");
-
             PollaHeaderService pollaHeaderS = new PollaHeaderService();
             List<PollaHeader> pollaHeaderList = pollaHeaderS.getMisPollasByUserId( userBE.getUserId());
 
@@ -118,10 +95,11 @@ public class BetGroupTest {
             }
 
 */
-            crearPolla();
-            inscribirsePolla();
+            opcionCrearJuego();
+         //   opcionJuegosDisponibles();
          //   registrarUsuario();
          //   actualizarPerfilUsuario();
+         //   historialCreditosByUser();
 
 
            /*
@@ -135,37 +113,56 @@ public class BetGroupTest {
             e.printStackTrace();
         }
     }
+
+    private static void historialCreditosByUser(){
+        User userBE = signin();
+        CreditService creditS = new CreditService();
+        Credit creditHistory = creditS.getCreditHistoryByUserId(userBE.getUserId());
+        System.out.println( "*********************");
+        System.out.println( "Resumen de creditos para : " + userBE.getUsername() );
+        System.out.println( "Total Creditos en cuenta = " + creditHistory.getTotalCreditos());
+        System.out.println( "*********************");
+
+    }
+
     private static User signin(){
-        System.out.println("******************************");
         System.out.println("******************************");
         System.out.println("Logueandose al sistema: ");
 
         Scanner in = new Scanner(System.in);
-        System.out.print("Please enter user name : ");
-        String username = in.nextLine();
-        System.out.print("Please enter password :");
-        String password = in.nextLine();
+        String username;
+        String password;
 
         UserService userS = new UserService();
         User userBE = new User();
         boolean flagAcces = false;
 
         while (!flagAcces) {
+            System.out.print("Please enter user name : ");
+            username = in.nextLine();
+            System.out.print("Please enter password :");
+            password = in.nextLine();
             userBE = userS.validateLogin(username,  password);
             if ( userBE == null ){
                 System.out.println("Credenciales invalidas. Ingrese un usuario y password nuevamente: ");
-                System.out.print("Please enter user name : ");
-                username = in.nextLine();
-                System.out.print("Please enter password :");
-                password = in.nextLine();
             }else{
                 flagAcces = true;
             }
         }
+        System.out.println( "Informacion de usuario " + userBE.getUsername());
+        System.out.println( "userid = " + userBE.getUserId());
+        System.out.println( "Name = " + userBE.getFirstName());
+        System.out.println( "Apellido = " + userBE.getLastName());
+        System.out.println( "Fecha de Nacimiento = " + userBE.getDateOfBirthday());
+        System.out.println( "Sexo = " + userBE.getSex());
+        System.out.println( "email = " + userBE.getEmail());
+        System.out.println( "Password = " + userBE.getPassword());
+        System.out.println( "*********************");
+
         return userBE;
     }
 
-    private static void inscribirsePolla() {
+    private static void opcionJuegosDisponibles() {
         User userBE = signin();
         PollaHeaderService pollaHeaderS = new PollaHeaderService();
         List<PollaHeader> pollaHeaderList = pollaHeaderS.getPollasDisponiblesByUserId( userBE.getUserId());
@@ -199,33 +196,69 @@ public class BetGroupTest {
         }
     }
 
-    private static void crearPolla() {
+    private static void opcionCrearJuego() {
+        User userBE = signin();
         System.out.println( "*********************");
-        System.out.println( "Lista de plantillas habilitadas para crear juegos: ");
+        System.out.println( "Procediendo a crear juego");
+        System.out.println( "Lista de plantillas habilitadas para creacion de Betgroup: ");
         TemplateHeaderService tempHeaderS = new TemplateHeaderService();
         List<TemplateHeader> templateHeaderList = tempHeaderS.getAllTemplateHeaderList();
-        Scanner in = new Scanner(System.in);
-
         for (int i=0; i < templateHeaderList.size(); i++ ){
             System.out.println( (i+1) + ": " + templateHeaderList.get(i).getTemplateName());
         }
-
-        System.out.print("Seleccione # Juego disponible a visualizar eventos: ");
+        System.out.println("Seleccione # de Plantilla para crear BetGroup: ");
+        Scanner in = new Scanner(System.in);
         String sTemHeaderId = in.nextLine();
         Integer tempHeaderId = Integer.parseInt(sTemHeaderId);
+        TemplateHeader templateHeader = templateHeaderList.get(tempHeaderId-1);
 
-
-        System.out.println( "Detalles de eventos de polla :" + templateHeaderList.get(tempHeaderId-1).getTemplateName());
+        System.out.println( "Lista de eventos de Plantilla :" + templateHeader.getTemplateName());
         TemplateDetailService templateDetailService = new TemplateDetailService();
-        List<TemplateDetail> templateDetailList = templateDetailService.getAllTemplateHeaderList( templateHeaderList.get(tempHeaderId-1).getTemplateId());
+        List<TemplateDetail> templateDetailList = templateDetailService.getTemplateDetailsByTempHeader( templateHeader.getTemplateId());
         System.out.println( "# de partidos " + templateDetailList.size());
-        System.out.println("Imprimiendo lista de partidos: ");
+        System.out.println("Imprimiendo lista de eventos: ");
         for (int i=0; i < templateDetailList.size(); i++ ) {
-
             TemplateDetail templateDetail = templateDetailList.get(i);
             System.out.println( templateDetail.getMatch().getMatchId() + " - " + templateDetail.getMatch().getMatchCode() + ": " + templateDetail.getMatch().getLocalTeam().getTeamName()
                     + " vs "+ templateDetail.getMatch().getVisitorTeam().getTeamName() + " - Dia: " + templateDetail.getMatch().getMatchDate());
         }
+        System.out.println("Configurando Betgroup Cabecera: ");
+        PollaHeader pollaHeader = new PollaHeader();
+        System.out.print("Ingrese nombre de Betgroup a crear: ");
+        String nombreBetgroup = in.nextLine();
+        pollaHeader.setPollaName(nombreBetgroup);
+        System.out.print("Marque 1 si el Betgroup es privado, o 0 si el Betgroup sera publico: ");
+        String sflagPrivado = in.nextLine(); // 1: Privado - 0: Publico
+        Integer flagPrivado = Integer.parseInt(sflagPrivado);
+        pollaHeader.setAccessFlag(flagPrivado);
+        if( flagPrivado == 1  ){
+            System.out.print("Indique el password del Betgroup a crear: ");
+            String password = in.nextLine();
+            pollaHeader.setPassword(password);
+        }
+        System.out.print("Marque 1 si el Betgroup tendra costo, o 0 si el Betgroup sera gratuito: ");
+        String sFlagCosto = in.nextLine(); // 1: ConCosto - 0: SinCosto
+        Integer flagCosto = Integer.parseInt(sFlagCosto);
+        pollaHeader.setCostFlag(flagCosto);
+        if( flagCosto == 1  ){
+            System.out.print("Indique el costo de inscripcion del Betgroup a crear: ");
+            String sCostoPolla = in.nextLine();
+            Integer costoPolla = Integer.parseInt(sCostoPolla);
+            pollaHeader.setPollaCost(costoPolla);
+        }
+        System.out.print("Administrador del Betgroup a crear: " + userBE.getUsername());
+        pollaHeader.setAdminId( userBE.getUserId());
+        pollaHeader.setTemplateHeaderId( templateHeader.getTemplateId() );
+
+        CreditService creditS = new CreditService();
+        Credit creditHistory = creditS.getCreditHistoryByUserId(userBE.getUserId());
+ //       if( creditHistory.getTotalCreditos() < pollaHeader.getPollaCost() ){
+   //         System.out.print("Administrador del Betgroup a crear: " + userBE.getUsername());
+   //     }
+
+        PollaHeaderService pollaHeaderS = new PollaHeaderService();
+        pollaHeaderS.crearPolla(pollaHeader);
+        System.out.print("Administrador del Betgroup a crear: " + userBE.getUsername());
     }
 
     public static void registrarUsuario(){

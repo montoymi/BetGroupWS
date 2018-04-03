@@ -40,4 +40,16 @@ public class PollaHeaderDAO {
         return pollaHeaders;
     }
 
+    public void crearPolla(PollaHeader pollaHeader){
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            session.selectOne("PollaHeaders.createBetGroup", pollaHeader );
+            session.commit();
+
+        } finally {
+            session.close();
+        }
+
+    }
+
 }
