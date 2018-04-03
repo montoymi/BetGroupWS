@@ -137,6 +137,7 @@ public class BetGroupTest {
     }
     private static User signin(){
         System.out.println("******************************");
+        System.out.println("******************************");
         System.out.println("Logueandose al sistema: ");
 
         Scanner in = new Scanner(System.in);
