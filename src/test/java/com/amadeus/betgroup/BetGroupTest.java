@@ -194,7 +194,7 @@ public class BetGroupTest {
                 }
             }
         }
-        
+
     }
 
     private static void opcionCrearJuego() throws Exception{
