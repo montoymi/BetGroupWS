@@ -32,11 +32,23 @@
         and pp.user_id = #{userId})
     </select>
 
-<select id="createBetGroup" statementType="CALLABLE" parameterType="PollaHeader">
+    <select id="createBetGroup2" statementType="CALLABLE" parameterType="map">
+        { call xx_create_pollaheader (
+            #{pollaHeader.pollaName, mode=IN, jdbcType=VARCHAR},
+            #{pollaHeader.accessFlag, mode=IN, jdbcType=INTEGER},
+            #{pollaHeader.costFlag, mode=IN, jdbcType=INTEGER},
+            #{pollaHeader.pollaCost, mode=IN, jdbcType=INTEGER},
+            #{pollaHeader.adminId, mode=IN, jdbcType=INTEGER},
+            #{pollaHeader.templateHeaderId, mode=IN, jdbcType=INTEGER},
+            #{mensaje,mode=OUT, jdbcType=VARCHAR }
+        )}
+    </select>
+
+    <select id="createBetGroup" statementType="CALLABLE" parameterType="map">
     { call xx_validate_login (
-        #{pollaName, mode=IN, jdbcType=VARCHAR},
-        #{password, mode=IN, jdbcType=VARCHAR},
-        #{pollaName, mode=OUT, jdbcType=VARCHAR}
+        #{pollaHeader.pollaName, mode=IN, jdbcType=VARCHAR},
+        #{pollaHeader.password, mode=IN, jdbcType=VARCHAR},
+        #{mensaje,mode=OUT, jdbcType=VARCHAR }
     )}
 </select>
 

@@ -1,6 +1,7 @@
 package com.amadeus.betgroup.service.polla;
 
 import com.amadeus.betgroup.dao.polla.PollaHeaderDAO;
+import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaHeader;
@@ -37,7 +38,23 @@ public class PollaHeaderService {
         }
     }
 
-    public void crearPolla (PollaHeader pollaHeader) {
-        pollaHeaderDAO.crearPolla(pollaHeader);
+    public void crearPolla (PollaHeader pollaHeader) throws ApplicationException {
+        try{
+            CreditService creditS = new CreditService();
+            Credit creditHistory = creditS.getCreditHistoryByUserId(pollaHeader.getAdminId());
+/*
+            if( creditHistory.getTotalCreditos() < pollaHeader.getPollaCost() ){
+                throw new ApplicationException();
+                //System.out.println(" No tiene creditos suficientes para crear la polla.");
+            }
+*/
+            pollaHeaderDAO.crearPolla(pollaHeader);
+
+
+        }catch( Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+
     }
 }

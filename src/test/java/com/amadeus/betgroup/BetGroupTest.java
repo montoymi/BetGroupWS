@@ -1,6 +1,7 @@
 package com.amadeus.betgroup;
 
 import com.amadeus.betgroup.dao.polla.PollaHeaderDAO;
+import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaHeader;
@@ -96,9 +97,9 @@ public class BetGroupTest {
 
 */
          //   opcionCrearJuego();
-         //   opcionJuegosDisponibles();
-            registrarUsuario();
-            actualizarPerfilUsuario();
+            opcionJuegosDisponibles();
+         //   opcionRegistrarUsuario();
+         //   opcionActualizarPerfilUsuario();
          //   historialCreditosByUser();
 
 
@@ -108,7 +109,6 @@ public class BetGroupTest {
             friendS.agregarAmigo(7,8);
             System.out.println( "Transaccion realizada correctamente.");
             */
-
         } catch( Exception e ){
             e.printStackTrace();
         }
@@ -194,9 +194,10 @@ public class BetGroupTest {
                 }
             }
         }
+        
     }
 
-    private static void opcionCrearJuego() {
+    private static void opcionCrearJuego() throws Exception{
         User userBE = signin();
         System.out.println( "*********************");
         System.out.println( "Procediendo a crear juego");
@@ -211,7 +212,7 @@ public class BetGroupTest {
         String sTemHeaderId = in.nextLine();
         Integer tempHeaderId = Integer.parseInt(sTemHeaderId);
         TemplateHeader templateHeader = templateHeaderList.get(tempHeaderId-1);
-
+/*
         System.out.println( "Lista de eventos de Plantilla :" + templateHeader.getTemplateName());
         TemplateDetailService templateDetailService = new TemplateDetailService();
         List<TemplateDetail> templateDetailList = templateDetailService.getTemplateDetailsByTempHeader( templateHeader.getTemplateId());
@@ -222,11 +223,18 @@ public class BetGroupTest {
             System.out.println( templateDetail.getMatch().getMatchId() + " - " + templateDetail.getMatch().getMatchCode() + ": " + templateDetail.getMatch().getLocalTeam().getTeamName()
                     + " vs "+ templateDetail.getMatch().getVisitorTeam().getTeamName() + " - Dia: " + templateDetail.getMatch().getMatchDate());
         }
+*/
+
         System.out.println("Configurando Betgroup Cabecera: ");
         PollaHeader pollaHeader = new PollaHeader();
         System.out.print("Ingrese nombre de Betgroup a crear: ");
         String nombreBetgroup = in.nextLine();
         pollaHeader.setPollaName(nombreBetgroup);
+
+        System.out.print("Ingrese password: ");
+        String spassword = in.nextLine();
+        pollaHeader.setPassword(spassword);
+
         System.out.print("Marque 1 si el Betgroup es privado, o 0 si el Betgroup sera publico: ");
         String sflagPrivado = in.nextLine(); // 1: Privado - 0: Publico
         Integer flagPrivado = Integer.parseInt(sflagPrivado);
@@ -250,18 +258,12 @@ public class BetGroupTest {
         pollaHeader.setAdminId( userBE.getUserId());
         pollaHeader.setTemplateHeaderId( templateHeader.getTemplateId() );
 
-        CreditService creditS = new CreditService();
-        Credit creditHistory = creditS.getCreditHistoryByUserId(userBE.getUserId());
- //       if( creditHistory.getTotalCreditos() < pollaHeader.getPollaCost() ){
-   //         System.out.print("Administrador del Betgroup a crear: " + userBE.getUsername());
-   //     }
-
         PollaHeaderService pollaHeaderS = new PollaHeaderService();
         pollaHeaderS.crearPolla(pollaHeader);
-        System.out.print("Administrador del Betgroup a crear: " + userBE.getUsername());
+        System.out.println("Administrador del Betgroup a crear: " + userBE.getUsername());
     }
 
-    public static void registrarUsuario(){
+    public static void opcionRegistrarUsuario(){
         String username = null;
         String password = null;
         String email = null;
@@ -269,76 +271,49 @@ public class BetGroupTest {
         System.out.println("******************************");
         System.out.println("Formulario de Registro de Usuario: ");
         Scanner in = new Scanner(System.in);
-
         UserService userService = new UserService();
-        User userBE;
-
+        User userBE = new User();
         boolean flagRegistro = false;
-        while (!flagRegistro)  {
-            System.out.print("Porfavor, ingrese su username: ");
-            username = in.nextLine();
-            userBE = userService.checkUsernameExists(username);
-            if( userBE != null ){
-                System.out.println("Este username ya se encuentra usado. Porfavor, ingrese otro nickname: ");
-                //MIGUEL DIME QUE CODIGO QUIERES QUE USE:
-            }else{
+        while( !flagRegistro ){
+            try{
+
+                System.out.print("Porfavor, ingrese su username: ");
+                username = in.nextLine();
+                userBE.setUsername( username );
+                System.out.print("Porfavor, ingrese su email: ");
+                email = in.nextLine();
+                userBE.setEmail(email);
+
+                boolean flagPassword = false;
+                while (!flagPassword) {
+                    System.out.print("Porfavor, ingrese el password de su cuenta: ");
+                    password = in.nextLine();
+                    System.out.print("Porfavor, confirme el password otra vuelta: ");
+                    String password2 = in.nextLine();
+                    if ( password.contentEquals(password2)){
+                        flagPassword = true;
+                        userBE.setPassword(password);
+                    } else{
+                        System.out.println("Los passwords no coinciden. Ingrese el nuevo password otra vuelta: ");
+                    }
+                }
+                System.out.println("Procediendo a registrar al usuario en el sistema ");
+                userService.registraUsuario(userBE);
                 flagRegistro = true;
+            } catch(ApplicationException e) {
+                System.out.println(e.getMessage());
             }
         }
 
-        flagRegistro = false;
-        while (!flagRegistro)  {
-            System.out.print("Porfavor, ingrese su email: ");
-            email = in.nextLine();
-            userBE = userService.checkEmailExists(email);
-
-            if( userBE != null ){
-                System.out.println("Este email ya se encuentra usado. Porfavor, ingrese otro email: ");
-                //MIGUEL DIME QUE CODIGO QUIERES QUE USE:
-            }else{
-                flagRegistro = true;
-            }
-        }
-
-        flagRegistro = false;
-        while (!flagRegistro) {
-            System.out.print("Porfavor, ingrese el password de su cuenta: ");
-            password = in.nextLine();
-            System.out.print("Porfavor, confirme el password otra vuelta: ");
-            String password2 = in.nextLine();
-            if ( password.contentEquals(password2)){
-                flagRegistro = true;
-            } else{
-                System.out.println("Los passwords no coinciden. Ingrese el nuevo password otra vuelta: ");
-            }
-        }
-
-        System.out.println("Procediendo a registrar al usuario en el sistema ");
-
-        userBE = new User();
-        userBE.setEmail(email);
-        userBE.setUsername(username);
-        userBE.setPassword(password);
-
-// encapsular metodos de checkusername y checkemail dentro del metodo registra usuario del service.
-        userService.registraUsuario(userBE);
         userBE = userService.validateLogin(userBE.getUsername(), userBE.getPassword());
-
         System.out.println( "Informacion de usuario registrado" + userBE.getUsername());
         System.out.println( "userid = " + userBE.getUserId());
         System.out.println( "email = " + userBE.getEmail());
         System.out.println( "*********************");
 
-        /*
-
-        System.out.print("Porfavor, ingrese su correo electronico: ");
-        email = in.nextLine();
-        System.out.print("Porfavor, ingrese el password a usar: ");
-        password = in.nextLine();
-*/
     }
 
-    public static void actualizarPerfilUsuario() throws ParseException {
+    public static void opcionActualizarPerfilUsuario() throws ParseException {
         Scanner in = new Scanner(System.in);
         UserService userS = new UserService();
         User userBE = signin();
@@ -379,6 +354,5 @@ public class BetGroupTest {
         System.out.println( "email = " + userBE.getEmail());
         System.out.println( "*********************");
 
-        User user = new User();
     }
 }

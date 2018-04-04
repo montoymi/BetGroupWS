@@ -66,7 +66,7 @@
               count_login,
               status,
               sex
-        from users where nickname = #{username} and user_password = #{password}
+        from users where nickname = #{username} and user_password = md5(#{password})
     </select>
 
     <select id="checkUsernameExists" parameterType="User" resultMap="selectResult">

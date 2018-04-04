@@ -5,7 +5,9 @@ import com.amadeus.betgroup.model.polla.PollaHeader;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PollaHeaderDAO {
     private SqlSessionFactory sqlSessionFactory;
@@ -42,8 +44,15 @@ public class PollaHeaderDAO {
 
     public void crearPolla(PollaHeader pollaHeader){
         SqlSession session = sqlSessionFactory.openSession();
+        String mensaje = "";
         try {
-            session.selectOne("PollaHeaders.createBetGroup", pollaHeader );
+            Map<String, Object> map = new HashMap<>();
+            map.put("pollaHeader", pollaHeader);
+            map.put("mensaje", mensaje);
+
+            session.selectOne("PollaHeaders.createBetGroup", map );
+            mensaje = (String)map.get("mensaje");
+            System.out.println(mensaje);
             session.commit();
 
         } finally {

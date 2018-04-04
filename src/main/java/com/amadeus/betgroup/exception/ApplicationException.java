@@ -18,6 +18,10 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class ApplicationException extends RuntimeException implements ExceptionMapper<ApplicationException> {
     // Este constructor es necesario, si no está ocurre una exception.
+    public ApplicationException( String messageCode ){
+        super(messageCode);
+    }
+
     public ApplicationException() {
         super();
     }
