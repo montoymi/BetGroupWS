@@ -31,4 +31,12 @@
         WHERE pp.user_id = aa.user_id  AND pp.polla_header_id = #{pollaHeaderId}
     </select>
 
+    <select id="inscribirUserOnBetGroup" statementType="CALLABLE" parameterType="map">
+    { call xx_register_betgroup (
+        #{pollaHeader.pollaId, mode=IN, jdbcType=INTEGER},
+        #{user.userId, mode=IN, jdbcType=INTEGER},
+        #{mensaje,mode=OUT, jdbcType=VARCHAR }
+    )}
+</select>
+
 </mapper>

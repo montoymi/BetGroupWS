@@ -32,10 +32,11 @@
         and pp.user_id = #{userId})
     </select>
 
-    <select id="createBetGroup2" statementType="CALLABLE" parameterType="map">
-        { call xx_create_pollaheader (
+    <select id="createBetGroup" statementType="CALLABLE" parameterType="map">
+        { call xx_create_betgroup (
             #{pollaHeader.pollaName, mode=IN, jdbcType=VARCHAR},
             #{pollaHeader.accessFlag, mode=IN, jdbcType=INTEGER},
+            #{pollaHeader.password, mode=IN, jdbcType=VARCHAR},
             #{pollaHeader.costFlag, mode=IN, jdbcType=INTEGER},
             #{pollaHeader.pollaCost, mode=IN, jdbcType=INTEGER},
             #{pollaHeader.adminId, mode=IN, jdbcType=INTEGER},
@@ -44,12 +45,6 @@
         )}
     </select>
 
-    <select id="createBetGroup" statementType="CALLABLE" parameterType="map">
-    { call xx_validate_login (
-        #{pollaHeader.pollaName, mode=IN, jdbcType=VARCHAR},
-        #{pollaHeader.password, mode=IN, jdbcType=VARCHAR},
-        #{mensaje,mode=OUT, jdbcType=VARCHAR }
-    )}
-</select>
+
 
 </mapper>

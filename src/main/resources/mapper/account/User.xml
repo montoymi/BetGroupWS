@@ -41,7 +41,7 @@
         SET
             first_name = #{firstName}, last_name = #{lastName},
             date_of_birth = #{dateOfBirthday},  email_address = #{email},
-            user_password = #{password}, sex = #{sex}
+            user_password = md5(#{password}), sex = #{sex}
         WHERE user_id = #{userId}
     </update>
 

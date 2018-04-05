@@ -41,7 +41,7 @@ public class PollaHeaderService {
     public void crearPolla (PollaHeader pollaHeader) throws ApplicationException {
         try{
             CreditService creditS = new CreditService();
-            Credit creditHistory = creditS.getCreditHistoryByUserId(pollaHeader.getAdminId());
+//            Credit creditHistory = creditS.getCreditHistoryByUserId(pollaHeader.getAdminId());
 /*
             if( creditHistory.getTotalCreditos() < pollaHeader.getPollaCost() ){
                 throw new ApplicationException();
