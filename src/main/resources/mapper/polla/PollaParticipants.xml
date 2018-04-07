@@ -33,8 +33,8 @@
 
     <select id="inscribirUserOnBetGroup" statementType="CALLABLE" parameterType="map">
     { call xx_register_betgroup (
-        #{pollaHeader.pollaId, mode=IN, jdbcType=INTEGER},
-        #{user.userId, mode=IN, jdbcType=INTEGER},
+        #{pollaParticipant.pollaHeaderId, mode=IN, jdbcType=INTEGER},
+        #{pollaParticipant.user.userId, mode=IN, jdbcType=INTEGER},
         #{mensaje,mode=OUT, jdbcType=VARCHAR }
     )}
 </select>

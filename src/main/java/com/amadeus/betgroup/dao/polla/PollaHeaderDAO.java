@@ -1,5 +1,6 @@
 package com.amadeus.betgroup.dao.polla;
 
+import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.CreditDetail;
 import com.amadeus.betgroup.model.polla.PollaHeader;
 import org.apache.ibatis.session.SqlSession;
@@ -52,10 +53,13 @@ public class PollaHeaderDAO {
 
             session.selectOne("PollaHeaders.createBetGroup", map );
             mensaje = (String)map.get("mensaje");
-            System.out.println(mensaje);
+
             session.commit();
 
-        } finally {
+            if( !mensaje.contentEquals("")){
+                throw new ApplicationException(mensaje);
+            }
+        }finally {
             session.close();
         }
 

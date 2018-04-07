@@ -15,4 +15,22 @@ public class PollaParticipantService {
 
         return participantList;
     }
+
+    public void inscribirUserInBetgroup( PollaParticipant pollaParticipant){
+        try{
+ //           CreditService creditS = new CreditService();
+//            Credit creditHistory = creditS.getCreditHistoryByUserId(pollaHeader.getAdminId());
+/*
+            if( creditHistory.getTotalCreditos() < pollaHeader.getPollaCost() ){
+                throw new ApplicationException();
+                //System.out.println(" No tiene creditos suficientes para crear la polla.");
+            }
+*/
+            pollaParticipantsDAO.inscribirUserOnBetGroup(pollaParticipant);
+
+        }catch( Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

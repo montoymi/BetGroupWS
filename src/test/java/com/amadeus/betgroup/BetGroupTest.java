@@ -32,49 +32,7 @@ import java.util.Scanner;
 public class BetGroupTest {
     public static void main(String args[]) throws Exception{
         try{
-/*
-            System.out.print("Seleccione # Polla a visualizar detalle: ");
-            String spollaId = in.nextLine();
-            Integer pollaId = Integer.parseInt(spollaId);
-
-            System.out.println( "Detalles de polla :" + pollaHeaderList.get(pollaId-1).getPollaName());
-            PollaParticipantService pollaParticipantS = new PollaParticipantService();
-            List<PollaParticipant> participantList = pollaParticipantS.getParticipantsByPollaId(pollaHeaderList.get(pollaId-1).getPollaId());
-            System.out.println( "# de participantes " + participantList.size());
-            System.out.println( "Imprimiendo lista de participantes:");
-            for (int i=0; i < participantList.size(); i++ ) {
-
-                PollaParticipant participante = participantList.get(i);
-                System.out.println( participante.getUser().getEmail() + " - " + participante.getUser().getUsername() + " - " +
-                                    participante.getUser().getFirstName() + " " + participante.getUser().getLastName() );
-            }
-
-            System.out.println( "*********************");
-            System.out.println( "Detalles de eventos de polla :" + pollaHeaderList.get(pollaId-1).getPollaName());
-            PollaMatchService pollaMatchS = new PollaMatchService();
-            List<PollaMatch> pollaMatchList = pollaMatchS.getParticipantsByPollaId(pollaHeaderList.get(pollaId-1).getPollaId());
-            System.out.println( "# de partidos " + pollaMatchList.size());
-            System.out.println("Imprimiendo lista de partidos: ");
-            for (int i=0; i < pollaMatchList.size(); i++ ) {
-
-                PollaMatch pollaMatch = pollaMatchList.get(i);
-                System.out.println( pollaMatch.getMatch().getMatchId() + " - " + pollaMatch.getMatch().getMatchCode() + ": " + pollaMatch.getMatch().getLocalTeam().getTeamName()
-                + " vs "+ pollaMatch.getMatch().getVisitorTeam().getTeamName() + " - Dia: " + pollaMatch.getMatch().getMatchDate());
-            }
-            System.out.print("Seleccione el id Match a visualizar detalle: ");
-            String sMatchId = in.nextLine();
-            Integer matchId = Integer.parseInt(sMatchId);
-            System.out.println( "Detalles de eventos de polla :" + pollaHeaderList.get(pollaId-1).getPollaName());
-            MatchService matchS = new MatchService();
-            Match match = matchS.getAllMatchInfoByMatchId(matchId);
-            System.out.println( match.getGroup().getPhase().getTournament().getSport().getSportName());
-            System.out.println( match.getGroup().getPhase().getTournament().getTournamentName());
-            System.out.println( match.getGroup().getPhase().getPhaseName());
-            System.out.println( match.getGroup().getGroupName());
-            System.out.println( match.getMatchCode() +" - "+ match.getMatchDate());
-            System.out.println( match.getLocalTeam().getTeamName() + " vs " + match.getVisitorTeam().getTeamName() );
-
-
+            /*
             System.out.println( "*********************");
             FriendService friendS = new FriendService();
             userBE = friendS.getFriendListByUserId( userBE.getUserId() );
@@ -85,15 +43,16 @@ public class BetGroupTest {
                 System.out.println( (i+1) + ": " + userBE.getFriendList().get(i).getAmigo().getFirstName() + " " + userBE.getFriendList().get(i).getAmigo().getLastName());
             }
 
-*/          //opcionRegistrarUsuario();
-            opcionMisPollas();
+*/
+   //         opcionRegistrarUsuario();
+ //           opcionActualizarPerfilUsuario();
+       //     opcionMisPollas();
             opcionCrearJuego();
             opcionMisPollas();
-            //    opcionJuegosDisponibles();
+        //    opcionJuegosDisponibles();
+        //    opcionMisPollas();
 
-         //   opcionActualizarPerfilUsuario();
          //   historialCreditosByUser();
-
 
            /*
             System.out.println( "Agregando un amigo con user name pedromc y user id 8,  al usuario chayno con userid 7");
@@ -123,6 +82,73 @@ public class BetGroupTest {
         }
         System.out.println( "*********************");
 
+        if( pollaHeaderList.size() != 0 ){
+            Scanner in = new Scanner(System.in);
+            System.out.println("Seleccione # Polla a ver Detalle: ");
+            String spollaNum = in.nextLine();
+            Integer pollaNum = Integer.parseInt(spollaNum);
+
+            PollaHeader pollaHeader = pollaHeaderList.get(pollaNum-1);
+
+            System.out.println("Detalle de Polla seleccionada");
+            System.out.println("Nombre de Polla: " + pollaHeader.getPollaName());
+            UserService userS = new UserService();
+            User admin = userS.selectUserById(pollaHeader.getAdminId());
+            System.out.println("Administrador: " + admin.getUsername());
+            System.out.println("Fecha de inicio: " );
+            PollaParticipantService pollaParticipantS = new PollaParticipantService();
+            List<PollaParticipant> participantList = pollaParticipantS.getParticipantsByPollaId(pollaHeader.getPollaId());
+            System.out.println("# Participantes: " + participantList.size());
+
+            PollaMatchService pollaMatchS = new PollaMatchService();
+            List<PollaMatch> pollaMatchList = pollaMatchS.getPollaMatchesByPollaId(pollaHeader.getPollaId());
+            System.out.println("# Eventos: " + pollaMatchList.size());
+            System.out.println("Estado: ");
+            System.out.println("Puntos acumulados: ");
+
+            System.out.println( "*********************");
+            System.out.println("Sub Opcion: Listado de Eventos: ");
+            for (int i=0; i < pollaMatchList.size(); i++ ) {
+                PollaMatch pollaMatch = pollaMatchList.get(i);
+                System.out.println( pollaMatch.getMatch().getMatchId() + " - " + pollaMatch.getMatch().getMatchCode() + ": " + pollaMatch.getMatch().getLocalTeam().getTeamName()
+                        + " vs "+ pollaMatch.getMatch().getVisitorTeam().getTeamName() + " - Dia: " + pollaMatch.getMatch().getMatchDate());
+            }
+
+            System.out.println( "*********************");
+            System.out.println("Sub Opcion: Ver Detalle de evento: ");
+
+            System.out.print("Seleccione el id Match a visualizar detalle: ");
+            String sMatchId = in.nextLine();
+            Integer matchId = Integer.parseInt(sMatchId);
+            MatchService matchS = new MatchService();
+            Match match = matchS.getAllMatchInfoByMatchId(matchId);
+            System.out.println( match.getGroup().getPhase().getTournament().getSport().getSportName());
+            System.out.println( match.getGroup().getPhase().getTournament().getTournamentName());
+            System.out.println( match.getGroup().getPhase().getPhaseName());
+            System.out.println( match.getGroup().getGroupName());
+            System.out.println( match.getMatchCode() +" - "+ match.getMatchDate());
+            System.out.println( match.getLocalTeam().getTeamName() + " vs " + match.getVisitorTeam().getTeamName() );
+
+
+            System.out.println( "*********************");
+            System.out.println("Sub Opcion: Listado de Participantes: ");
+            for (int i=0; i < participantList.size(); i++ ) {
+
+                PollaParticipant participante = participantList.get(i);
+                System.out.println( (i+1) + "#: " + participante.getUser().getEmail() + " - " + participante.getUser().getUsername() + " - " +
+                        participante.getUser().getFirstName() + " " + participante.getUser().getLastName() );
+            }
+
+            System.out.println( "Seleccionar participante a seguir:");
+            String sNumParticipante = in.nextLine();
+            Integer participanteNum = Integer.parseInt(sNumParticipante );
+            PollaParticipant participante = participantList.get(participanteNum-1);
+            User userParticipante = userS.selectUserById(participante.getUserId());
+            System.out.println( "Agregando usuario a lista de amigos: " + userParticipante.getUsername());
+
+        } else{
+            System.out.println( "Usted no tiene ninguna polla inscrita.");
+        }
     }
 
     private static void historialCreditosByUser(){
@@ -193,20 +219,31 @@ public class BetGroupTest {
 
         boolean flagInscripCompleta =  false;
         boolean flagInscripCancel =  false;
-        System.out.print("Esta polla es privada. Ingrese el password de la polla para proceder a la inscripcion: ");
         while (!flagInscripCompleta){
             if (pollaHeader.getAccessFlag() != 0 ){
+                System.out.print("Esta polla es privada. Ingrese el password de la polla para proceder a la inscripcion: ");
                 String pollaPass = in.nextLine();
                 if (pollaPass.contentEquals("CANCEL") ){
                     flagInscripCompleta = true;
                     flagInscripCancel = true;
                 } else if ( pollaPass.contentEquals( pollaHeader.getPassword())){
-                    pollaHeaderS.inscribirUsuarioEnPolla(pollaHeader, userBE);
                     flagInscripCompleta = true;
                 }else{
-                    System.out.print("El password de la polla es incorrecto. Ingrese nuevamente el password o digite CANCEL para salir:");
+                    System.out.println("El password de la polla es incorrecto. Ingrese nuevamente el password o digite CANCEL para salir:");
                 }
+            }else{
+                flagInscripCompleta = true;
+
             }
+        }
+        if ( flagInscripCompleta && !flagInscripCancel){
+            PollaParticipant pollaParticipant = new PollaParticipant();
+            pollaParticipant.setPollaHeaderId(pollaHeader.getPollaId());
+            pollaParticipant.setUser(userBE);
+
+            PollaParticipantService pollaParticipantService = new PollaParticipantService();
+            pollaParticipantService.inscribirUserInBetgroup(pollaParticipant);
+            System.out.println("El usuario " + userBE.getUsername() + " ha sido inscrito satisfactoriamente a la polla: " + pollaHeader.getPollaName());
         }
 
 
@@ -314,7 +351,8 @@ public class BetGroupTest {
             }
         }
         userBE = userService.validateLogin(userBE.getUsername(), userBE.getPassword());
-        System.out.println( "Informacion de usuario registrado" + userBE.getUsername());
+        System.out.println( "Informacion de usuario registrado: " );
+        System.out.println( "username = " + userBE.getUsername());
         System.out.println( "userid = " + userBE.getUserId());
         System.out.println( "email = " + userBE.getEmail());
         System.out.println( "*********************");

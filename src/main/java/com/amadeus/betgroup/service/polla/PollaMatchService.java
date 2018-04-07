@@ -10,7 +10,7 @@ public class PollaMatchService {
     private PollaMatchDAO pollaMatchDAOa = new PollaMatchDAO(MyBatisSqlSession.getSqlSessionFactory());
 
 
-    public List<PollaMatch> getParticipantsByPollaId(int polla_id) {
+    public List<PollaMatch> getPollaMatchesByPollaId(int polla_id) {
         List<PollaMatch> pollaMatchList = pollaMatchDAOa.getPollaMatchesByPollaId(polla_id);
 
         return pollaMatchList;
