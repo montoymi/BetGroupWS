@@ -22,7 +22,7 @@ public class Match {
     private String enabled_flag;
 
     private Date lastUpdatedDate;
-    private Date lastUpdatedBy;
+    private Integer lastUpdatedBy;
 
     public String getMatchCode() {
         return matchCode;
@@ -40,11 +40,11 @@ public class Match {
         this.lastUpdatedDate = lastUpdatedDate;
     }
 
-    public Date getLastUpdatedBy() {
+    public Integer getLastUpdatedBy() {
         return lastUpdatedBy;
     }
 
-    public void setLastUpdatedBy(Date lastUpdatedBy) {
+    public void setLastUpdatedBy(int lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 

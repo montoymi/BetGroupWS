@@ -17,7 +17,6 @@
         <result property="costFlag" column="cost_flag"/>
     </resultMap>
 
-
     <select id="getMisPollasByUserId" parameterType="int" resultMap="selectResult">
         SELECT ph.* FROM polla_headers AS ph, polla_participants AS pp
         WHERE ph.id = pp.polla_header_id AND pp.user_id = #{userId}

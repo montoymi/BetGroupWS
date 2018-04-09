@@ -14,6 +14,12 @@
         <typeAlias alias="PollaHeader" type="com.amadeus.betgroup.model.polla.PollaHeader"/>
         <typeAlias alias="PollaParticipant" type="com.amadeus.betgroup.model.polla.PollaParticipant"/>
         <typeAlias alias="PollaMatch" type="com.amadeus.betgroup.model.polla.PollaMatch"/>
+        <typeAlias alias="PollaBet" type="com.amadeus.betgroup.model.polla.PollaBet"/>
+        <typeAlias alias="Sport" type="com.amadeus.betgroup.model.tournament.Sport"/>
+        <typeAlias alias="Team" type="com.amadeus.betgroup.model.tournament.Team"/>
+        <typeAlias alias="Tournament" type="com.amadeus.betgroup.model.tournament.Tournament"/>
+        <typeAlias alias="Phase" type="com.amadeus.betgroup.model.tournament.Phase"/>
+        <typeAlias alias="Group" type="com.amadeus.betgroup.model.tournament.Group"/>
         <typeAlias alias="Match" type="com.amadeus.betgroup.model.tournament.Match"/>
         <typeAlias alias="TemplateHeader" type="com.amadeus.betgroup.model.template.TemplateHeader"/>
         <typeAlias alias="TemplateDetail" type="com.amadeus.betgroup.model.template.TemplateDetail"/>
@@ -37,11 +43,17 @@
         <mapper resource="mapper/account/User.xml"/>
         <mapper resource="mapper/account/Credits.xml"/>
         <mapper resource="mapper/account/CreditDetails.xml"/>
+        <mapper resource="mapper/account/Friend.xml"/>
         <mapper resource="mapper/polla/PollaHeaders.xml"/>
         <mapper resource="mapper/polla/PollaParticipants.xml"/>
         <mapper resource="mapper/polla/PollaMatches.xml"/>
+        <mapper resource="mapper/polla/PollaBets.xml"/>
+        <mapper resource="mapper/tournament/Sport.xml"/>
+        <mapper resource="mapper/tournament/Team.xml"/>
+        <mapper resource="mapper/tournament/Tournament.xml"/>
+        <mapper resource="mapper/tournament/Phase.xml"/>
+        <mapper resource="mapper/tournament/Group.xml"/>
         <mapper resource="mapper/tournament/Match.xml"/>
-        <mapper resource="mapper/account/Friend.xml"/>
         <mapper resource="mapper/template/TemplateHeaders.xml"/>
         <mapper resource="mapper/template/TemplateDetails.xml"/>
     </mappers>

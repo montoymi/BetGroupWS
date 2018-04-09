@@ -12,12 +12,12 @@
         <result property="enabled_flag" column="status"/>
     </resultMap>
 
-    <insert id="insert" parameterType="Phase" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertPhase" parameterType="Phase" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO phases ( tournament_id, phase_name, phase_order, status)
         VALUES ( #{tournamentId}, #{phaseName}, #{phaseNumber}, #{enabled_flag})
     </insert>
 
-    <update id="update" parameterType="Phase">
+    <update id="updatePhase" parameterType="Phase">
         UPDATE phases
         SET
         tournament_id = #{tournamentId} AND
@@ -27,10 +27,18 @@
         WHERE id = #{phaseId}
     </update>
 
-    <select id="selectById" parameterType="map" resultMap="selectResult">
+    <select id="selectPhaseById" parameterType="map" resultMap="selectResult">
         SELECT
         id,tournament_id, phase_name, phase_order, status
         FROM phases
         WHERE id = #{phaseId}
     </select>
+
+    <select id="selectAllPhasesByTournamentId" parameterType="map" resultMap="selectResult">
+        SELECT
+        id,tournament_id, phase_name, phase_order, status
+        FROM phases
+        WHERE tournament_id = #{tournamentId}
+    </select>
+
 </mapper>

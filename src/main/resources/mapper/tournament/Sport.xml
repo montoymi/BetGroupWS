@@ -11,23 +11,28 @@
         <result property="logo" column="logo"/>
     </resultMap>
 
-    <insert id="insert" parameterType="Sport" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertSport" parameterType="Sport" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sports (code, firstName, logo)
         VALUES (#{sportCode}, #{sportName}, #{logo})
     </insert>
 
-    <update id="update" parameterType="Sport">
+    <update id="updateSport" parameterType="Sport">
         UPDATE sports
         SET
         firstName = #{sportName} AND code = #{sportCode} and logo = #{logo}
         WHERE id = #{sportId}
     </update>
 
-    <select id="selectById" parameterType="map" resultMap="selectResult">
+    <select id="selectSportById" parameterType="map" resultMap="selectResult">
         SELECT
         id, code, firstName, logo
         FROM sports
         WHERE id = #{sportId}
     </select>
 
+    <select id="selectAllSports" parameterType="map" resultMap="selectResult">
+        SELECT
+        id, code, firstName, logo
+        FROM sports
+    </select>
 </mapper>

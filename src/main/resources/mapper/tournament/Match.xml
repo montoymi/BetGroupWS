@@ -49,7 +49,42 @@
         <result property="group.phase.tournament.sport.sportName" column="name"/>
         <result property="group.phase.tournament.sport.logo" column="logo"/>
     </resultMap>
-    <select id="getAllMatchInfoByMatchId" parameterType="int" resultMap="matchResult">
+
+    <select id="selectAllMatchesByGroupId" parameterType="map" resultMap="matchResult">
+        select sp.id as ssport_id, sp.code, sp.name, sp.logo,
+               t.id as ttournament_id, t.sport_id, t.tournament_name, t.status as tourna_status, t.start_date as tourna_start_date,
+               p.id as pphase_id, p.tournament_id, p.phase_name, p.phase_order, p.status as phase_status,
+               g.id as ggroup_id, g.phase_id, g.group_name, g.group_order, g.status as group_status, g.group_code,
+               m.id, m.group_id,m.local_team_id,
+               tl.team_name as local_team_name, tl.sport_id as local_sport_id,
+               tl.image as image_local, tl.status as teamlocal_status,
+               m.visitor_team_id,
+               tv.team_name as visitor_team_name, tv.sport_id as visitor_sport_id,
+               tv.image as image_visitor, tv.status as teamVisitor_Status,
+               m.local_score,
+               m.visitor_score,
+               m.result_match,
+               m.match_date,
+               m.match_place,
+               m.match_code,
+               m.status as match_status
+            from matchs as m,
+              teams as tl,
+              teams as tv,
+              groups as g,
+              phases as p,
+              tournaments as t,
+              sports as sp
+            where m.local_team_id = tl.id
+                  and sp.id = t.sport_id
+                  and m.visitor_team_id = tv.id
+                  and m.group_id = g.id
+                  and g.phase_id = p.id
+                  and p.tournament_id = t.id
+                  and m.group_id = #{groupId}
+    </select>
+
+    <select id="selectFullMatchInfoByMatchId" parameterType="int" resultMap="matchResult">
         select sp.id as ssport_id, sp.code, sp.name, sp.logo,
                t.id as ttournament_id, t.sport_id, t.tournament_name, t.status as tourna_status, t.start_date as tourna_start_date,
                p.id as pphase_id, p.tournament_id, p.phase_name, p.phase_order, p.status as phase_status,
@@ -86,8 +121,7 @@
 
     </select>
 
-
-    <insert id="insert" parameterType="Match" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertMatch" parameterType="Match" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO matchs (
         group_id, local_team_id, visitor_team_id,
         match_date, status, match_code, match_place)
@@ -96,10 +130,9 @@
         #{enabled_flag}, #{matchCode}, #{matchPlace} )
     </insert>
 
-    <update id="update" parameterType="Match">
+    <update id="updateMatch" parameterType="Match">
         UPDATE matchs
         SET
-        group_id = #{groupId} AND
         local_team_id = #{localId} AND
         visitor_team_id = #{visitorId} AND
         match_date = #{matchDate} AND
@@ -109,13 +142,26 @@
         WHERE id = #{matchId}
     </update>
 
-    <select id="selectById" parameterType="map" resultMap="matchResult">
-        SELECT
-        id, group_id, local_team_id, visitor_team_id,
-        local_score, visitor_score, match_date, status,
-        match_code, result_match, match_place, last_updated_date, last_updated_by
-        FROM matchs
-        WHERE id = #{matchId}
+    <select id="selectMatchById" parameterType="map" resultMap="matchResult">
+        select m.id as match_id, m.match_code, m.match_date , m.match_place,
+               m.result_match, m.local_score, m.visitor_score, m.status,
+               m.local_team_id, tl.team_name as local_team_name, tl.image as image_local,
+               m.visitor_team_id, tv.team_name as visitor_team_name, tv.image as image_visitor
+          from matchs as m, teams as tl, teams as tv
+         where m.local_team_id = tl.id and
+               m.visitor_team_id = tv.id and
+               id = #{matchId}
+    </select>
+
+    <select id="updateMatchResult" statementType="CALLABLE" parameterType="map">
+        { call xx_update_match_results (
+        #{match.matchId, mode=IN, jdbcType=INTEGER},
+        #{match.scoreLocal, mode=IN, jdbcType=INTEGER},
+        #{match.scoreVisitor, mode=IN, jdbcType=INTEGER},
+        #{match.resultMatch, mode=IN, jdbcType=VARCHAR},
+        #{match.lastUpdatedBy, mode=IN, jdbcType=INTEGER},
+        #{mensaje,mode=OUT, jdbcType=VARCHAR }
+        )}
     </select>
 
 

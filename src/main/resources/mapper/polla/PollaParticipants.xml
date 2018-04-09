@@ -23,8 +23,15 @@
         <result property="lastName" column="last_name"/>
 
     </resultMap>
+    <select id="getPollaParticipantByPollaId" parameterType="PollaParticipant" resultMap="participantsResult">
+        SELECT pp.id, pp.polla_header_id, pp.inscription_date, pp.admin_payment_status, pp.total,
+              pp.earnings, pp.position, pp.status,
+              aa.user_id, aa.first_name, aa.last_name, aa.email_address, aa.nickname
+         FROM polla_participants AS pp, users AS aa
+        WHERE pp.user_id = aa.user_id  AND pp.polla_header_id = #{pollaHeaderId} AND pp.user_id = #{user.userId}
+    </select>
 
-    <select id="getParticipantsByPollaId" parameterType="int" resultMap="participantsResult">
+    <select id="getParticipantListByPollaId" parameterType="int" resultMap="participantsResult">
         SELECT pp.id, pp.polla_header_id, pp.inscription_date, pp.admin_payment_status, pp.total,
               pp.earnings, pp.position, pp.status,
               aa.user_id, aa.first_name, aa.last_name, aa.email_address, aa.nickname FROM polla_participants AS pp, users AS aa

@@ -4,37 +4,45 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Group">
-
     <resultMap id="selectResult" type="Group">
         <result property="groupId" column="id"/>
-        <result property="phaseId" column="phaseId"/>
-        <result property="groupName" column="groupName"/>
-        <result property="groupOrder" column="groupOrder"/>
+        <result property="phaseId" column="phase_id"/>
+        <result property="groupName" column="group_name"/>
+        <result property="groupOrder" column="group_order"/>
         <result property="enabled_flag" column="status"/>
-        <result property="groupCode" column="groupCode"/>
-
+        <result property="groupCode" column="group_code"/>
     </resultMap>
 
-    <insert id="insert" parameterType="Group" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertGroup" parameterType="Group" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO groups (
         phase_id, group_name, group_order, status, group_code)
         VALUES (
-        #{firstName}, #{groupName}, #{groupOrder}, #{enabled_flag}, #{groupCode} )
+        #{phaseId}, #{groupName}, #{groupOrder}, #{enabled_flag}, #{groupCode} )
     </insert>
 
-    <update id="update" parameterType="Group">
+    <update id="updateGroup" parameterType="Group">
         UPDATE groups
         SET
-        firstName = #{firstName} AND
-
+        phase_id = #{phaseId} AND
+        group_name = #{groupName} AND
+        group_order = #{groupOrder} AND
+        status = #{enabled_flag} AND
+        group_code = #{groupCode}
         WHERE id = #{groupId}
     </update>
 
-    <select id="selectById" parameterType="map" resultMap="selectResult">
+    <select id="selectGroupById" parameterType="map" resultMap="selectResult">
         SELECT
         id,phase_id, group_name, group_order, status, group_code
         FROM groups
         WHERE id = #{groupId}
+    </select>
+
+    <select id="selectGroupByPhaseId" parameterType="map" resultMap="selectResult">
+        SELECT
+        id,phase_id, group_name, group_order, status, group_code
+        FROM groups
+        WHERE phase_id = #{phaseId}
     </select>
 
 </mapper>

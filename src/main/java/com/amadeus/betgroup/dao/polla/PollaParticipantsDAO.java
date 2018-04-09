@@ -1,6 +1,7 @@
 package com.amadeus.betgroup.dao.polla;
 
 import com.amadeus.betgroup.exception.ApplicationException;
+import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaParticipant;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,11 +17,26 @@ public class PollaParticipantsDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public List<PollaParticipant> getParticipantsByPollaId(int polla_header_id){
+
+    public PollaParticipant getPollaParticipantByPollaId(PollaParticipant pollaParticipant){
+        SqlSession session = sqlSessionFactory.openSession();
+
+        try {
+            pollaParticipant =session.selectOne("PollaParticipants.getPollaParticipantByPollaId", pollaParticipant);
+            session.commit();
+
+        } finally {
+            session.close();
+        }
+        return pollaParticipant;
+    }
+
+
+    public List<PollaParticipant> getParticipantListByPollaId(int polla_header_id){
         SqlSession session = sqlSessionFactory.openSession();
         List<PollaParticipant> pollaParticipants;
         try {
-            pollaParticipants =session.selectList("PollaParticipants.getParticipantsByPollaId", polla_header_id);
+            pollaParticipants =session.selectList("PollaParticipants.getParticipantListByPollaId", polla_header_id);
             session.commit();
 
         } finally {

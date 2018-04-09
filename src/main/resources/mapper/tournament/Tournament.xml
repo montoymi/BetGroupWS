@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="tournament.Tournament">
+<mapper namespace="Tournament">
     <resultMap id="selectResult" type="Tournament">
         <result property="tournamentId" column="id"/>
         <result property="tournamentName" column="tournament_name"/>
@@ -12,12 +12,12 @@
         <result property="sportId" column="sport_id"/>
     </resultMap>
 
-    <insert id="insert" parameterType="Tournament" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertTournament" parameterType="Tournament" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO tournaments (sport_id, tournament_name, status, start_date)
         VALUES (#{sportId}, #{tournamentName}, #{enabled_flag}, #{startDate})
     </insert>
 
-    <update id="update" parameterType="Tournament">
+    <update id="updateTournament" parameterType="Tournament">
         UPDATE tournaments
         SET tournament_name = #{tournamentName} AND
             sport_id = #{sportId} AND
@@ -26,10 +26,15 @@
         WHERE id = #{tournamentId}
     </update>
 
-    <select id="selectById" parameterType="map" resultMap="selectResult">
+    <select id="selectTournamentById" parameterType="map" resultMap="selectResult">
         SELECT id, sport_id, tournament_name, status, start_date
         FROM tournaments
         WHERE id = #{tournamentId}
+    </select>
+
+    <select id="selectAllTournaments" resultMap="selectResult">
+        SELECT id, sport_id, tournament_name, status, start_date
+        FROM tournaments
     </select>
 
 </mapper>

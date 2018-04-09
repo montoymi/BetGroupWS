@@ -13,26 +13,34 @@
         <result property="image" column="image"/>
     </resultMap>
 
-    <insert id="insert" parameterType="Team" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO person (
-        firstName)
+    <insert id="insertTeam" parameterType="Team" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO teams (
+        sport_id, team_name, status, image)
         VALUES (
-        #{firstName})
+        #{sportId}, #{teamName}, #{enabled_flag}, #{image})
     </insert>
 
-    <update id="update" parameterType="Team">
-        UPDATE person
+    <update id="updateTeam" parameterType="Team">
+        UPDATE teams
         SET
-        firstName = #{firstName}
-        WHERE id = #{id}
+        sport_id = #{sportId} AND
+        team_name = #{teamName} AND
+        status = #{enabled_flag} AND
+        image = #{image}
+        WHERE id = #{teamId}
     </update>
 
-    <select id="selectById" parameterType="map" resultMap="selectResult">
+    <select id="selectTeamById" parameterType="map" resultMap="selectResult">
         SELECT
-        id,
-        firstName
-        FROM person
-        WHERE id = #{id}
+        id, sport_id, team_name, status, image
+        FROM teams
+        WHERE id = #{teamId}
     </select>
 
+    <select id="selectAllTeamsBySportId" parameterType="map" resultMap="selectResult">
+        SELECT
+        id, sport_id, team_name, status, image
+        FROM teams
+        WHERE sport_id = #{sportId}
+    </select>
 </mapper>

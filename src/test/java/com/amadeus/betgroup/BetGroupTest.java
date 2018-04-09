@@ -5,21 +5,29 @@ import com.amadeus.betgroup.dao.polla.PollaHeaderDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.User;
+import com.amadeus.betgroup.model.polla.PollaBet;
 import com.amadeus.betgroup.model.polla.PollaHeader;
 import com.amadeus.betgroup.model.polla.PollaMatch;
 import com.amadeus.betgroup.model.polla.PollaParticipant;
 import com.amadeus.betgroup.model.template.TemplateDetail;
 import com.amadeus.betgroup.model.template.TemplateHeader;
+import com.amadeus.betgroup.model.tournament.Group;
 import com.amadeus.betgroup.model.tournament.Match;
+import com.amadeus.betgroup.model.tournament.Phase;
+import com.amadeus.betgroup.model.tournament.Tournament;
 import com.amadeus.betgroup.service.account.CreditService;
 import com.amadeus.betgroup.service.account.FriendService;
 import com.amadeus.betgroup.service.account.UserService;
+import com.amadeus.betgroup.service.polla.PollaBetService;
 import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaMatchService;
 import com.amadeus.betgroup.service.polla.PollaParticipantService;
 import com.amadeus.betgroup.service.template.TemplateDetailService;
 import com.amadeus.betgroup.service.template.TemplateHeaderService;
+import com.amadeus.betgroup.service.tournament.GroupService;
 import com.amadeus.betgroup.service.tournament.MatchService;
+import com.amadeus.betgroup.service.tournament.PhaseService;
+import com.amadeus.betgroup.service.tournament.TournamentService;
 
 
 import java.text.DateFormat;
@@ -32,6 +40,18 @@ import java.util.Scanner;
 public class BetGroupTest {
     public static void main(String args[]) throws Exception{
         try{
+
+  //          opcionRegistrarUsuario();
+ //           opcionActualizarPerfilUsuario();
+  //          opcionMisPollas();
+  //          opcionCrearJuego();
+   //         opcionMisPollas();
+   //         opcionJuegosDisponibles();
+   //         opcionMisPollas();
+
+            opcionAdminAdministrarEventos();
+
+         //   historialCreditosByUser();
             /*
             System.out.println( "*********************");
             FriendService friendS = new FriendService();
@@ -44,16 +64,6 @@ public class BetGroupTest {
             }
 
 */
-   //         opcionRegistrarUsuario();
- //           opcionActualizarPerfilUsuario();
-       //     opcionMisPollas();
-            opcionCrearJuego();
-            opcionMisPollas();
-        //    opcionJuegosDisponibles();
-        //    opcionMisPollas();
-
-         //   historialCreditosByUser();
-
            /*
             System.out.println( "Agregando un amigo con user name pedromc y user id 8,  al usuario chayno con userid 7");
             FriendService friendS = new FriendService();
@@ -64,6 +74,84 @@ public class BetGroupTest {
             e.printStackTrace();
         }
     }
+
+    private static void opcionAdminAdministrarEventos() {
+        System.out.println( "******ADMINISTRAR EVENTOS***************");
+        User userBE = signin();
+        System.out.println( "Listado de Torneos del sistema: ");
+        TournamentService tournamentService = new TournamentService();
+        List<Tournament> torneoList = tournamentService.getAllTournaments();
+        for (int i=0; i < torneoList.size(); i++ ){
+            Tournament torneo = torneoList.get(i);
+            System.out.println( (i+1) + " # - ID: " + torneo.getTournamentId() + " - Nombre: " + torneo.getTournamentName() );
+        }
+        Scanner in = new Scanner(System.in);
+        System.out.println("Seleccione # Torneo a ver Detalle: ");
+        String sTorneoNum = in.nextLine();
+        Integer torneoNum = Integer.parseInt(sTorneoNum);
+
+        Tournament torneo = torneoList.get(torneoNum-1);
+        System.out.println( "Listado de Fases asociadas al torneo: " + torneo.getTournamentName() + " con ID: " + torneo.getTournamentId());
+        PhaseService phaseService = new PhaseService();
+        List<Phase> phaseList = phaseService.getAllPhasesByTournamentId(torneo.getTournamentId());
+        for (int i=0; i < phaseList.size(); i++ ){
+            Phase phase= phaseList.get(i);
+            System.out.println( (i+1) + " # - ID: " + phase.getPhaseId() + " - Nombre: " + phase.getPhaseName() );
+        }
+        System.out.println("Seleccione # Fase a ver Detalle: ");
+        String sPhaseNum = in.nextLine();
+        Integer phaseNum = Integer.parseInt(sPhaseNum);
+
+        Phase phase = phaseList.get(phaseNum-1);
+        System.out.println( "Listado de Grupos asociadas a la Fase: " + phase.getPhaseName() + " con ID: " + phase.getPhaseId());
+        GroupService groupService = new GroupService();
+        List<Group> groupList = groupService.getAllGroupsByPhaseId(phase.getPhaseId());
+        for (int i=0; i < groupList.size(); i++ ){
+            Group group = groupList.get(i);
+            System.out.println( (i+1) + " # - ID: " + group.getGroupId() + " - Nombre: " + group.getGroupName() );
+        }
+        System.out.println("Seleccione # Grupo a ver Detalle: ");
+        String sGrupoNum = in.nextLine();
+        Integer grupoNum = Integer.parseInt(sGrupoNum);
+
+        Group group = groupList.get( grupoNum-1);
+        System.out.println( "Listado de Matches asociadas al Grupo: " + group.getGroupName() + " con ID: " + group.getGroupId());
+
+        MatchService matchService = new MatchService();
+        List<Match> matchList = matchService.getAllMatchesByGroupId(group.getGroupId());
+
+        for (int i=0; i < matchList.size(); i++ ){
+            Match match = matchList.get(i);
+            System.out.println( (i+1) + " # - ID: " + match.getMatchId() + " - Match Code: " + match.getMatchCode() +
+                                        " - Match: " + match.getLocalTeam().getTeamName() + " vs " + match.getVisitorTeam().getTeamName() +
+                                        " - Match Date: " + match.getMatchDate() );
+        }
+        System.out.println("Seleccione # Partido actualizar resultado: ");
+        String sMatchNum = in.nextLine();
+        Integer matchNum = Integer.parseInt(sMatchNum);
+
+        Match match = matchList.get(matchNum-1);
+        match.setLastUpdatedBy( userBE.getUserId() );
+        System.out.println( "ID: " + match.getMatchId() + " - Match Code: " + match.getMatchCode() +
+                            " - Match: " + match.getLocalTeam().getTeamName() + " vs " + match.getVisitorTeam().getTeamName() +
+                            " - Match Date: " + match.getMatchDate() );
+
+        System.out.println("Marque L o V, para definir un ganador del encuentro o marque E si es empate: ");
+        String sResult = in.nextLine();
+        System.out.println("Ingrese el score Local");
+        String sLocalScore = in.nextLine();
+        Integer localScore = Integer.parseInt(sLocalScore);
+        System.out.println("Ingrese el score visitante");
+        String sVisitorScore = in.nextLine();
+        Integer visitorScore = Integer.parseInt(sVisitorScore );
+
+        System.out.println("Procediendo a actualizar el resultado del encuentro y actualizar puntaje y ranking en todas las pollas asociadas a ese enceuntro...");
+
+        matchService.updateMatchResult( match.getMatchId(), localScore, visitorScore, sResult, match.getLastUpdatedBy());
+        System.out.println(" Todo se ejecuto correctamente. ");
+
+    }
+
     private static void subopcionVerDetallePolla(){
 
     }
@@ -97,7 +185,7 @@ public class BetGroupTest {
             System.out.println("Administrador: " + admin.getUsername());
             System.out.println("Fecha de inicio: " );
             PollaParticipantService pollaParticipantS = new PollaParticipantService();
-            List<PollaParticipant> participantList = pollaParticipantS.getParticipantsByPollaId(pollaHeader.getPollaId());
+            List<PollaParticipant> participantList = pollaParticipantS.getParticipantListByPollaId(pollaHeader.getPollaId());
             System.out.println("# Participantes: " + participantList.size());
 
             PollaMatchService pollaMatchS = new PollaMatchService();
@@ -121,14 +209,13 @@ public class BetGroupTest {
             String sMatchId = in.nextLine();
             Integer matchId = Integer.parseInt(sMatchId);
             MatchService matchS = new MatchService();
-            Match match = matchS.getAllMatchInfoByMatchId(matchId);
+            Match match = matchS.getFullMatchInfoByMatchId(matchId);
             System.out.println( match.getGroup().getPhase().getTournament().getSport().getSportName());
             System.out.println( match.getGroup().getPhase().getTournament().getTournamentName());
             System.out.println( match.getGroup().getPhase().getPhaseName());
             System.out.println( match.getGroup().getGroupName());
             System.out.println( match.getMatchCode() +" - "+ match.getMatchDate());
             System.out.println( match.getLocalTeam().getTeamName() + " vs " + match.getVisitorTeam().getTeamName() );
-
 
             System.out.println( "*********************");
             System.out.println("Sub Opcion: Listado de Participantes: ");
@@ -139,12 +226,55 @@ public class BetGroupTest {
                         participante.getUser().getFirstName() + " " + participante.getUser().getLastName() );
             }
 
-            System.out.println( "Seleccionar participante a seguir:");
-            String sNumParticipante = in.nextLine();
-            Integer participanteNum = Integer.parseInt(sNumParticipante );
-            PollaParticipant participante = participantList.get(participanteNum-1);
-            User userParticipante = userS.selectUserById(participante.getUserId());
-            System.out.println( "Agregando usuario a lista de amigos: " + userParticipante.getUsername());
+        //    System.out.println( "Seleccionar participante a seguir:");
+         //   String sNumParticipante = in.nextLine();
+         //   Integer participanteNum = Integer.parseInt(sNumParticipante );
+         //   PollaParticipant participante = participantList.get(participanteNum-1);
+          //  User userParticipante = userS.selectUserById(participante.getUserId());
+       //     System.out.println( "Agregando usuario a lista de amigos: " + userParticipante.getUsername());
+
+            System.out.println( "*********************");
+            System.out.println( "actualizando pronosticos para usuario: " + userBE.getUsername());
+
+
+            System.out.println("Listado de Eventos a pronosticar: ");
+            PollaBetService pollaBetService = new PollaBetService();
+
+            PollaParticipant pollaParticipant = pollaParticipantS.getPollaParticipantByPollaId( pollaHeader.getPollaId(), userBE.getUserId());
+
+            List<PollaBet> pollaBetList = pollaBetService.getListBetsByParticipantId(pollaParticipant.getPollaParticipantId());
+
+            for (int i=0; i < pollaBetList.size(); i++ ) {
+                PollaBet pollaBet = pollaBetList.get(i);
+                System.out.println( (i+1) + " - " + pollaBet.getPollaMatch().getMatch().getMatchId() + " - " + pollaBet.getPollaMatch().getMatch().getMatchCode() + ": " + pollaBet.getPollaMatch().getMatch().getLocalTeam().getTeamName()
+                        + " vs "+ pollaBet.getPollaMatch().getMatch().getVisitorTeam().getTeamName() + " - Dia: " + pollaBet.getPollaMatch().getMatch().getMatchDate());
+            }
+
+            System.out.print("Seleccione el # Polla Bet a pronosticar resultado: ");
+            String sPollaBet = in.nextLine();
+            Integer pollaBetId = Integer.parseInt(sPollaBet);
+            PollaBet pollaBet = pollaBetList.get(pollaBetId-1);
+
+            System.out.println( pollaBet.getPollaMatch().getMatch().getMatchId() + " - " + pollaBet.getPollaMatch().getMatch().getMatchCode() + ": " + pollaBet.getPollaMatch().getMatch().getLocalTeam().getTeamName()
+                    + " vs "+ pollaBet.getPollaMatch().getMatch().getVisitorTeam().getTeamName() + " - Dia: " + pollaBet.getPollaMatch().getMatch().getMatchDate());
+
+            System.out.println("Marque L o V, para definir un ganador del encuentro o marque E si es empate: ");
+            String sResult = in.nextLine();
+            System.out.println("Ingrese el score Local");
+            String sLocalScore = in.nextLine();
+            Integer localScore = Integer.parseInt(sLocalScore);
+            System.out.println("Ingrese el score visitante");
+            String sVisitorScore = in.nextLine();
+            Integer visitorScore = Integer.parseInt(sVisitorScore );
+            System.out.println("Procediendo a registrar el pronostico...");
+            pollaBet.setLocalBetScore(localScore);
+            pollaBet.setVisitorBetScore(visitorScore);
+            pollaBet.setResultBet(sResult);
+            pollaBet.setPollaParticipant( pollaParticipant );
+
+            pollaBetService.updatePollaBetByBetId(pollaBet);
+            System.out.println( "Pronostico actualizado satisfactoriamente");
+
 
         } else{
             System.out.println( "Usted no tiene ninguna polla inscrita.");

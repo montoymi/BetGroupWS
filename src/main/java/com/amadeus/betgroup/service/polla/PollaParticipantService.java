@@ -1,6 +1,7 @@
 package com.amadeus.betgroup.service.polla;
 
 import com.amadeus.betgroup.dao.polla.PollaParticipantsDAO;
+import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaParticipant;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 
@@ -10,8 +11,24 @@ public class PollaParticipantService {
     private PollaParticipantsDAO pollaParticipantsDAO = new PollaParticipantsDAO(MyBatisSqlSession.getSqlSessionFactory());
 
 
-    public List<PollaParticipant> getParticipantsByPollaId(int polla_id) {
-        List<PollaParticipant> participantList = pollaParticipantsDAO.getParticipantsByPollaId(polla_id);
+    public PollaParticipant getPollaParticipantByPollaId(int polla_header_id, int user_id){
+        try{
+            PollaParticipant pollaParticipant = new PollaParticipant();
+            pollaParticipant.setPollaHeaderId(polla_header_id);
+            User participant = new User();
+            participant.setUserId(user_id);
+            pollaParticipant.setUser(participant);
+
+            pollaParticipant = pollaParticipantsDAO.getPollaParticipantByPollaId(pollaParticipant);
+            return pollaParticipant;
+        }catch( Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+
+    }
+    public List<PollaParticipant> getParticipantListByPollaId(int polla_id) {
+        List<PollaParticipant> participantList = pollaParticipantsDAO.getParticipantListByPollaId(polla_id);
 
         return participantList;
     }

@@ -4,6 +4,8 @@ import com.amadeus.betgroup.model.tournament.Tournament;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.util.List;
+
 public class TournamentDAO {
     private SqlSessionFactory sqlSessionFactory;
 
@@ -15,7 +17,7 @@ public class TournamentDAO {
         SqlSession session = sqlSessionFactory.openSession();
 
         try {
-            session.insert("tournament.Tournament.insert", tournament);
+            session.insert("Tournament.insertTournament", tournament);
             session.commit();
         } finally {
             session.close();
@@ -24,9 +26,8 @@ public class TournamentDAO {
 
     public void updateTournament(Tournament tournament) {
         SqlSession session = sqlSessionFactory.openSession();
-
         try {
-            session.update("tournament.Tournament.update", tournament);
+            session.update("Tournament.updateTournament", tournament);
             session.commit();
         } finally {
             session.close();
@@ -35,16 +36,24 @@ public class TournamentDAO {
 
     public Tournament getTournamentById(int id) {
         Tournament tournament;
-
         SqlSession session = sqlSessionFactory.openSession();
-
         try {
-            tournament = session.selectOne("tournament.Tournament.selectById", id);
+            tournament = session.selectOne("Tournament.selectTournamentById", id);
         } finally {
             session.close();
         }
-
         return tournament;
+    }
+
+    public List<Tournament> getAllTournaments() {
+        List<Tournament> tournamentList;
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            tournamentList = session.selectList("Tournament.selectAllTournaments");
+        } finally {
+            session.close();
+        }
+        return tournamentList;
     }
 
 }
