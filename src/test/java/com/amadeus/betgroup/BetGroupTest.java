@@ -18,6 +18,7 @@ import com.amadeus.betgroup.model.tournament.Tournament;
 import com.amadeus.betgroup.service.account.CreditService;
 import com.amadeus.betgroup.service.account.FriendService;
 import com.amadeus.betgroup.service.account.UserService;
+import com.amadeus.betgroup.service.admin.AdminService;
 import com.amadeus.betgroup.service.polla.PollaBetService;
 import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaMatchService;
@@ -43,13 +44,16 @@ public class BetGroupTest {
 
   //          opcionRegistrarUsuario();
  //           opcionActualizarPerfilUsuario();
-  //          opcionMisPollas();
+   //         opcionMisPollas();
   //          opcionCrearJuego();
    //         opcionMisPollas();
    //         opcionJuegosDisponibles();
    //         opcionMisPollas();
 
-            opcionAdminAdministrarEventos();
+  //          opcionAdminAdministrarEventos();
+
+            AdminService adminService = new AdminService();
+            adminService.notifyUsersOfBetsByMatchId();
 
          //   historialCreditosByUser();
             /*
