@@ -13,28 +13,29 @@ public class Email {
 
     public static String sendEmail(String toAddress, String subject, String message) {
         // sets SMTP server properties
-
+        String hostmail = "mail.betgroupsports.com";
+        String portmail = "8025";
+        String usermail = "admin@betgroupsports.com";
+        String passmail = "LaPollaDeMiAmigo2018";
         String result = "";
         try{
             Properties properties = new Properties();
-            properties.put("mail.lapollademiamigo.com", ReadParameters.getString("hostmail"));
-            properties.put("8025", ReadParameters.getString("portmail"));
+            properties.put("mail.smtp.host", hostmail);
+            properties.put("mail.smtp.port", portmail);
             properties.put("mail.smtp.auth", "true");
             properties.put("mail.smtp.starttls.enable", "true");
-            properties.put("notificaciones@lapollademiamigo.com", ReadParameters.getString("usermail"));
-            properties.put("polla5791", ReadParameters.getString("passmail"));
 
             // creates a new session with an authenticator
             Authenticator auth = new Authenticator() {
-                public PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(ReadParameters.getString("usermail"), ReadParameters.getString("passmail"));
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(usermail, passmail);
                 }
             };
-            Session session = Session.getInstance(properties, auth);
+            Session session = Session.getDefaultInstance(properties, auth);
 // creates a new e-mail message
             Message msg = new MimeMessage(session);
 
-            msg.setFrom(new InternetAddress(ReadParameters.getString("usermail")));
+            msg.setFrom(new InternetAddress(usermail));
             InternetAddress[] toAddresses = { new InternetAddress(toAddress) };
             msg.setRecipients(Message.RecipientType.TO, toAddresses);
             msg.setSubject(subject);
