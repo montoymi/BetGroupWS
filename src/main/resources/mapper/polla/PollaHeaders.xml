@@ -44,6 +44,15 @@
         )}
     </select>
 
+    <select id="getPollaById" parameterType="int" resultMap="selectResult">
+        SELECT ph.* FROM polla_headers AS ph
+        WHERE ph.id = #{id}
+    </select>
 
+    <select id="validatePollaPassword" parameterType="PollaHeader" resultType="int">
+        SELECT count(1)
+        FROM polla_headers ph
+        WHERE ph.id = #{pollaId} AND ph.password = md5(#{password})
+    </select>
 
 </mapper>

@@ -57,4 +57,12 @@ public class PollaHeaderService {
         }
 
     }
+
+    public PollaHeader getPollaById(int id) {
+        return pollaHeaderDAO.getPollaById(id);
+    }
+
+    public boolean validatePollaPassword(PollaHeader pollaHeader) {
+        return pollaHeaderDAO.validatePollaPassword(pollaHeader);
+    }
 }

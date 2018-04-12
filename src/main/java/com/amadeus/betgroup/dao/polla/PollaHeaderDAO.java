@@ -65,4 +65,31 @@ public class PollaHeaderDAO {
 
     }
 
+    public PollaHeader getPollaById(int id){
+        SqlSession session = sqlSessionFactory.openSession();
+        PollaHeader pollaHeader;
+        try {
+            pollaHeader = session.selectOne("PollaHeaders.getPollaById", id);
+            session.commit();
+
+        } finally {
+            session.close();
+        }
+        return pollaHeader;
+    }
+
+    public boolean validatePollaPassword(PollaHeader pollaHeader){
+        SqlSession session = sqlSessionFactory.openSession();
+
+        int count;
+
+        try {
+            count = session.selectOne("PollaHeaders.validatePollaPassword", pollaHeader);
+            session.commit();
+        } finally {
+            session.close();
+        }
+
+        return count == 1;
+    }
 }

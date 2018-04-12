@@ -114,4 +114,6 @@ public class PollaHeader {
     public void setCostFlag(Integer costFlag) {
         this.costFlag = costFlag;
     }
+
+
 }

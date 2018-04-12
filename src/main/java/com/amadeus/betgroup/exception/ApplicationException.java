@@ -18,7 +18,7 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class ApplicationException extends RuntimeException implements ExceptionMapper<ApplicationException> {
     // Este constructor es necesario, si no está ocurre una exception.
-    public ApplicationException( String messageCode ){
+    public ApplicationException(String messageCode) {
         super(messageCode);
     }
 
@@ -32,16 +32,28 @@ public class ApplicationException extends RuntimeException implements ExceptionM
 
     @Override
     public Response toResponse(ApplicationException exception) {
-        Throwable cause = exception.getCause();
+        String message;
         int status = 0;
+        Throwable cause = exception.getCause();
 
-        /* Descomentar y el validar Exception para retornar el status correspondiente.
-        if (cause instanceof NoFeasibleSolutionException) {
-            status = 452;
+        if (cause != null) {
+            message = cause.getMessage();
+
+            /* Descomentar y el validar Exception para retornar el status correspondiente.
+            if (cause instanceof NoFeasibleSolutionException) {
+                status = 422;
+            }
+            */
+        } else {
+            message = exception.getMessage();
+
+            // El password de la polla es incorrecto.
+            if (message.equals("INS001")) {
+                status = 422;
+            }
         }
-        */
 
-        return Response.status(status).entity(cause.getMessage()).type("text/plain").build();
+        return Response.status(status).entity(message).type("text/plain").build();
     }
 }
 

@@ -17,6 +17,8 @@ public class PollaParticipant {
     private Integer position;
     private Integer status;
 
+    private PollaHeader pollaHeader;
+
     private List<PollaBet> pollaBetList;
 
     public List<PollaBet> getPollaBetList() {
@@ -105,5 +107,13 @@ public class PollaParticipant {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public PollaHeader getPollaHeader() {
+        return pollaHeader;
+    }
+
+    public void setPollaHeader(PollaHeader pollaHeader) {
+        this.pollaHeader = pollaHeader;
     }
 }
