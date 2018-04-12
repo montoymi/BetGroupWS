@@ -4,6 +4,7 @@ package com.amadeus.betgroup;
 import com.amadeus.betgroup.dao.polla.PollaHeaderDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
+import com.amadeus.betgroup.model.account.CreditDetail;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaBet;
 import com.amadeus.betgroup.model.polla.PollaHeader;
@@ -43,19 +44,19 @@ public class BetGroupTest {
         try{
 
   //          opcionRegistrarUsuario();
- //           opcionActualizarPerfilUsuario();
+   //         opcionActualizarPerfilUsuario();
    //         opcionMisPollas();
   //          opcionCrearJuego();
    //         opcionMisPollas();
    //         opcionJuegosDisponibles();
    //         opcionMisPollas();
+            opcionCreditos();
+     //       opcionAdminAdministrarEventos();
 
-  //          opcionAdminAdministrarEventos();
 
-            AdminService adminService = new AdminService();
-            adminService.notifyUsersOfBetsByMatchId();
 
-         //   historialCreditosByUser();
+    //        AdminService adminService = new AdminService();
+     //       adminService.notifyUsersOfBetsByMatchId();
             /*
             System.out.println( "*********************");
             FriendService friendS = new FriendService();
@@ -76,6 +77,147 @@ public class BetGroupTest {
             */
         } catch( Exception e ){
             e.printStackTrace();
+        }
+    }
+
+    private static void opcionCreditos() {
+        System.out.println( "******CREDITOS***************");
+        User userBE = signin();
+
+
+        boolean flagSalir = false;
+
+        while ( !flagSalir) {
+            CreditService creditService = new CreditService();
+            Credit credit = creditService.getCreditSummaryByUserId(userBE.getUserId());
+            credit.setUser( userBE );
+
+            System.out.println( "*********************");
+            System.out.println( "Resumen de creditos de usuario: " + userBE.getUsername() );
+            System.out.println( "Total Creditos en cuenta = " + credit.getTotalCreditos());
+            System.out.println( "*********************");
+            System.out.println("Detalle de transacciones: ");
+            List<CreditDetail> creditDetailList = credit.getCreditDetail();
+            if ( creditDetailList == null ){
+                System.out.println("****** Usted no tiene ninguna transaccion generada *****");
+            } else{
+                System.out.print( "Transaccion ID  | Transaction Date  | Transaction Type ID | Transaction Code | Transaction Type Description | " );
+                System.out.println( "Credit Ammount  | Status  | Signus  | Comments"  );
+                for( int i = 0; i < creditDetailList.size(); i++ ){
+                    CreditDetail creditDetail = creditDetailList.get(i);
+                    System.out.print( creditDetail.getCreditDetailId() + " | ");
+                    System.out.print( creditDetail.getTransactionDate() + " | ");
+                    System.out.print( creditDetail.getTransactionTypeId() + " | ");
+                    System.out.print( creditDetail.getCreditTransationType().getTransactionTypeCode() + " | ");
+                    System.out.print( creditDetail.getCreditTransationType().getDescription() + " | ");
+                    System.out.print( creditDetail.getCreditAmount() + " | ");
+                    System.out.print( creditDetail.getStatus() + " | ");
+                    System.out.print( creditDetail.getCreditTransationType().getTransactionSign( ));
+                    System.out.println( creditDetail.getComments() + " | ");
+                }
+            }
+            System.out.println( "Seleccione una operacion a realizar: ");
+            System.out.println( "1: Comprar Creditos ");
+            System.out.println( "2: Cobrar Creditos ");
+            System.out.println( "3: Administrar Creditos ");
+            System.out.println( "4: Salir");
+            Scanner in = new Scanner(System.in);
+            String sOption = in.nextLine();
+            Integer option = Integer.parseInt(sOption);
+            switch( option ){
+                case 1 : {
+                    subOpcionComprarCreditos(userBE);
+                    break;
+                }
+                case 2: {
+                    subOpcionCobrarCreditos( credit );
+                    break;
+                }
+                case 3:{
+                    subOpcionAdministrarCreditos( );
+                    break;
+                }
+                case 4: {
+                    flagSalir = true;
+                    break;
+                }
+                default: {
+                    System.out.println( "Opcion Incorrecta.");
+                    break;
+                }
+            }
+        }
+
+    }
+
+    private static void subOpcionAdministrarCreditos() {
+        System.out.println( "Listando Transacciones pendiente de aprobacion: ");
+        CreditService creditService = new CreditService();
+        List<CreditDetail> creditDetailList = creditService.getAllPendingTransactions();
+
+        for (int i = 0; i < creditDetailList.size(); i++) {
+            CreditDetail   creditDetail = creditDetailList.get(i);
+            System.out.println( "# " + (i+1) + " - ID: " + creditDetail.getCreditDetailId() + " - Ammount: " + creditDetail.getCreditAmount() +
+                                "Trx Type Code: " + creditDetail.getCreditTransationType().getTransactionTypeCode() +
+                                "Trx Description: " + creditDetail.getCreditTransationType().getUserDescription() +
+                                "Trx Date: " + creditDetail.getTransactionDate() + " Status - " + creditDetail.getStatus());
+        }
+        System.out.println( "Seleccione Nro de Trx a aprobar: ");
+        Scanner in = new Scanner(System.in);
+        String sNumTrx = in.nextLine();
+        Integer numTrx = Integer.parseInt(sNumTrx);
+
+        CreditDetail creditDetail = creditDetailList.get(numTrx-1);
+        System.out.println( "Procediendo a aprobar transaccion:  ");
+        System.out.println( " - ID: " + creditDetail.getCreditDetailId() + " - Ammount: " + creditDetail.getCreditAmount() +
+                "Trx Type Code: " + creditDetail.getCreditTransationType().getTransactionTypeCode() +
+                "Trx Description: " + creditDetail.getCreditTransationType().getUserDescription() +
+                "Trx Date: " + creditDetail.getTransactionDate() + " Status - " + creditDetail.getStatus());
+        creditDetail.setStatus(1); //Transaccion aprobada.
+        creditService.updateCreditTransaction(creditDetail);
+        System.out.println( "Transaccion aprobada ....");
+
+    }
+
+    private static void subOpcionComprarCreditos(User userBE) {
+        CreditService creditService = new CreditService();
+        CreditDetail creditDetail = new CreditDetail();
+        System.out.println( "Indique cantidad de creditos a comprar: ");
+        Scanner in = new Scanner(System.in);
+        String sCantCredCompra = in.nextLine();
+        Integer creditosComprados = Integer.parseInt(sCantCredCompra);
+        creditDetail.setCreditAmount(creditosComprados);
+        creditDetail.setCreatedBy(userBE.getUserId());
+        creditDetail.setComments(" Creditos comprados ");
+        creditDetail.setTransactionTypeId( 1 ); //ADD CREDIT
+        creditDetail.setStatus( 0 ); // 2pending to be approved by ADMIN
+        creditDetail.setUserId(userBE.getUserId());
+
+        creditService.addCreditTransaction( creditDetail );
+        System.out.println( "Creditos anhadidos satisfactoriamente....");
+    }
+
+    private static void subOpcionCobrarCreditos(Credit credit) {
+        CreditService creditService = new CreditService();
+        CreditDetail creditDetail = new CreditDetail();
+        System.out.println( "Indique cantidad de creditos a cobrar: ");
+        Scanner in = new Scanner(System.in);
+        String sCantCredCobrar = in.nextLine();
+        Integer creditosCobrados = Integer.parseInt(sCantCredCobrar);
+
+        if ( credit.getTotalCreditos() < 1000 ) {
+            System.out.println( "Ud. no cuenta con el minimo de creditos suficientes para realizar la transaccion de cobro. Debe tener al menos 1000 creditos para hacer una transaccion de tipo cobro. ");
+        } else if( credit.getTotalCreditos() < creditosCobrados ){
+            System.out.println( "Ud. esta queriendo cobrar mas creditos de los que cuenta actualmente. Porfavor, ingrese un monto menor.");
+        } else{
+            creditDetail.setCreditAmount(creditosCobrados);
+            creditDetail.setCreatedBy(credit.getUserId());
+            creditDetail.setComments(" Creditos cobrados ");
+            creditDetail.setTransactionTypeId( 2 ); //COBRA CRED
+            creditDetail.setStatus( 0 ); // 2 pending to be approved by ADMIN
+            creditDetail.setUserId( credit.getUserId() );
+            creditService.addCreditTransaction(creditDetail);
+            System.out.println( "Creditos cobrados satisfactoriamente....");
         }
     }
 
@@ -285,16 +427,7 @@ public class BetGroupTest {
         }
     }
 
-    private static void historialCreditosByUser(){
-        User userBE = signin();
-        CreditService creditS = new CreditService();
-        Credit creditHistory = creditS.getCreditHistoryByUserId(userBE.getUserId());
-        System.out.println( "*********************");
-        System.out.println( "Resumen de creditos para : " + userBE.getUsername() );
-        System.out.println( "Total Creditos en cuenta = " + creditHistory.getTotalCreditos());
-        System.out.println( "*********************");
 
-    }
 
     private static User signin(){
         System.out.println("*********LOGUEANDOSE AL SISTEMA*********************");

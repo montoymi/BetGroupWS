@@ -29,13 +29,13 @@ public class CreditDAO {
         return creditDetails;
     }
 
-    public Credit getTotalCreditosByUserID(Integer userId) {
+    public Credit getCreditSummaryByUserID(Integer userId) {
         Credit creditSummary;
 
         SqlSession session = sqlSessionFactory.openSession();
 
         try {
-            creditSummary = session.selectOne("Credits.getTotalCreditosByUserID", userId);
+            creditSummary = session.selectOne("Credits.getCreditSummaryByUserID", userId);
         } finally {
             session.close();
         }
@@ -43,42 +43,44 @@ public class CreditDAO {
         return creditSummary;
     }
 
-
-/*
-    public void createCredit(Team team) {
+    public void addCreditTransaction(CreditDetail creditDetail) {
         SqlSession session = sqlSessionFactory.openSession();
 
         try {
-            session.insert("Team.insert", team);
+            session.insert("CreditDetails.insertCreditTransaction", creditDetail);
             session.commit();
         } finally {
             session.close();
         }
     }
 
-    public void updateTeam(Team team) {
+    public void updateCreditTransaction(CreditDetail creditDetail) {
         SqlSession session = sqlSessionFactory.openSession();
 
         try {
-            session.update("Team.update", team);
+            session.update("CreditDetails.updateCreditTransaction", creditDetail);
             session.commit();
         } finally {
             session.close();
         }
     }
 
-    public Team getTeamById(int id) {
-        Team team;
+    public CreditDetail getCreditTransacionById(int creditDetailId) {
+        CreditDetail creditDetail;
 
         SqlSession session = sqlSessionFactory.openSession();
 
         try {
-            team = session.selectOne("Team.selectById", id);
+            creditDetail = session.selectOne("CreditDetails.selectCreditDetailById", creditDetailId);
         } finally {
             session.close();
         }
-
-        return team;
+        return creditDetail;
     }
-*/
+
+    public List<CreditDetail> getListAllCreditDetailPending(){
+        SqlSession session = sqlSessionFactory.openSession();
+        List<CreditDetail> creditDetailList = session.selectList("CreditDetails.getAllPendingCreditTransactions");
+        return creditDetailList;
+    }
 }

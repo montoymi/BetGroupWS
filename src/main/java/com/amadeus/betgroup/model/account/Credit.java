@@ -6,7 +6,6 @@ public class Credit {
     private Integer userId;
     private User user;
     private Integer totalCreditos;
-
     private List<CreditDetail> creditDetail;
 
     public Integer getUserId() {

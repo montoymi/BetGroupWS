@@ -3,6 +3,7 @@ package com.amadeus.betgroup.model.polla;
 import com.amadeus.betgroup.model.account.User;
 
 import java.util.Date;
+import java.util.List;
 
 public class PollaParticipant {
     private Integer pollaParticipantId;
@@ -15,6 +16,16 @@ public class PollaParticipant {
     private Integer earnings;
     private Integer position;
     private Integer status;
+
+    private List<PollaBet> pollaBetList;
+
+    public List<PollaBet> getPollaBetList() {
+        return pollaBetList;
+    }
+
+    public void setPollaBetList(List<PollaBet> pollaBetList) {
+        this.pollaBetList = pollaBetList;
+    }
 
     public User getUser() {
         return user;

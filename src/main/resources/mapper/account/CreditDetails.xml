@@ -5,27 +5,71 @@
 
 <mapper namespace="CreditDetails">
 
-    <resultMap id="selectResult" type="CreditDetail">
-        <result property="creditDetailId" column="id"/>
-        <result property="transactionTypeId" column="transaction_type_id"/>
+    <resultMap id="creditTransactionResult" type="CreditDetail">
+        <result property="creditDetailId" column="credit_transaction_id"/>
+        <result property="transactionTypeId" column="credit_transaction_type_id"/>
         <result property="transactionDate" column="transaction_date"/>
         <result property="creditAmount" column="credit_amount"/>
         <result property="status" column="status"/>
         <result property="comments" column="comments"/>
         <result property="userId" column="user_id"/>
+        <result property="user.userId" column="user_id"/>
+        <result property="user.username" column="user_id"/>
+        <result property="user.email" column="user_id"/>
+        <result property="user.status" column="user_id"/>
+        <result property="user.firstName" column="user_id"/>
+        <result property="user.lastName" column="user_id"/>
         <result property="createdBy" column="created_by"/>
         <result property="creationDate" column="creation_date"/>
         <result property="lastUpdatedBy" column="last_updated_by"/>
         <result property="lastUpdatedDate" column="last_updated_date"/>
+        <result property="creditTransationType.transactionTypeId" column="transaction_type_id"/>
+        <result property="creditTransationType.transactionTypeCode" column="transaction_type_code"/>
+        <result property="creditTransationType.transactionSign" column="transaction_sign"/>
+        <result property="creditTransationType.description" column="description"/>
+        <result property="creditTransationType.userDescription" column="user_description"/>
     </resultMap>
 
+    <select id="getAllPendingCreditTransactions" resultMap="creditTransactionResult">
+        SELECT  ctr.id as credit_transaction_id, transaction_type_id as credit_transaction_type_id,
+  transaction_date, credit_amount, ctr.status, comments, ctr.user_id,
+  created_by, creation_date, last_updated_by, last_updated_date,
+        ctt.id as transaction_type_id, ctt.description, ctt.transaction_type_code, ctt.user_description, ctt.transaction_sign,
+  us.user_id, us.nickname, us.email_address, us.status, us.first_name, us.last_name
+FROM credit_transactions as ctr, credit_transaction_types as ctt, users as us
+WHERE ctr.transaction_type_id = ctt.id and  ctr.user_id = us.user_id  and  ctr.status = 0;
+    </select>
 
-    <select id="getCreditTransactionsByUserId" parameterType="int" resultMap="selectResult">
-        SELECT
-        id, transaction_type_id, transaction_date, credit_amount, status,
-        comments, user_id, created_by, creation_date, last_updated_by, last_updated_date
-        FROM credit_transactions
-        WHERE user_id = #{userId}
+    <select id="getCreditTransactionsByUserId" parameterType="int" resultMap="creditTransactionResult">
+        SELECT  ctr.id as credit_transaction_id, transaction_type_id as credit_transaction_type_id,
+                transaction_date, credit_amount, status, comments, user_id,
+                created_by, creation_date, last_updated_by, last_updated_date,
+                ctt.id as transaction_type_id, ctt.description, ctt.transaction_type_code, ctt.user_description, ctt.transaction_sign
+          FROM credit_transactions as ctr, credit_transaction_types as ctt
+          WHERE ctr.transaction_type_id = ctt.id and  user_id = #{userId}
+    </select>
+
+    <insert id="insertCreditTransaction" parameterType="CreditDetail" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO credit_transactions (
+            transaction_type_id, transaction_date, credit_amount, status, user_id, comments, created_by, creation_date, last_updated_by, last_updated_date)
+        VALUES (
+            #{transactionTypeId}, now(), #{creditAmount},#{status},#{userId},#{comments},#{userId}, now(),#{userId}, now())
+    </insert>
+
+    <update id="updateCreditTransaction" parameterType="CreditDetail">
+        UPDATE credit_transactions
+        SET
+            last_updated_by = #{userId}, last_updated_date = now(), comments = #{comments}, status = #{status}
+        WHERE id = #{creditDetailId}
+    </update>
+
+    <select id="selectCreditDetailById" parameterType="int" resultMap="creditTransactionResult">
+        SELECT  ctr.id as credit_transaction_id, transaction_type_id as credit_transaction_type_id,
+                transaction_date, credit_amount, status, comments, user_id,
+                created_by, creation_date, last_updated_by, last_updated_date,
+                ctt.id as transaction_type_id, ctt.description, ctt.transaction_type_code, ctt.user_description, ctt.transaction_sign
+          FROM credit_transactions as ctr, credit_transaction_types as ctt
+          WHERE ctr.transaction_type_id = ctt.id and credit_transaction_id = #{creditDetailId}
     </select>
 
 </mapper>

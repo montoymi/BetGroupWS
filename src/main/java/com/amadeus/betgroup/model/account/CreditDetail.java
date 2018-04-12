@@ -5,19 +5,33 @@ import java.util.Date;
 public class CreditDetail {
     private Integer creditDetailId;
     private Integer transactionTypeId;
-  //  private CreditTransactionType creditTransationType;
-
+    private CreditTransactionType creditTransationType;
     private Date transactionDate;
     private Integer creditAmount;
     private Integer status;
     private String comments;
-
     private Integer userId;
-
     private Integer createdBy;
     private Date creationDate;
     private Integer lastUpdatedBy;
     private Date lastUpdatedDate;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public CreditTransactionType getCreditTransationType() {
+        return creditTransationType;
+    }
+
+    public void setCreditTransationType(CreditTransactionType creditTransationType) {
+        this.creditTransationType = creditTransationType;
+    }
 
     public Integer getUserId() {
         return userId;

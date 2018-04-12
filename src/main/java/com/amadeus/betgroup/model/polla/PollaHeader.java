@@ -1,5 +1,7 @@
 package com.amadeus.betgroup.model.polla;
 
+import com.amadeus.betgroup.model.account.User;
+
 import java.util.List;
 
 public class PollaHeader {
@@ -12,15 +14,33 @@ public class PollaHeader {
     private Integer accessFlag; // 0: publico ; 1: private
     private String password;
     private Integer costFlag;
+    private List<PollaMatch> pollaMatchList;
 
-    private List<PollaMatch> pollaMatchesList;
+    private List<PollaParticipant> pollaParticipantList;
+    private User admin;
 
-    public List<PollaMatch> getPollaMatchesList() {
-        return pollaMatchesList;
+    public User getAdmin() {
+        return admin;
     }
 
-    public void setPollaMatchesList(List<PollaMatch> pollaMatchesList) {
-        this.pollaMatchesList = pollaMatchesList;
+    public void setAdmin(User admin) {
+        this.admin = admin;
+    }
+
+    public List<PollaParticipant> getPollaParticipantList() {
+        return pollaParticipantList;
+    }
+
+    public void setPollaParticipantList(List<PollaParticipant> pollaParticipantList) {
+        this.pollaParticipantList = pollaParticipantList;
+    }
+
+    public List<PollaMatch> getPollaMatchList() {
+        return pollaMatchList;
+    }
+
+    public void setPollaMatchList(List<PollaMatch> pollaMatchList) {
+        this.pollaMatchList = pollaMatchList;
     }
 
     public Integer getPollaId() {

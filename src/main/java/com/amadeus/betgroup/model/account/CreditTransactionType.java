@@ -5,6 +5,15 @@ public class CreditTransactionType {
     private String transactionTypeCode;
     private char transactionSign;
     private String description;
+    private String userDescription;
+
+    public String getUserDescription() {
+        return userDescription;
+    }
+
+    public void setUserDescription(String userDescription) {
+        this.userDescription = userDescription;
+    }
 
     public Integer getTransactionTypeId() {
         return transactionTypeId;

@@ -2,11 +2,15 @@ package com.amadeus.betgroup.model.polla;
 
 import com.amadeus.betgroup.model.tournament.Match;
 
+import java.util.List;
+
 public class PollaMatch {
     private Integer pollaMatchId;
     private Integer pollaHeaderId;
     private Integer matchId;
     private Match match;
+
+    private List<PollaBet> pollaBetList;
 
     public Match getMatch() {
         return match;
