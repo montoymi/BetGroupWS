@@ -4,7 +4,6 @@ import com.amadeus.betgroup.dao.account.CreditDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.CreditDetail;
-import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class CreditService {
             creditHeader.setTotalCreditos( 0 );
         } else{
             List<CreditDetail> creditDetail = creditDAO.getCreditTransactionByUserId(userId);
-            creditHeader.setCreditDetail(creditDetail);
+            creditHeader.setCreditDetailList(creditDetail);
         }
         return creditHeader;
     }

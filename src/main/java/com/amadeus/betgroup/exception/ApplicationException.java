@@ -25,35 +25,31 @@ public class ApplicationException extends RuntimeException implements ExceptionM
     public ApplicationException() {
         super();
     }
-
-    public ApplicationException(Throwable cause) {
-        super(cause);
-    }
-
+    
     @Override
     public Response toResponse(ApplicationException exception) {
-        String message;
         int status = 0;
-        Throwable cause = exception.getCause();
+        String message = exception.getMessage();
 
-        if (cause != null) {
-            message = cause.getMessage();
-
-            /* Descomentar y el validar Exception para retornar el status correspondiente.
-            if (cause instanceof NoFeasibleSolutionException) {
+        switch (message) {
+            case "USR001":
                 status = 422;
-            }
-            */
-        } else {
-            message = exception.getMessage();
-
-            // El password de la polla es incorrecto.
-            if (message.equals("INS001")) {
-                status = 422;
-            }
+                break;
+            case "USR002":
+                status = 423;
+                break;
+            case "INS001":
+                // El password de la polla es incorrecto.
+                status = 424;
+                break;
+            case "CRE001":
+                status = 425;
+                break;
+            case "CRE002":
+                status = 426;
+                break;
         }
 
         return Response.status(status).entity(message).type("text/plain").build();
     }
 }
-

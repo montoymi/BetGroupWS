@@ -28,5 +28,11 @@ public class UserResource {
         userService.registraUsuario(user);
         return Response.status(CREATED).entity(user).build();
     }
+
+    @PUT
+    public Response actualizarPerfilUsuario(User user) {
+        userService.actualizarPerfilUsuario(user);
+        return Response.status(CREATED).entity(user).build();
+    }
 }
 

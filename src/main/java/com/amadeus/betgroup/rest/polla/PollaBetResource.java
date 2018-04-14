@@ -21,7 +21,7 @@ public class PollaBetResource {
     private PollaBetService pollaBetService = new PollaBetService();
 
     @GET
-    public Response getListBetsByPollaIdAndUserId(@QueryParam("pollaId") Integer pollaId, @QueryParam("userId") Integer userId) {
+    public Response getListBetsByPollaIdAndUserId(@QueryParam("polla-id") Integer pollaId, @QueryParam("user-id") Integer userId) {
         PollaParticipant pollaParticipant = pollaParticipantService.getPollaParticipantByPollaId(pollaId, userId);
         List<PollaBet> pollaBetList = pollaBetService.getListBetsByParticipantId(pollaParticipant.getPollaParticipantId());
         return Response.status(OK).entity(pollaBetList).build();

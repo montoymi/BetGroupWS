@@ -6,7 +6,7 @@ public class Credit {
     private Integer userId;
     private User user;
     private Integer totalCreditos;
-    private List<CreditDetail> creditDetail;
+    private List<CreditDetail> creditDetailList;
 
     public Integer getUserId() {
         return userId;
@@ -32,11 +32,11 @@ public class Credit {
         this.totalCreditos = totalCreditos;
     }
 
-    public List<CreditDetail> getCreditDetail() {
-        return creditDetail;
+    public List<CreditDetail> getCreditDetailList() {
+        return creditDetailList;
     }
 
-    public void setCreditDetail(List<CreditDetail> creditDetail) {
-        this.creditDetail = creditDetail;
+    public void setCreditDetailList(List<CreditDetail> creditDetailList) {
+        this.creditDetailList = creditDetailList;
     }
 }

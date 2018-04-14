@@ -1,7 +1,6 @@
 package com.amadeus.betgroup;
 
 
-import com.amadeus.betgroup.dao.polla.PollaHeaderDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.CreditDetail;
@@ -20,7 +19,6 @@ import com.amadeus.betgroup.model.tournament.Tournament;
 import com.amadeus.betgroup.service.account.CreditService;
 import com.amadeus.betgroup.service.account.FriendService;
 import com.amadeus.betgroup.service.account.UserService;
-import com.amadeus.betgroup.service.admin.AdminService;
 import com.amadeus.betgroup.service.polla.PollaBetService;
 import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaMatchService;
@@ -174,7 +172,7 @@ public class BetGroupTest {
             System.out.println( "Total Creditos en cuenta = " + credit.getTotalCreditos());
             System.out.println( "*********************");
             System.out.println("Detalle de transacciones: ");
-            List<CreditDetail> creditDetailList = credit.getCreditDetail();
+            List<CreditDetail> creditDetailList = credit.getCreditDetailList();
             if ( creditDetailList == null ){
                 System.out.println("****** Usted no tiene ninguna transaccion generada *****");
             } else{
