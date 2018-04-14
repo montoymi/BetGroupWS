@@ -15,7 +15,7 @@ public class FriendResource {
 
     @GET
     public Response agregarAmigo(@QueryParam("userId") int userId, @QueryParam("friendId") int friendId) {
-        friendService.agregarAmigo( userId, friendId);
+        friendService.followFriend( userId, friendId);
         return Response.status(OK).entity("").build();
     }
 }

@@ -83,4 +83,21 @@
         from users where email_address = #{email}
     </select>
 
+    <select id="selectAllUsers" resultMap="selectResult">
+        select user_id,
+              nickname,
+              user_password,
+              email_address,
+              user_token,
+              first_name,
+              last_name,
+              date_of_birth,
+              user_type,
+              last_login_date,
+              count_login,
+              status,
+              sex
+        from users
+    </select>
+
 </mapper>

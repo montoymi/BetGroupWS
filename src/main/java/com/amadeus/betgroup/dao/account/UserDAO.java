@@ -4,6 +4,8 @@ import com.amadeus.betgroup.model.account.User;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.util.List;
+
 public class UserDAO {
     private SqlSessionFactory sqlSessionFactory;
 
@@ -88,6 +90,19 @@ public class UserDAO {
             session.close();
         }
         return user;
+    }
+
+    public List<User> getAllUsers() {
+        List<User> userList;
+        SqlSession session = sqlSessionFactory.openSession();
+
+        try {
+            userList = session.selectList("User.selectAllUsers");
+        } finally {
+            session.close();
+        }
+
+        return userList;
     }
 
 

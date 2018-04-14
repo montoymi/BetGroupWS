@@ -5,6 +5,8 @@ import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 
+import java.util.List;
+
 public class UserService {
     private UserDAO userDAO = new UserDAO(MyBatisSqlSession.getSqlSessionFactory());
 
@@ -46,6 +48,10 @@ public class UserService {
 
     public User selectUserById(int userId) {
         return userDAO.selectUserById( userId );
+    }
+
+    public List<User> getallUsers(){
+        return userDAO.getAllUsers();
     }
 }
 

@@ -17,6 +17,16 @@ public class CreditDetail {
     private Date lastUpdatedDate;
     private User user;
 
+    private Credit credit;
+
+    public Credit getCredit() {
+        return credit;
+    }
+
+    public void setCredit(Credit credit) {
+        this.credit = credit;
+    }
+
     public User getUser() {
         return user;
     }

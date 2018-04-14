@@ -5,6 +5,7 @@ import com.amadeus.betgroup.dao.polla.PollaHeaderDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.CreditDetail;
+import com.amadeus.betgroup.model.account.Friend;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaBet;
 import com.amadeus.betgroup.model.polla.PollaHeader;
@@ -45,53 +46,129 @@ public class BetGroupTest {
 
   //          opcionRegistrarUsuario();
    //         opcionActualizarPerfilUsuario();
-   //         opcionMisPollas();
+    //        opcionMisPollas();
   //          opcionCrearJuego();
    //         opcionMisPollas();
    //         opcionJuegosDisponibles();
    //         opcionMisPollas();
             opcionCreditos();
      //       opcionAdminAdministrarEventos();
+      //      opcionAmigos();
 
 
 
     //        AdminService adminService = new AdminService();
      //       adminService.notifyUsersOfBetsByMatchId();
-            /*
-            System.out.println( "*********************");
-            FriendService friendS = new FriendService();
-            userBE = friendS.getFriendListByUserId( userBE.getUserId() );
-            System.out.println( "Numero de amigos: " + userBE.getFriendList().size() );
-            System.out.println( "Imprimiendo lista de Amigos de " + userBE.getUsername() );
 
-            for (int i=0; i < userBE.getFriendList().size(); i++ ){
-                System.out.println( (i+1) + ": " + userBE.getFriendList().get(i).getAmigo().getFirstName() + " " + userBE.getFriendList().get(i).getAmigo().getLastName());
-            }
-
-*/
-           /*
-            System.out.println( "Agregando un amigo con user name pedromc y user id 8,  al usuario chayno con userid 7");
-            FriendService friendS = new FriendService();
-            friendS.agregarAmigo(7,8);
-            System.out.println( "Transaccion realizada correctamente.");
-            */
         } catch( Exception e ){
             e.printStackTrace();
         }
     }
 
-    private static void opcionCreditos() {
-        System.out.println( "******CREDITOS***************");
+    private static void opcionAmigos() {
+        System.out.println( "*******AMIGOS**************");
         User userBE = signin();
-
+        FriendService friendS = new FriendService();
 
         boolean flagSalir = false;
 
+        while (!flagSalir){
+
+            List<Friend> friendList = friendS.getFriendListByUserId( userBE.getUserId() );
+            System.out.println( "Numero de amigos: " + friendList.size() );
+            System.out.println( "Imprimiendo lista de Amigos de " + userBE.getUsername() );
+
+            for (int i=0; i < friendList.size(); i++ ){
+                System.out.println( (i+1) + ": " + friendList.get(i).getAmigo().getUsername() + " | " + friendList.get(i).getAmigo().getFirstName() + " " + friendList.get(i).getAmigo().getLastName());
+            }
+
+            System.out.println( "Seleccione una opcion a realizar en la pantalla de Amigos: ");
+            System.out.println( "1. Seguir Amigo ");
+            System.out.println( "2. Desvincular Amigo");
+            System.out.println( "3. Salir");
+
+            Scanner in = new Scanner(System.in);
+            String sOption = in.nextLine();
+            Integer option = Integer.parseInt(sOption);
+
+            switch( option ){
+                case 1 : {
+                    subOpcionSeguirAmigo( userBE );
+                    break;
+                }
+                case 2: {
+                    subOpcionDesvincularAmigo( userBE );
+                    break;
+                }
+                case 3:{
+                    flagSalir = true;
+                    break;
+                }
+                default: {
+                    System.out.println( "Opcion Incorrecta.");
+                    break;
+                }
+            }
+
+        }
+
+    }
+
+    private static void subOpcionVerListaAmigos( User user){
+
+    }
+
+    private static void subOpcionDesvincularAmigo(User userBE) {
+        System.out.println( " Opcion Desvincular amigo ");
+        FriendService friendService = new FriendService();
+        List<Friend> friendList = friendService.getFriendListByUserId( userBE.getUserId() );
+
+        System.out.println( "Imprimiendo lista de Amigos de " + userBE.getUsername() );
+        for (int i=0; i < friendList.size(); i++ ){
+            System.out.println( (i+1) + ": " + friendList.get(i).getAmigo().getUsername() + " | " + friendList.get(i).getAmigo().getFirstName() + " " + friendList.get(i).getAmigo().getLastName());
+        }
+
+        System.out.println( "Seleccione amigo a desvincular: ");
+
+        Scanner in = new Scanner(System.in);
+        String sOption = in.nextLine();
+        Integer option = Integer.parseInt(sOption);
+
+        Friend friend = friendList.get(option-1);
+        friendService.unfollowFriend(friend.getId());
+        System.out.println( "Desvinculado satisfactoriamente");
+    }
+
+    private static void subOpcionSeguirAmigo(User userBE) {
+        UserService userService = new UserService();
+        System.out.println( "******Opcion Seguir Amigo***************");
+        System.out.println( "Lista de Usuarios registrados en el sistema: ");
+
+        List<User> userList = userService.getallUsers();
+        for (int i = 0; i < userList.size(); i++) {
+            User user = userList.get(i);
+            System.out.println( (i+1) + " |" + user.getUsername() + " | " + user.getFirstName() + " " + user.getLastName());
+        }
+        System.out.println( "Seleccione Nro de usuario a agregar a lista de amigos: ");
+        Scanner in = new Scanner(System.in);
+        String sNumUsuario = in.nextLine();
+        Integer numUsuario = Integer.parseInt(sNumUsuario);
+
+        User userFriend = userList.get(numUsuario-1);
+
+        FriendService friendService = new FriendService();
+        friendService.followFriend( userBE.getUserId(), userFriend.getUserId());
+        System.out.println( "El usuario ha sido agregado a su lista de seguidores ...");
+    }
+
+    private static void opcionCreditos() {
+        System.out.println( "******CREDITOS***************");
+        User userBE = signin();
+        boolean flagSalir = false;
         while ( !flagSalir) {
             CreditService creditService = new CreditService();
             Credit credit = creditService.getCreditSummaryByUserId(userBE.getUserId());
             credit.setUser( userBE );
-
             System.out.println( "*********************");
             System.out.println( "Resumen de creditos de usuario: " + userBE.getUsername() );
             System.out.println( "Total Creditos en cuenta = " + credit.getTotalCreditos());
@@ -147,7 +224,6 @@ public class BetGroupTest {
                 }
             }
         }
-
     }
 
     private static void subOpcionAdministrarCreditos() {
@@ -205,20 +281,16 @@ public class BetGroupTest {
         String sCantCredCobrar = in.nextLine();
         Integer creditosCobrados = Integer.parseInt(sCantCredCobrar);
 
-        if ( credit.getTotalCreditos() < 1000 ) {
-            System.out.println( "Ud. no cuenta con el minimo de creditos suficientes para realizar la transaccion de cobro. Debe tener al menos 1000 creditos para hacer una transaccion de tipo cobro. ");
-        } else if( credit.getTotalCreditos() < creditosCobrados ){
-            System.out.println( "Ud. esta queriendo cobrar mas creditos de los que cuenta actualmente. Porfavor, ingrese un monto menor.");
-        } else{
-            creditDetail.setCreditAmount(creditosCobrados);
-            creditDetail.setCreatedBy(credit.getUserId());
-            creditDetail.setComments(" Creditos cobrados ");
-            creditDetail.setTransactionTypeId( 2 ); //COBRA CRED
-            creditDetail.setStatus( 0 ); // 2 pending to be approved by ADMIN
-            creditDetail.setUserId( credit.getUserId() );
-            creditService.addCreditTransaction(creditDetail);
-            System.out.println( "Creditos cobrados satisfactoriamente....");
-        }
+        creditDetail.setCreditAmount(creditosCobrados);
+        creditDetail.setCreatedBy(credit.getUserId());
+        creditDetail.setTransactionTypeId( 2 ); //COBRA CRED
+        creditDetail.setStatus( 0 ); // 2 pending to be approved by ADMIN
+        creditDetail.setComments(" Creditos cobrados ");
+        creditDetail.setUserId( credit.getUserId() );
+        creditDetail.setCredit(credit);
+
+        creditService.addCreditTransaction(creditDetail);
+        System.out.println( "Creditos cobrados satisfactoriamente....");
     }
 
     private static void opcionAdminAdministrarEventos() {
@@ -426,8 +498,6 @@ public class BetGroupTest {
             System.out.println( "Usted no tiene ninguna polla inscrita.");
         }
     }
-
-
 
     private static User signin(){
         System.out.println("*********LOGUEANDOSE AL SISTEMA*********************");

@@ -1,6 +1,7 @@
 package com.amadeus.betgroup.service.account;
 
 import com.amadeus.betgroup.dao.account.CreditDAO;
+import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.CreditDetail;
 import com.amadeus.betgroup.model.account.User;
@@ -25,6 +26,15 @@ public class CreditService {
     }
 
     public void addCreditTransaction(CreditDetail creditDetail){
+
+        if ( creditDetail.getTransactionTypeId() == 2 ){
+            if ( creditDetail.getCredit().getTotalCreditos() < 1000 ) { //TODO: Cambiar parametro estatico por dinamico desde la BD.
+                throw new ApplicationException("CRE001");
+            } else if ( creditDetail.getCredit().getTotalCreditos() < creditDetail.getCreditAmount() ) {
+                throw new ApplicationException("CRE002");
+            }
+        }
+
         creditDAO.addCreditTransaction(creditDetail);
     }
 
