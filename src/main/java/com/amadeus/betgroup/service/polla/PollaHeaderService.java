@@ -41,6 +41,7 @@ public class PollaHeaderService {
     public void crearPolla (PollaHeader pollaHeader) throws ApplicationException {
         try{
             CreditService creditS = new CreditService();
+            //TODO: Revisar proceso de creditos
 //            Credit creditHistory = creditS.getCreditHistoryByUserId(pollaHeader.getAdminId());
 /*
             if( creditHistory.getTotalCreditos() < pollaHeader.getPollaCost() ){
@@ -65,4 +66,48 @@ public class PollaHeaderService {
     public boolean validatePollaPassword(PollaHeader pollaHeader) {
         return pollaHeaderDAO.validatePollaPassword(pollaHeader);
     }
+
+
+    /*
+
+    BetGroupBE bgBE = bgpBE.getBetGroupBE();
+
+    int id = bgBE.getBetsgroup_id();
+    BetGroupBL betGroupBL = new BetGroupBL( connection );
+    List<BetGroupPlayerBE> l_ranking = betGroupBL.getRankingByBetGroupId(id);
+    bgBE.setL_bgp(l_ranking);
+
+
+    public List<BetGroupPlayerBE> getRankingByBetGroupId( int betgroup_id ) throws Exception{
+        List<BetGroupPlayerBE> l_betGroupsUser =new ArrayList<BetGroupPlayerBE>();
+
+        try{
+            BetGroupPlayerDA bgpDA = new BetGroupPlayerDA(connection);
+
+            return bgpDA.getRankingByBetGroupId(betgroup_id);
+        } catch( Exception e){
+            throw e;
+        }
+    }
+
+    public List<BetBE> getRankDetailByBetGroupPlayer( BetGroupPlayerBE bgpBE ) throws Exception{
+
+        List<BetBE> l_rankdet_bet = new ArrayList<BetBE>();
+        BetBL betBL = new BetBL( connection );
+        List<BetBE> l_bet = betBL.getAllBetsByBetGroupPlayerId(bgpBE.getBetgroup_player_id());
+
+        Iterator i = l_bet.iterator();
+
+        while (i.hasNext()){
+            BetBE betBE = (BetBE)i.next();
+
+            if( betBE.getMatchBE().getEnabled_flag().equalsIgnoreCase("N")){
+                l_rankdet_bet.add(betBE);
+            }
+            betBE.setBetGroupPlayerBE(bgpBE);
+        }
+
+        return l_rankdet_bet;
+    }
+     */
 }

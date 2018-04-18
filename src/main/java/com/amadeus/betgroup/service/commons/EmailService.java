@@ -1,4 +1,4 @@
-package com.amadeus.betgroup.commons;
+package com.amadeus.betgroup.service.commons;
 
 
 import javax.mail.*;
@@ -9,7 +9,7 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Date;
 import java.util.Properties;
 
-public class Email {
+public class EmailService {
 
     public static String sendEmail(String toAddress, String subject, String message) {
         // sets SMTP server properties

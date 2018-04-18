@@ -1,6 +1,7 @@
 package com.amadeus.betgroup;
 
 
+import com.amadeus.betgroup.dao.polla.PollaHeaderDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.CreditDetail;
@@ -19,6 +20,7 @@ import com.amadeus.betgroup.model.tournament.Tournament;
 import com.amadeus.betgroup.service.account.CreditService;
 import com.amadeus.betgroup.service.account.FriendService;
 import com.amadeus.betgroup.service.account.UserService;
+import com.amadeus.betgroup.service.admin.AdminService;
 import com.amadeus.betgroup.service.polla.PollaBetService;
 import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaMatchService;
@@ -42,16 +44,16 @@ public class BetGroupTest {
     public static void main(String args[]) throws Exception{
         try{
 
-  //          opcionRegistrarUsuario();
-   //         opcionActualizarPerfilUsuario();
-    //        opcionMisPollas();
-  //          opcionCrearJuego();
-   //         opcionMisPollas();
-   //         opcionJuegosDisponibles();
-   //         opcionMisPollas();
-            opcionCreditos();
-     //       opcionAdminAdministrarEventos();
-      //      opcionAmigos();
+//            opcionRegistrarUsuario();
+//            opcionActualizarPerfilUsuario();
+//            opcionMisPollas();
+//            opcionCreditos();
+            opcionAdminAdministrarEventos();
+//            opcionCrearJuego();
+//            opcionMisPollas();
+//            opcionJuegosDisponibles();
+//            opcionMisPollas();
+            opcionAmigos();
 
 
 
@@ -409,7 +411,7 @@ public class BetGroupTest {
             System.out.println("# Eventos: " + pollaMatchList.size());
             System.out.println("Estado: ");
             System.out.println("Puntos acumulados: ");
-
+/*
             System.out.println( "*********************");
             System.out.println("Sub Opcion: Listado de Eventos: ");
             for (int i=0; i < pollaMatchList.size(); i++ ) {
@@ -442,12 +444,15 @@ public class BetGroupTest {
                         participante.getUser().getFirstName() + " " + participante.getUser().getLastName() );
             }
 
-        //    System.out.println( "Seleccionar participante a seguir:");
-         //   String sNumParticipante = in.nextLine();
-         //   Integer participanteNum = Integer.parseInt(sNumParticipante );
-         //   PollaParticipant participante = participantList.get(participanteNum-1);
-          //  User userParticipante = userS.selectUserById(participante.getUserId());
-       //     System.out.println( "Agregando usuario a lista de amigos: " + userParticipante.getUsername());
+            System.out.println( "Seleccionar participante a seguir:");
+            String sNumParticipante = in.nextLine();
+            Integer participanteNum = Integer.parseInt(sNumParticipante );
+            PollaParticipant participante = participantList.get(participanteNum-1);
+            User userParticipante = userS.selectUserById(participante.getUser().getUserId());
+            System.out.println( "Agregando usuario a lista de amigos: " + userParticipante.getUsername());
+
+            FriendService friendService = new FriendService();
+            friendService.followFriend( userBE.getUserId(), userParticipante.getUserId() );
 
             System.out.println( "*********************");
             System.out.println( "actualizando pronosticos para usuario: " + userBE.getUsername());
@@ -490,11 +495,65 @@ public class BetGroupTest {
 
             pollaBetService.updatePollaBetByBetId(pollaBet);
             System.out.println( "Pronostico actualizado satisfactoriamente");
+*/
+            System.out.println( "********INVITAR AMIGOS*******************");
+            System.out.println( "Procediendo a invitar amigos al juego " + pollaHeader.getPollaName());
+            System.out.println( "Indique forma de invitar amigos al juego: ");
+            System.out.println( "1. Por correo electronico ");
+            System.out.println( "2. Por lista de amigos");
+
+            String sInvOptAmigos = in.nextLine();
+            Integer invOptAmigos = Integer.parseInt(sInvOptAmigos);
+
+            switch( invOptAmigos ){
+                case 1 : {
+                    subOpcionInvitarAmigoByEmail(userBE, pollaHeader);
+                    break;
+                }
+                case 2: {
+                    subOpcionInvitarAmigoByUserId( userBE, pollaHeader );
+                    break;
+                }
+                default: {
+                    System.out.println( "Opcion Incorrecta.");
+                    break;
+                }
+            }
+
 
 
         } else{
             System.out.println( "Usted no tiene ninguna polla inscrita.");
         }
+    }
+
+    private static void subOpcionInvitarAmigoByUserId(User userBE, PollaHeader pollaHeader) {
+        FriendService friendService = new FriendService();
+        List<Friend> friendList = friendService.getFriendListByUserId( userBE.getUserId());
+        System.out.println( "Lista de amigos asociados a su cuenta: ");
+        for (int i = 0; i < friendList.size() ; i++) {
+            Friend friend = friendList.get(i);
+            System.out.println( "# " + (i+1) + friend.getUser().getUsername());
+        }
+        System.out.println( "Seleccione amigo a invitar:");
+        Scanner in = new Scanner(System.in);
+        String snumAmigo = in.nextLine();
+        Integer numAmigo = Integer.parseInt(snumAmigo);
+
+        Friend friend = friendList.get(numAmigo-1);
+        friendService.inviteFriendByUserId( userBE.getUserId(),friend.getIdUser(), pollaHeader.getPollaId());
+        System.out.println( "Amigo invitado satisfactoriamente.");
+
+    }
+
+    private static void subOpcionInvitarAmigoByEmail(User userBE, PollaHeader pollaHeader) {
+        FriendService friendService = new FriendService();
+        System.out.println( "Ingrese email de usuario a invitar: ");
+        Scanner in = new Scanner(System.in);
+        String email = in.nextLine();
+
+        friendService.inviteFriendByEmail(userBE.getUserId(), email, pollaHeader.getPollaId());
+        System.out.println( "Amigo invitado satisfactoriamente.");
     }
 
     private static User signin(){

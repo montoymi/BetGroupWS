@@ -8,6 +8,7 @@ public class TemplateHeader {
     private Integer status;
     private Integer sportId;
     private Sport sport;
+    private Integer numMaxwildcards;
 
     public Integer getTemplateId() {
         return templateId;

@@ -15,7 +15,12 @@ public class UserService {
     }
 
     public void registraUsuario(User user) throws ApplicationException {
-        validateUser(user);
+        if (userDAO.checkUsernameExists(user.getUsername()) != null) {
+            throw new ApplicationException("USR001");
+        }
+        if (userDAO.checkEmailExists(user.getEmail()) != null) {
+            throw new ApplicationException("USR002");
+        }
         userDAO.registraUsuario(user);
     }
 
@@ -30,14 +35,8 @@ public class UserService {
         return userDAO.selectUserById(userId);
     }
 
-    private void validateUser(User user) {
-        if (userDAO.checkUsernameExists(user.getUsername()) != null) {
-            throw new ApplicationException("USR001");
-        }
-
-        if (userDAO.checkEmailExists(user.getEmail()) != null) {
-            throw new ApplicationException("USR002");
-        }
+    public User getUserByEmail(String email) {
+        return userDAO.checkEmailExists( email );
     }
 
     public List<User> getallUsers(){

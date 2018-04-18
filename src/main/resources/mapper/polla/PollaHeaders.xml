@@ -4,17 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="PollaHeaders">
-
     <resultMap id="selectResult" type="PollaHeader">
         <result property="pollaId" column="id"/>
         <result property="pollaName" column="polla_name"/>
         <result property="templateHeaderId" column="template_header_id"/>
         <result property="adminId" column="admin_user_id"/>
+        <result property="admin.userId" column="user_id"/>
+        <result property="admin.username" column="nickname"/>
+        <result property="admin.email" column="email_address"/>
+        <result property="admin.firstName" column="first_name"/>
+        <result property="admin.lastName" column="last_name"/>
         <result property="pollaCost" column="credit_amount"/>
         <result property="accessFlag" column="access_flag"/>
         <result property="enabled_flag" column="status"/>
         <result property="password" column="password"/>
         <result property="costFlag" column="cost_flag"/>
+        <result property="image" column="image"/>
     </resultMap>
 
     <select id="getMisPollasByUserId" parameterType="int" resultMap="selectResult">
@@ -23,8 +28,7 @@
     </select>
 
     <select id="getPollasDisponiblesByUserId" parameterType="PollaHeader" resultMap="selectResult">
-        select *
-        from polla_headers as ph
+        select * from polla_headers as ph
         where not exists (select 1
         from polla_participants pp
         where pp.polla_header_id = ph.id

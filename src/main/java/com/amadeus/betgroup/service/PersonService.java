@@ -146,7 +146,7 @@ public class PersonService {
                 String destinatario = userBE.getEmail_address();
                 String subject = betgroupBE.getBetsgroup_name() + " - Pronósticos " + matchBE.getLocalBE().getTeam_name() + " vs. " + matchBE.getVisitorBE().getTeam_name();
 
-                cadena = Email.sendEmail(destinatario, subject, contenido);
+                cadena = EmailService.sendEmail(destinatario, subject, contenido);
                 mails_totales++;
                 if ( cadena.equalsIgnoreCase("")){
                     mails_enviados++;
@@ -192,7 +192,7 @@ public class PersonService {
                         String destinatario = userBE.getEmail_address();
                         String subject = betBE.getBetGroupBE().getBetsgroup_name() + " - Partido en blanco " + matchBE.getLocalBE().getTeam_name() + " vs. " + matchBE.getVisitorBE().getTeam_name();
 
-                        cadena = Email.sendEmail(destinatario, subject, contenido);
+                        cadena = EmailService.sendEmail(destinatario, subject, contenido);
                         if ( cadena.equalsIgnoreCase("")){
                             mails_enviados++;
                         }

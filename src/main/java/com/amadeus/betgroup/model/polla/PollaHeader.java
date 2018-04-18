@@ -9,15 +9,60 @@ public class PollaHeader {
     private String pollaName;
     private Integer templateHeaderId;
     private Integer adminId;
+    private User admin;
     private Integer pollaCost;
     private Integer enabled_flag;
     private Integer accessFlag; // 0: publico ; 1: private
     private String password;
     private Integer costFlag;
+    private String image;
     private List<PollaMatch> pollaMatchList;
-
     private List<PollaParticipant> pollaParticipantList;
-    private User admin;
+    //Esto es para las modalidades de Juego
+    private Integer wildcardFlag;
+    private Integer numWildcards;
+    private Integer modePollitaFlag;
+    private Integer modePollaFlag;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Integer getWildcardFlag() {
+        return wildcardFlag;
+    }
+
+    public void setWildcardFlag(Integer wildcardFlag) {
+        this.wildcardFlag = wildcardFlag;
+    }
+
+    public Integer getNumWildcards() {
+        return numWildcards;
+    }
+
+    public void setNumWildcards(Integer numWildcards) {
+        this.numWildcards = numWildcards;
+    }
+
+    public Integer getModePollitaFlag() {
+        return modePollitaFlag;
+    }
+
+    public void setModePollitaFlag(Integer modePollitaFlag) {
+        this.modePollitaFlag = modePollitaFlag;
+    }
+
+    public Integer getModePollaFlag() {
+        return modePollaFlag;
+    }
+
+    public void setModePollaFlag(Integer modePollaFlag) {
+        this.modePollaFlag = modePollaFlag;
+    }
 
     public User getAdmin() {
         return admin;

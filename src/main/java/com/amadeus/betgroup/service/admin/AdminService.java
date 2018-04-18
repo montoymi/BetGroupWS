@@ -1,10 +1,6 @@
 package com.amadeus.betgroup.service.admin;
 
-import com.amadeus.betgroup.commons.Email;
-import com.amadeus.betgroup.model.polla.PollaBet;
-import com.amadeus.betgroup.model.polla.PollaHeader;
-import com.amadeus.betgroup.model.polla.PollaMatch;
-import com.amadeus.betgroup.model.polla.PollaParticipant;
+import com.amadeus.betgroup.service.commons.EmailService;
 
 public class AdminService {
 
@@ -29,7 +25,7 @@ public class AdminService {
         String destinatario = "er.morales@gmail.com";
         String subject =  "BETGROUPSPORTS - Pronósticos XXX  vs. YYYY ";
 
-        String cadena = Email.sendEmail(destinatario, subject, contenido);
+        String cadena = EmailService.sendEmail(destinatario, subject, contenido);
         if ( cadena.equalsIgnoreCase("")){
             System.out.println("Correo enviado satisfactoriamente....." );
         }
@@ -62,7 +58,7 @@ public class AdminService {
             String destinatario = userBE.getEmail_address();
             String subject = betgroupBE.getBetsgroup_name() + " - Pronósticos " + matchBE.getLocalBE().getTeam_name() + " vs. " + matchBE.getVisitorBE().getTeam_name();
 
-            cadena = Email.sendEmail(destinatario, subject, contenido);
+            cadena = EmailService.sendEmail(destinatario, subject, contenido);
             mails_totales++;
             if ( cadena.equalsIgnoreCase("")){
                 mails_enviados++;

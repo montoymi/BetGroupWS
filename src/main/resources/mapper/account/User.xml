@@ -22,7 +22,6 @@
     <select id="selectUserById" parameterType="int" resultMap="selectResult">
         select user_id,
               nickname,
-              user_password,
               email_address,
               user_token,
               first_name,
@@ -55,7 +54,6 @@
     <select id="validateLogin" parameterType="User" resultMap="selectResult">
         select user_id,
               nickname,
-              user_password,
               email_address,
               user_token,
               first_name,
@@ -70,14 +68,14 @@
     </select>
 
     <select id="checkUsernameExists" parameterType="User" resultMap="selectResult">
-       select user_id, nickname, user_password, email_address,
+       select user_id, nickname, email_address,
           user_token, first_name, last_name, date_of_birth, user_type,
           last_login_date, count_login, status, sex
         from users where nickname = #{username}
     </select>
 
     <select id="checkEmailExists" parameterType="User" resultMap="selectResult">
-       select user_id, nickname, user_password, email_address,
+       select user_id, nickname, email_address,
           user_token, first_name, last_name, date_of_birth, user_type,
           last_login_date, count_login, status, sex
         from users where email_address = #{email}
@@ -86,7 +84,6 @@
     <select id="selectAllUsers" resultMap="selectResult">
         select user_id,
               nickname,
-              user_password,
               email_address,
               user_token,
               first_name,

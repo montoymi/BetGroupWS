@@ -66,7 +66,7 @@ public class MatchDAO {
             Map<String, Object> map = new HashMap<>();
             map.put("Match", match);
             map.put("mensaje", mensaje);
-            session.selectOne("Match.updateMatchResult", map );
+            session.update("Match.updateMatchResult", map );
             mensaje = (String)map.get("mensaje");
             session.commit();
             if( !mensaje.contentEquals("")){
