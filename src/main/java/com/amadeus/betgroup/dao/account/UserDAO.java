@@ -24,17 +24,6 @@ public class UserDAO {
         }
     }
 
-    public void cambiarPassword(User user) {
-        SqlSession session = sqlSessionFactory.openSession();
-
-        try {
-            session.update("User.updateUserPassword", user);
-            session.commit();
-        } finally {
-            session.close();
-        }
-    }
-
 
     public void registraUsuario(User user) {
         SqlSession session = sqlSessionFactory.openSession();
