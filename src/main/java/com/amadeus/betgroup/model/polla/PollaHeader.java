@@ -9,14 +9,6 @@ public class PollaHeader {
     private String pollaName;
     private Integer templateHeaderId;
 
-    public String getBetgroupCode() {
-        return betgroupCode;
-    }
-
-    public void setBetgroupCode(String betgroupCode) {
-        this.betgroupCode = betgroupCode;
-    }
-
     private String betgroupCode;
     private Integer adminId;
     private User admin;
@@ -33,6 +25,14 @@ public class PollaHeader {
     private Integer numWildcards;
     private Integer modePollitaFlag;
     private Integer modePollaFlag;
+
+    public String getBetgroupCode() {
+        return betgroupCode;
+    }
+
+    public void setBetgroupCode(String betgroupCode) {
+        this.betgroupCode = betgroupCode;
+    }
 
     public String getImage() {
         return image;

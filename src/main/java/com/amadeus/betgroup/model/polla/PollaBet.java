@@ -10,10 +10,19 @@ public class PollaBet {
     private PollaParticipant pollaParticipant;
     private Integer localBetScore;
     private Integer visitorBetScore;
-    private Date updatedDate;;
+    private Date updatedDate;
     private Integer points;
     private Integer status;
     private String resultBet;
+    private Integer flagWildcard;
+
+    public Integer getFlagWildcard() {
+        return flagWildcard;
+    }
+
+    public void setFlagWildcard(Integer flagWildcard) {
+        this.flagWildcard = flagWildcard;
+    }
 
     public Integer getIdBet() {
         return idBet;

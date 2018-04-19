@@ -8,6 +8,7 @@ import java.util.List;
 public class PollaParticipant {
     private Integer pollaParticipantId;
     private Integer pollaHeaderId;
+    private PollaHeader pollaHeader;
     private Integer userId;
     private User user;
     private Date inscriptionDate;
@@ -19,6 +20,8 @@ public class PollaParticipant {
 
     private Integer numWildCardsLeft;
     private Integer numWildCards;
+
+    private List<PollaBet> pollaBetList;
 
     public Integer getNumWildCardsLeft() {
         return numWildCardsLeft;
@@ -36,9 +39,7 @@ public class PollaParticipant {
         this.numWildCards = numWildCards;
     }
 
-    private PollaHeader pollaHeader;
 
-    private List<PollaBet> pollaBetList;
 
     public List<PollaBet> getPollaBetList() {
         return pollaBetList;

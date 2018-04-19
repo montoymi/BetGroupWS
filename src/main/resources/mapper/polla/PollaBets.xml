@@ -14,6 +14,7 @@
         <result property="updatedDate" column="polla_bet_updated_date"/>
         <result property="points" column="polla_bet_points"/>
         <result property="status" column="polla_bet_status"/>
+        <result property="flagWildcard" column="flg_wildcard"/>
         <result property="pollaMatch.pollaMatchId" column="polla_match_id"/>
         <result property="pollaMatch.pollaHeaderId" column="polla_match_header_id"/>
         <result property="pollaMatch.matchId" column="polla_match_match_id"/>
@@ -38,7 +39,12 @@
     <update id="updatePollaBet" parameterType="PollaBet">
         UPDATE polla_bets
         SET
-          local_bet_score = #{localBetScore}, visitor_bet_score = #{visitorBetScore}, updated_date = now(), status = #{status}, result_bet = #{resultBet}
+          local_bet_score = #{localBetScore},
+          visitor_bet_score = #{visitorBetScore},
+          updated_date = now(),
+          status = #{status},
+          result_bet = #{resultBet},
+          flg_wildcard = #{flagWildcard}
         WHERE id = #{idBet}
 
     </update>
@@ -46,7 +52,7 @@
     <select id="getListBetsByParticipantId" parameterType="int" resultMap="pollaBetResults">
         select pb.id as polla_bet_id, pb.polla_match_id as polla_bet_match_id, pb.polla_participant_id as polla_bet_participant_id,
                pb.local_bet_score as polla_bet_local_score, pb.visitor_bet_score as polla_bet_visitor_score, pb.result_bet as polla_bet_result,
-               pb.updated_date as polla_bet_updated_date, pb.points as polla_bet_points, pb.status as polla_bet_status,
+               pb.updated_date as polla_bet_updated_date, pb.points as polla_bet_points, pb.status as polla_bet_status,pb.flg_wildcard,
                pm.id as polla_match_id, pm.polla_header_id as polla_match_header_id, pm.match_id as polla_match_match_id,
                m.id as match_id, m.match_code, m.match_date , m.match_place,
                m.result_match, m.local_score, m.visitor_score, m.status,
@@ -56,19 +62,6 @@
          where pb.polla_match_id = pm.id and pm.match_id = m.id and  m.local_team_id = tl.id and
                m.visitor_team_id = tv.id and
                polla_participant_id = #{pollaParticipantId};
-
-    </select>
-
-    <select id="getPollaBetByPollaBetId" parameterType="int" resultMap="pollaBetResults">
-        select pm.id as polla_match_id, pm.polla_header_id, pm.match_id,
-              m.id, m.local_team_id, tl.team_name as local_team_name, tl.image as image_local,
-              m.visitor_team_id, tv.team_name as visitor_team_name, tv.image as image_visitor,
-              m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_place, m.match_code, m.status
-              from matchs as m, teams as tl, teams as tv, polla_matches as pm
-              where pm.match_id = m.id
-              and m.local_team_id = tl.id
-              and m.visitor_team_id = tv.id
-              and pm.polla_header_id = #{pollaHeaderId} order by m.match_date;
 
     </select>
 

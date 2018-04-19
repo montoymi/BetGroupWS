@@ -50,7 +50,7 @@ public class BetGroupTest {
 //            opcionCreditos();
             opcionAdminAdministrarEventos();
 //            opcionCrearJuego();
-//            opcionMisPollas();
+            opcionMisPollas();
 //            opcionJuegosDisponibles();
 //            opcionMisPollas();
             opcionAmigos();
@@ -411,7 +411,7 @@ public class BetGroupTest {
             System.out.println("# Eventos: " + pollaMatchList.size());
             System.out.println("Estado: ");
             System.out.println("Puntos acumulados: ");
-/*
+
             System.out.println( "*********************");
             System.out.println("Sub Opcion: Listado de Eventos: ");
             for (int i=0; i < pollaMatchList.size(); i++ ) {
@@ -495,7 +495,7 @@ public class BetGroupTest {
 
             pollaBetService.updatePollaBetByBetId(pollaBet);
             System.out.println( "Pronostico actualizado satisfactoriamente");
-*/
+
             System.out.println( "********INVITAR AMIGOS*******************");
             System.out.println( "Procediendo a invitar amigos al juego " + pollaHeader.getPollaName());
             System.out.println( "Indique forma de invitar amigos al juego: ");
@@ -556,7 +556,7 @@ public class BetGroupTest {
         System.out.println( "Amigo invitado satisfactoriamente.");
     }
 
-    private static User signin(){
+    public static User signin(){
         System.out.println("*********LOGUEANDOSE AL SISTEMA*********************");
 
         Scanner in = new Scanner(System.in);
