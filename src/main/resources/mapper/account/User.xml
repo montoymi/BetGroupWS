@@ -37,12 +37,19 @@
         from users where user_id = #{userId}
     </select>
 
+    <update id="updateUserPassword" parameterType="User">
+        UPDATE users
+        SET
+            user_password = md5(#{password})
+        WHERE user_id = #{userId}
+    </update>
+
     <update id="actualizarPerfil" parameterType="User">
         UPDATE users
         SET
             first_name = #{firstName}, last_name = #{lastName},
             date_of_birth = #{dateOfBirthday},  email_address = #{email},
-            sex = #{sex}
+            sex = #{sex}, flg_notif_bets = #{flagNotification}
         WHERE user_id = #{userId}
     </update>
 
@@ -73,14 +80,14 @@
     <select id="checkUsernameExists" parameterType="User" resultMap="selectResult">
        select user_id, nickname, email_address,
           user_token, first_name, last_name, date_of_birth, user_type,
-          last_login_date, count_login, status, sex
+          last_login_date, count_login, status, sex, flg_notif_bets
         from users where nickname = #{username}
     </select>
 
     <select id="checkEmailExists" parameterType="User" resultMap="selectResult">
        select user_id, nickname, email_address,
           user_token, first_name, last_name, date_of_birth, user_type,
-          last_login_date, count_login, status, sex
+          last_login_date, count_login, status, sex, flg_notif_bets
         from users where email_address = #{email}
     </select>
 
@@ -96,7 +103,7 @@
               last_login_date,
               count_login,
               status,
-              sex
+              sex, flg_notif_bets
         from users
     </select>
 

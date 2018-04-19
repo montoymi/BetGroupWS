@@ -24,6 +24,11 @@ public class UserService {
         userDAO.registraUsuario(user);
     }
 
+
+    public void cambiarPassword(User user) {
+        userDAO.cambiarPassword(user);
+    }
+
     public void actualizarPerfilUsuario(User user) {
         //TODO: Validadar los mismo pero considerar que el nickname
         //TODO: y email debe ser diferente solo a los de otros usuarios.
