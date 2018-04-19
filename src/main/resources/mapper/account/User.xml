@@ -65,7 +65,8 @@
               last_login_date,
               count_login,
               status,
-              sex
+              sex,
+              flg_notif_bets
         from users where nickname = #{username} and user_password = md5(#{password})
     </select>
 
