@@ -17,6 +17,25 @@ public class PollaParticipant {
     private Integer position;
     private Integer status;
 
+    private Integer numWildCardsLeft;
+    private Integer numWildCards;
+
+    public Integer getNumWildCardsLeft() {
+        return numWildCardsLeft;
+    }
+
+    public void setNumWildCardsLeft(Integer numWildCardsLeft) {
+        this.numWildCardsLeft = numWildCardsLeft;
+    }
+
+    public Integer getNumWildCards() {
+        return numWildCards;
+    }
+
+    public void setNumWildCards(Integer numWildCards) {
+        this.numWildCards = numWildCards;
+    }
+
     private PollaHeader pollaHeader;
 
     private List<PollaBet> pollaBetList;

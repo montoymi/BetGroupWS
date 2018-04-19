@@ -8,7 +8,52 @@ public class TemplateHeader {
     private Integer status;
     private Integer sportId;
     private Sport sport;
-    private Integer numMaxwildcards;
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Integer getNumWildcards() {
+        return numWildcards;
+    }
+
+    public void setNumWildcards(Integer numWildcards) {
+        this.numWildcards = numWildcards;
+    }
+
+    public Integer getModeWildcardFlag() {
+        return modeWildcardFlag;
+    }
+
+    public void setModeWildcardFlag(Integer modeWildcardFlag) {
+        this.modeWildcardFlag = modeWildcardFlag;
+    }
+
+    public Integer getModePollitaFlag() {
+        return modePollitaFlag;
+    }
+
+    public void setModePollitaFlag(Integer modePollitaFlag) {
+        this.modePollitaFlag = modePollitaFlag;
+    }
+
+    public Integer getModePollaFlag() {
+        return modePollaFlag;
+    }
+
+    public void setModePollaFlag(Integer modePollaFlag) {
+        this.modePollaFlag = modePollaFlag;
+    }
+
+    private Integer numWildcards;
+    private Integer modeWildcardFlag;
+    private Integer modePollitaFlag;
+    private Integer modePollaFlag;
 
     public Integer getTemplateId() {
         return templateId;

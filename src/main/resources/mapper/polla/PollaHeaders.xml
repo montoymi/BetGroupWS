@@ -50,6 +50,10 @@
             #{pollaHeader.pollaCost, mode=IN, jdbcType=INTEGER},
             #{pollaHeader.adminId, mode=IN, jdbcType=INTEGER},
             #{pollaHeader.templateHeaderId, mode=IN, jdbcType=INTEGER},
+            #{pollaHeader.numWildcards, mode=IN, jdbcType=INTEGER},
+            #{pollaHeader.modePollaFlag, mode=IN, jdbcType=INTEGER},
+            #{pollaHeader.modePollitaFlag, mode=IN, jdbcType=INTEGER},
+            #{pollaHeader.modeWildcardFlag, mode=IN, jdbcType=INTEGER},
             #{mensaje,mode=OUT, jdbcType=VARCHAR }
         )}
     </select>
