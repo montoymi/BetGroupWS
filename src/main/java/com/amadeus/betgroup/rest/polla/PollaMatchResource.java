@@ -17,8 +17,8 @@ public class PollaMatchResource {
     private PollaMatchService pollaMatchService = new PollaMatchService();
 
     @GET
-    @Path("/{pollaId}")
-    public Response getPollaMatchesByPollaId(@PathParam("pollaId") Integer pollaId) {
+    @Path("/{polla-id}")
+    public Response getPollaMatchesByPollaId(@PathParam("polla-id") int pollaId) {
         List<PollaMatch> pollaHeaderList = pollaMatchService.getPollaMatchesByPollaId(pollaId);
         return Response.status(OK).entity(pollaHeaderList).build();
     }

@@ -1,7 +1,5 @@
 package com.amadeus.betgroup.model.polla;
 
-import com.amadeus.betgroup.model.template.TemplateEvent;
-
 import java.util.Date;
 
 public class PollaEvent {

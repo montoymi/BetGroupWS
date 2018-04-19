@@ -106,5 +106,15 @@ public class UserDAO {
         return userList;
     }
 
+    public void changePassword(User user) {
+        SqlSession session = sqlSessionFactory.openSession();
+
+        try {
+            session.update("User.changePassword", user);
+            session.commit();
+        } finally {
+            session.close();
+        }
+    }
 
 }

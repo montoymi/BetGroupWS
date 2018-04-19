@@ -2,7 +2,6 @@ package com.amadeus.betgroup.dao.tournament;
 
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.tournament.Match;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 

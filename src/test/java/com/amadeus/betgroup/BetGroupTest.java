@@ -48,12 +48,12 @@ public class BetGroupTest {
 //            opcionActualizarPerfilUsuario();
 //            opcionMisPollas();
 //            opcionCreditos();
-            opcionAdminAdministrarEventos();
+    //        opcionAdminAdministrarEventos();
 //            opcionCrearJuego();
             opcionMisPollas();
 //            opcionJuegosDisponibles();
-//            opcionMisPollas();
-            opcionAmigos();
+            opcionMisPollas();
+  //          opcionAmigos();
 
 
 

@@ -1,6 +1,5 @@
 package com.amadeus.betgroup.model.polla;
 
-import com.amadeus.betgroup.model.template.TemplateDetail;
 import com.amadeus.betgroup.model.tournament.Match;
 
 import java.util.Date;

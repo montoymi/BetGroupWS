@@ -26,7 +26,7 @@ public class PollaHeaderResource {
     }
 
     @GET
-    public Response getPollasByUserId(@QueryParam("user-id") Integer userId, @QueryParam("my-pollas") boolean myPollas) {
+    public Response getPollasByUserId(@QueryParam("user-id") int userId, @QueryParam("my-pollas") boolean myPollas) {
         List<PollaHeader> pollaHeaderList;
 
         if (myPollas) {

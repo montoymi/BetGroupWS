@@ -34,5 +34,12 @@ public class UserResource {
         userService.actualizarPerfilUsuario(user);
         return Response.status(CREATED).entity(user).build();
     }
+
+    @PUT
+    @Path("/passwords")
+    public Response changePassword(User user) {
+        userService.changePassword(user);
+        return Response.status(CREATED).entity(user).build();
+    }
 }
 

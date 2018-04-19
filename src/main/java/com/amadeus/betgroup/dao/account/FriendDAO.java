@@ -1,7 +1,6 @@
 package com.amadeus.betgroup.dao.account;
 
 import com.amadeus.betgroup.model.account.Friend;
-import com.amadeus.betgroup.model.account.User;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 

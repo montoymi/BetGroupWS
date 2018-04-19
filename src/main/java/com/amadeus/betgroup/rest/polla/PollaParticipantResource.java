@@ -22,8 +22,8 @@ public class PollaParticipantResource {
     private PollaHeaderService pollaHeaderService = new PollaHeaderService();
 
     @GET
-    @Path("/{pollaId}")
-    public Response getParticipantListByPollaId(@PathParam("pollaId") Integer pollaId) {
+    @Path("/{polla-id}")
+    public Response getParticipantListByPollaId(@PathParam("polla-id") int pollaId) {
         List<PollaParticipant> pollaHeaderList = pollaParticipantService.getParticipantListByPollaId(pollaId);
         return Response.status(OK).entity(pollaHeaderList).build();
     }

@@ -17,8 +17,8 @@ public class TemplateDetailResource {
     private TemplateDetailService templateDetailService = new TemplateDetailService();
 
     @GET
-    @Path("/{template_header_id}")
-    public Response getTemplateDetailsByTempHeader(@PathParam("template_header_id") int template_header_id) {
+    @Path("/{template-header-id}")
+    public Response getTemplateDetailsByTempHeader(@PathParam("template-header-id") int template_header_id) {
         List<TemplateDetail> templateDetailList = templateDetailService.getTemplateDetailsByTempHeader(template_header_id);
         return Response.status(OK).entity(templateDetailList).build();
     }

@@ -18,7 +18,7 @@ public class CreditResource {
     private CreditService creditService = new CreditService();
 
     @GET
-    public Response getCreditSummaryByUserId(@QueryParam("user-id") Integer userId) {
+    public Response getCreditSummaryByUserId(@QueryParam("user-id") int userId) {
         Credit credit = creditService.getCreditSummaryByUserId(userId);
         return Response.status(OK).entity(credit).build();
     }

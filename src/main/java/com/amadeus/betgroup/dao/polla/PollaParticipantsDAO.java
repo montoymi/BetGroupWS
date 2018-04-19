@@ -1,7 +1,6 @@
 package com.amadeus.betgroup.dao.polla;
 
 import com.amadeus.betgroup.exception.ApplicationException;
-import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaParticipant;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

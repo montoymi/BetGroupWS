@@ -100,4 +100,11 @@
         from users
     </select>
 
+    <update id="changePassword" parameterType="User">
+        UPDATE users
+        SET
+            user_password = md5(#{password})
+        WHERE user_id = #{userId}
+    </update>
+
 </mapper>

@@ -42,5 +42,10 @@ public class UserService {
     public List<User> getallUsers(){
         return userDAO.getAllUsers();
     }
+
+    public void changePassword(User user) {
+        userDAO.changePassword(user);
+    }
+
 }
 

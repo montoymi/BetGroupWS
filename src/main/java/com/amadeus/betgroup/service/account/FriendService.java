@@ -1,8 +1,6 @@
 package com.amadeus.betgroup.service.account;
 
 import com.amadeus.betgroup.dao.account.FriendDAO;
-
-import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Friend;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaHeader;

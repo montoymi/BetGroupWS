@@ -2,8 +2,6 @@ package com.amadeus.betgroup.dao.account;
 
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.CreditDetail;
-import org.apache.ibatis.session.ResultContext;
-import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
