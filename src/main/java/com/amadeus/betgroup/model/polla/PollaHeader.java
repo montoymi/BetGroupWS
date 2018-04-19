@@ -8,6 +8,16 @@ public class PollaHeader {
     private Integer pollaId;
     private String pollaName;
     private Integer templateHeaderId;
+
+    public String getBetgroupCode() {
+        return betgroupCode;
+    }
+
+    public void setBetgroupCode(String betgroupCode) {
+        this.betgroupCode = betgroupCode;
+    }
+
+    private String betgroupCode;
     private Integer adminId;
     private User admin;
     private Integer pollaCost;
@@ -19,7 +29,7 @@ public class PollaHeader {
     private List<PollaMatch> pollaMatchList;
     private List<PollaParticipant> pollaParticipantList;
     //Esto es para las modalidades de Juego
-    private Integer wildcardFlag;
+    private Integer modeWildcardFlag;
     private Integer numWildcards;
     private Integer modePollitaFlag;
     private Integer modePollaFlag;
@@ -32,12 +42,12 @@ public class PollaHeader {
         this.image = image;
     }
 
-    public Integer getWildcardFlag() {
-        return wildcardFlag;
+    public Integer getModeWildcardFlag() {
+        return modeWildcardFlag;
     }
 
-    public void setWildcardFlag(Integer wildcardFlag) {
-        this.wildcardFlag = wildcardFlag;
+    public void setModeWildcardFlag(Integer wildcardFlag) {
+        this.modeWildcardFlag = wildcardFlag;
     }
 
     public Integer getNumWildcards() {

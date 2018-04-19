@@ -19,6 +19,15 @@ public class User {
     private Integer referredUserId;
     private List<Friend> friendList;
     private String sex;
+    private Integer flagNotification;
+
+    public Integer getFlagNotification() {
+        return flagNotification;
+    }
+
+    public void setFlagNotification(Integer flagNotification) {
+        this.flagNotification = flagNotification;
+    }
 
     public String getSex() {
         return sex;

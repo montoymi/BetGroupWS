@@ -20,6 +20,12 @@
         <result property="password" column="password"/>
         <result property="costFlag" column="cost_flag"/>
         <result property="image" column="image"/>
+        <result property="numWildcards" column="num_wildcard"/>
+        <result property="image" column="image"/>
+        <result property="modePollaFlag" column="mode_polla_flg"/>
+        <result property="modePollitaFlag" column="mode_pollita_flg"/>
+        <result property="modeWildcardFlag" column="mode_wildcard_flg"/>
+
     </resultMap>
 
     <select id="getMisPollasByUserId" parameterType="int" resultMap="selectResult">

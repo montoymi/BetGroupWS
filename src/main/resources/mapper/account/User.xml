@@ -17,6 +17,7 @@
         <result property="userType" column="user_type"/>
         <result property="sex" column="sex"/>
         <result property="lastLoginDate" column="last_login_date"/>
+        <result property="flagNotification" column="flg_notif_bets"/>
     </resultMap>
 
     <select id="selectUserById" parameterType="int" resultMap="selectResult">
@@ -31,6 +32,7 @@
               last_login_date,
               count_login,
               status,
+              flg_notif_bets,
               sex
         from users where user_id = #{userId}
     </select>
