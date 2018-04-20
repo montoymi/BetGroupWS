@@ -27,6 +27,8 @@ public class PollaHeader {
     private Integer modePollitaFlag;
     private Integer modePollaFlag;
 
+    private String rules;
+
     public List<PollaEvent> getPollaEventList() {
         return pollaEventList;
     }
@@ -179,5 +181,11 @@ public class PollaHeader {
         this.costFlag = costFlag;
     }
 
+    public String getRules() {
+        return rules;
+    }
 
+    public void setRules(String rules) {
+        this.rules = rules;
+    }
 }

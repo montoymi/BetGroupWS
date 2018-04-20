@@ -50,4 +50,12 @@ public class PollaHeaderResource {
 
         return Response.status(OK).entity(pollaHeader).build();
     }
+
+    @POST
+    @Path("/rules")
+    public Response getGameRules(PollaHeader pollaHeader) {
+        String rules = pollaHeaderService.showGameRules(pollaHeader);
+        pollaHeader.setRules(rules);
+        return Response.status(OK).entity(pollaHeader).build();
+    }
 }
