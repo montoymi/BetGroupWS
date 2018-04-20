@@ -68,4 +68,5 @@
         WHERE ph.id = #{pollaId} AND ph.password = md5(#{password})
     </select>
 
+
 </mapper>

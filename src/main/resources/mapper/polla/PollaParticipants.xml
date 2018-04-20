@@ -13,6 +13,8 @@
         <result property="earnings" column="earnings"/>
         <result property="position" column="position"/>
         <result property="status" column="status"/>
+        <result property="numWildCardsLeft" column="status"/>
+        <result property="numWildCards" column="status"/>
         <association property="user" resultMap="userResult"/>
     </resultMap>
     <resultMap id="userResult" type="User">
@@ -23,6 +25,19 @@
         <result property="lastName" column="last_name"/>
 
     </resultMap>
+    <select id="getPollaRankingByPollaHeaderId" parameterType="int" resultMap="selectResult">
+        select pp.polla_header_id, pp.position, pp.id, pp.num_wildcards, pp.num_wildcards_left,
+               pp.id,
+               u.user_id,
+               u.nickname,
+               pp.total, pp.earnings, pp.inscription_date
+        from polla_participants as pp,
+             users u
+        where pp.polla_header_id = #{pollaHeaderId}
+          and pp.user_id = u.user_id
+        ORDER BY pp.position,u.nickname;
+    </select>
+
     <select id="getPollaParticipantByPollaId" parameterType="PollaParticipant" resultMap="participantsResult">
         SELECT pp.id, pp.polla_header_id, pp.inscription_date, pp.admin_payment_status, pp.total,
               pp.earnings, pp.position, pp.status,
@@ -44,6 +59,8 @@
         #{pollaParticipant.user.userId, mode=IN, jdbcType=INTEGER},
         #{mensaje,mode=OUT, jdbcType=VARCHAR }
     )}
-</select>
+    </select>
+
+
 
 </mapper>
