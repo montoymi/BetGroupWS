@@ -30,7 +30,7 @@
 
     <select id="getMisPollasByUserId" parameterType="int" resultMap="selectResult">
         SELECT ph.* FROM polla_headers AS ph, polla_participants AS pp
-        WHERE ph.id = pp.polla_header_id AND pp.user_id = #{userId}
+        WHERE ph.id = pp.polla_header_id AND pp.user_id = #{userId} and ph.status = 1
     </select>
 
     <select id="getPollasDisponiblesByUserId" parameterType="PollaHeader" resultMap="selectResult">
@@ -38,7 +38,7 @@
         where not exists (select 1
         from polla_participants pp
         where pp.polla_header_id = ph.id
-        and pp.user_id = #{userId})
+        and pp.user_id = #{userId} ) and ph.status = 1
     </select>
 
     <select id="createBetGroup" statementType="CALLABLE" parameterType="map">

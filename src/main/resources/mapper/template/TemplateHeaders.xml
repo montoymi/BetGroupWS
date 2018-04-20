@@ -17,7 +17,7 @@
     </resultMap>
 
     <select id="getAllTemplateHeaderList" resultMap="templateHeaderResult">
-        select * from template_headers
+        select * from template_headers where status = 1
     </select>
 
 </mapper>

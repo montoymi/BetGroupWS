@@ -24,7 +24,8 @@
     <update id="updateNotificationTemplateByCode" parameterType="NotificationTemplate">
         UPDATE notification_templates
         SET
-            notification_body = #{notificationBody} and notification_subject = #{notificationSubject}
+            notification_body = #{notificationBody} and notification_subject = #{notificationSubject} and
+            description = #{description} and language = #{language} and
 
         WHERE code = #{notificationCode}
     </update>
