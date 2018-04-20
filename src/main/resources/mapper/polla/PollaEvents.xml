@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PollaEvents">
+    <resultMap id="pollaEventResults" type="PollaEvent">
+        <result property="pollaEventId" column="id"/>
+        <result property="pollaHeaderId" column="polla_header_id"/>
+        <result property="eventNumber" column="event_number"/>
+        <result property="startDate" column="timestamp_from"/>
+        <result property="endDate" column="timestamp_to"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="getPollaEventListByPollaId" parameterType="int" resultMap="pollaEventResults">
+        select * from polla_events
+              where polla_header_id = #{pollaHeaderId};
+    </select>
+
+
+
+</mapper>

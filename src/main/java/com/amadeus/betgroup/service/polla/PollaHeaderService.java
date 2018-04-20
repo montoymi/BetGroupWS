@@ -5,6 +5,7 @@ import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaHeader;
+import com.amadeus.betgroup.model.polla.PollaMatch;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 import com.amadeus.betgroup.service.account.CreditService;
 
@@ -65,6 +66,55 @@ public class PollaHeaderService {
 
     public boolean validatePollaPassword(PollaHeader pollaHeader) {
         return pollaHeaderDAO.validatePollaPassword(pollaHeader);
+    }
+
+    public String showGameRules( int pollaHeaderId ){
+
+        PollaHeaderService pollaHeaderService = new PollaHeaderService();
+        PollaHeader pollaHeader = pollaHeaderService.getPollaById(pollaHeaderId);
+
+        PollaParticipantService pollaParticipantService = new PollaParticipantService();
+        pollaHeader.setPollaParticipantList( pollaParticipantService.getParticipantListByPollaId(pollaHeader.getPollaId()));
+
+        PollaMatchService pollaMatchS = new PollaMatchService();
+        pollaHeader.setPollaMatchList( pollaMatchS.getPollaMatchesByPollaId(pollaHeader.getPollaId()) );
+
+
+
+        pollaHeader.getAccessFlag();
+        pollaHeader.getCostFlag(); // flag que indica que esa polla tendra un costo de :
+        pollaHeader.getPollaCost();
+        pollaHeader.getNumWildcards(); // numero de comodines si es que la template tiene modalida de juego con comodin.
+
+        pollaHeader.getPollaParticipantList(); // cuantos participantes tiene
+        pollaHeader.getPollaMatchList(); // cuantos partidos tiene
+        pollaHeader.getPollaEventList(); //cuantas fechas tiene
+
+
+        String reglas;
+        if ( (pollaHeader.getModePollaFlag()==1) && (pollaHeader.getModePollitaFlag()==1) ) {
+            reglas = "Ud. ha seleccionado dos modalidades de Juego: 'Pozo Global' y 'Pozo por Fecha'. ";
+            reglas+= "La distribucion de la premiacion se basara segun el pozo total acumulado entre todos los participantes. /n ";
+            reglas+= "1 - El 60% del pozo total acumulado, se repartira a la modalidad de juego 'Pozo Global'.";
+            reglas+= "En esta modalidad solo se tendra un ganador, o ganadores, los cuales obtuvieron la mas alta puntuacion.";
+            reglas+= "2 - El 30% del pozo total acumulado, se repartira para el modo de juego 'Pozo por Fecha'.";
+            reglas+= "Este pozo se repartira entre todas las fechas definidas para ese juego. " +
+                    "Habra uno o varios ganadores en cada fecha, siempre que hayan obtenido la maxima puntuacion dentro de cada fecha.";
+            reglas+= "3 - El 10% del pozo total acumulado, se quedara como comision de la casa.";
+        } else if ( pollaHeader.getModePollaFlag() == 1 ){
+            reglas = "Ud. ha seleccionado la  modalidad de Juego: 'Pozo Global'.";
+            reglas+= "La distribucion de la premiacion se basara segun el pozo total acumulado entre todos los participantes. /n ";
+            reglas+= "1 - El 90% del pozo total acumulado, se repartira a la modalidad de juego 'Pozo Global'.";
+            reglas+= "En esta modalidad solo se tendra un ganador, o ganadores, los cuales obtuvieron la mas alta puntuacion.";
+            reglas+= "2 - El 30% del pozo total acumulado, se repartira para el modo de juego 'Pozo por Fecha'.";
+            reglas+= "Este pozo se repartira entre todas las fechas definidas para ese juego. " +
+                     "Habra uno o varios ganadores en cada fecha, siempre que hayan obtenido la maxima puntuacion dentro de cada fecha.";
+            reglas+= "3 - El 10% del pozo total acumulado, se quedara como comision de la casa.";
+        } else {
+
+        }
+
+        return "";
     }
 
 

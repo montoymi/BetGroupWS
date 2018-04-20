@@ -413,6 +413,18 @@ public class BetGroupTest {
             System.out.println("Puntos acumulados: ");
 
             System.out.println( "*********************");
+            System.out.println( "*******REGLAS**************");
+
+            pollaHeader.getModeWildcardFlag();
+            pollaHeader.getModePollaFlag();
+            pollaHeader.getModePollitaFlag();
+
+
+
+
+
+
+            System.out.println( "*********************");
             System.out.println("Sub Opcion: Listado de Eventos: ");
             for (int i=0; i < pollaMatchList.size(); i++ ) {
                 PollaMatch pollaMatch = pollaMatchList.get(i);

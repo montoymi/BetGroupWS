@@ -5,7 +5,7 @@ public class PollaEventParticipant {
     private PollaParticipant pollaParticipant;
     private Integer pollaEventId;
     private PollaEvent pollaEvent;
-    private Integer total_points;
+    private Integer totalPoints;
     private Integer position;
 
     public Integer getPollaParticipantId() {
@@ -40,12 +40,12 @@ public class PollaEventParticipant {
         this.pollaEvent = pollaEvent;
     }
 
-    public Integer getTotal_points() {
-        return total_points;
+    public Integer getTotalPoints() {
+        return totalPoints;
     }
 
-    public void setTotal_points(Integer total_points) {
-        this.total_points = total_points;
+    public void setTotalPoints(Integer totalPoints) {
+        this.totalPoints = totalPoints;
     }
 
     public Integer getPosition() {

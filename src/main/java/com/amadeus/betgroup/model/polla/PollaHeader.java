@@ -20,11 +20,20 @@ public class PollaHeader {
     private String image;
     private List<PollaMatch> pollaMatchList;
     private List<PollaParticipant> pollaParticipantList;
+    private List<PollaEvent> pollaEventList;
     //Esto es para las modalidades de Juego
     private Integer modeWildcardFlag;
     private Integer numWildcards;
     private Integer modePollitaFlag;
     private Integer modePollaFlag;
+
+    public List<PollaEvent> getPollaEventList() {
+        return pollaEventList;
+    }
+
+    public void setPollaEventList(List<PollaEvent> pollaEventList) {
+        this.pollaEventList = pollaEventList;
+    }
 
     public String getBetgroupCode() {
         return betgroupCode;

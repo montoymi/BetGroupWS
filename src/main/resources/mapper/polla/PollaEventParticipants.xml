@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PollaEventParticipants">
+    <resultMap id="pollaEventParticipantResults" type="PollaEventParticipant">
+        <result property="pollaParticipantId" column="polla_participant_id"/>
+        <result property="pollaEventId" column="polla_event_id"/>
+        <result property="position" column="position"/>
+        <result property="totalPoints" column="totalPoints"/>
+    </resultMap>
+
+    <select id="getPollaEventParticipantListByPollaEventId" parameterType="int" resultMap="pollaEventParticipantResults">
+        select * from polla_event_participants
+              where polla_event_id = #{pollaEventId};
+    </select>
+
+
+
+</mapper>
