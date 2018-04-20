@@ -25,7 +25,7 @@
         <result property="lastName" column="last_name"/>
 
     </resultMap>
-    <select id="getPollaRankingByPollaHeaderId" parameterType="int" resultMap="selectResult">
+    <select id="getPollaRankingByPollaHeaderId" parameterType="int" resultMap="participantsResult">
         select pp.polla_header_id, pp.position, pp.id, pp.num_wildcards, pp.num_wildcards_left,
                pp.id,
                u.user_id,
