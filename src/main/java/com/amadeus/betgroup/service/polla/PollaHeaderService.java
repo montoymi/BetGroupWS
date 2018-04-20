@@ -81,6 +81,7 @@ public class PollaHeaderService {
         PollaMatchService pollaMatchS = new PollaMatchService();
         pollaHeader.setPollaMatchList( pollaMatchS.getPollaMatchesByPollaId(pollaHeader.getPollaId()) );
 
+        // mas logica a trabajar para el texto de las reglas.
         pollaHeader.getAccessFlag();
         pollaHeader.getCostFlag(); // flag que indica que esa polla tendra un costo de :
         pollaHeader.getPollaCost();
