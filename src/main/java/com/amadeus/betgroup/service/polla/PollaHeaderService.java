@@ -74,7 +74,7 @@ public class PollaHeaderService {
         if ( pollaHeader.getPollaId() != null ){
              pollaHeader = pollaHeaderService.getPollaById(pollaHeader.getPollaId());
         }
-
+/*
         PollaParticipantService pollaParticipantService = new PollaParticipantService();
         pollaHeader.setPollaParticipantList( pollaParticipantService.getParticipantListByPollaId(pollaHeader.getPollaId()));
 
@@ -90,7 +90,7 @@ public class PollaHeaderService {
         pollaHeader.getPollaParticipantList(); // cuantos participantes tiene
         pollaHeader.getPollaMatchList(); // cuantos partidos tiene
         pollaHeader.getPollaEventList(); //cuantas fechas tiene
-
+*/
 
         String reglas;
         if ( (pollaHeader.getModePollaFlag()==1) && (pollaHeader.getModePollitaFlag()==1) ) {
