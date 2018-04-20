@@ -3,7 +3,15 @@ package com.amadeus.betgroup.model.template;
 import com.amadeus.betgroup.model.tournament.Sport;
 
 public class TemplateHeader {
-    private Integer templateId;
+    public Integer getTemplateHeaderId() {
+        return templateHeaderId;
+    }
+
+    public void setTemplateHeaderId(Integer templateHeaderId) {
+        this.templateHeaderId = templateHeaderId;
+    }
+
+    private Integer templateHeaderId;
     private String templateName;
     private Integer status;
     private Integer sportId;
@@ -54,14 +62,6 @@ public class TemplateHeader {
     private Integer modeWildcardFlag;
     private Integer modePollitaFlag;
     private Integer modePollaFlag;
-
-    public Integer getTemplateId() {
-        return templateId;
-    }
-
-    public void setTemplateId(Integer templateId) {
-        this.templateId = templateId;
-    }
 
     public String getTemplateName() {
         return templateName;

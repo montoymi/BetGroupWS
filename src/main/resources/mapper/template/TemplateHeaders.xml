@@ -5,7 +5,7 @@
 
 <mapper namespace="TemplateHeaders">
     <resultMap id="templateHeaderResult" type="TemplateHeader">
-        <result property="templateHeaderId" column="id"/>
+        <result property="templateId" column="id"/>
         <result property="templateName" column="template_header_name"/>
         <result property="status" column="status"/>
         <result property="sportId" column="sports_id"/>

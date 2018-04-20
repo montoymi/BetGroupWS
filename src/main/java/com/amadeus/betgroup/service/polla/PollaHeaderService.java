@@ -68,18 +68,18 @@ public class PollaHeaderService {
         return pollaHeaderDAO.validatePollaPassword(pollaHeader);
     }
 
-    public String showGameRules( int pollaHeaderId ){
+    public String showGameRules( PollaHeader pollaHeader){
 
         PollaHeaderService pollaHeaderService = new PollaHeaderService();
-        PollaHeader pollaHeader = pollaHeaderService.getPollaById(pollaHeaderId);
+        if ( pollaHeader.getPollaId() != null ){
+             pollaHeader = pollaHeaderService.getPollaById(pollaHeader.getPollaId());
+        }
 
         PollaParticipantService pollaParticipantService = new PollaParticipantService();
         pollaHeader.setPollaParticipantList( pollaParticipantService.getParticipantListByPollaId(pollaHeader.getPollaId()));
 
         PollaMatchService pollaMatchS = new PollaMatchService();
         pollaHeader.setPollaMatchList( pollaMatchS.getPollaMatchesByPollaId(pollaHeader.getPollaId()) );
-
-
 
         pollaHeader.getAccessFlag();
         pollaHeader.getCostFlag(); // flag que indica que esa polla tendra un costo de :
@@ -111,10 +111,16 @@ public class PollaHeaderService {
                      "Habra uno o varios ganadores en cada fecha, siempre que hayan obtenido la maxima puntuacion dentro de cada fecha.";
             reglas+= "3 - El 10% del pozo total acumulado, se quedara como comision de la casa.";
         } else {
+            reglas = "Ud. ha seleccionad la modalidad de Juego: 'Pozo por fecha'. ";
+            reglas+= "La distribucion de la premiacion se basara segun el pozo total acumulado entre todos los participantes. /n ";
+            reglas+= "1 - El 90% del pozo total acumulado, se repartira para el modo de juego 'Pozo por Fecha'.";
+            reglas+= "Este pozo se repartira entre todas las fechas definidas para ese juego. " +
+                     "Habra uno o varios ganadores en cada fecha, siempre que hayan obtenido la maxima puntuacion dentro de cada fecha.";
+            reglas+= "3 - El 10% del pozo total acumulado, se quedara como comision de la casa.";
 
         }
 
-        return "";
+        return reglas;
     }
 
 
