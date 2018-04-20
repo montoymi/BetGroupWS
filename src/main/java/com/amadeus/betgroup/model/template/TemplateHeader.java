@@ -3,12 +3,17 @@ package com.amadeus.betgroup.model.template;
 import com.amadeus.betgroup.model.tournament.Sport;
 
 public class TemplateHeader {
+
     private Integer templateHeaderId;
     private String templateName;
     private Integer status;
     private Integer sportId;
     private Sport sport;
     private String image;
+    private Integer numWildcards;
+    private Integer modeWildcardFlag;
+    private Integer modePollitaFlag;
+    private Integer modePollaFlag;
 
     public String getImage() {
         return image;
@@ -49,11 +54,6 @@ public class TemplateHeader {
     public void setModePollaFlag(Integer modePollaFlag) {
         this.modePollaFlag = modePollaFlag;
     }
-
-    private Integer numWildcards;
-    private Integer modeWildcardFlag;
-    private Integer modePollitaFlag;
-    private Integer modePollaFlag;
 
     public Integer getTemplateHeaderId() {
         return templateHeaderId;
