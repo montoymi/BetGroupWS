@@ -48,6 +48,9 @@ public class ApplicationException extends RuntimeException implements ExceptionM
             case "CRE002":
                 status = 426;
                 break;
+            case "E0002":
+                status = 427;
+                break;
         }
 
         return Response.status(status).entity(message).type("text/plain").build();

@@ -1,7 +1,6 @@
 package com.amadeus.betgroup;
 
 
-import com.amadeus.betgroup.dao.polla.PollaHeaderDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.CreditDetail;
@@ -20,7 +19,6 @@ import com.amadeus.betgroup.model.tournament.Tournament;
 import com.amadeus.betgroup.service.account.CreditService;
 import com.amadeus.betgroup.service.account.FriendService;
 import com.amadeus.betgroup.service.account.UserService;
-import com.amadeus.betgroup.service.admin.AdminService;
 import com.amadeus.betgroup.service.polla.PollaBetService;
 import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaMatchService;
@@ -675,7 +673,7 @@ public class BetGroupTest {
 
         System.out.println( "Lista de eventos de Plantilla :" + templateHeader.getTemplateName());
         TemplateDetailService templateDetailService = new TemplateDetailService();
-        List<TemplateDetail> templateDetailList = templateDetailService.getTemplateDetailsByTempHeader( templateHeader.getTemplateId());
+        List<TemplateDetail> templateDetailList = templateDetailService.getTemplateDetailsByTempHeader( templateHeader.getTemplateHeaderId());
         System.out.println( "# de partidos " + templateDetailList.size());
         System.out.println("Imprimiendo lista de eventos: ");
         for (int i=0; i < templateDetailList.size(); i++ ) {
@@ -710,7 +708,7 @@ public class BetGroupTest {
         }
         System.out.print("Administrador del Betgroup a crear: " + userBE.getUsername());
         pollaHeader.setAdminId( userBE.getUserId());
-        pollaHeader.setTemplateHeaderId( templateHeader.getTemplateId() );
+        pollaHeader.setTemplateHeaderId( templateHeader.getTemplateHeaderId() );
 
         PollaHeaderService pollaHeaderS = new PollaHeaderService();
         pollaHeaderS.crearPolla(pollaHeader);
