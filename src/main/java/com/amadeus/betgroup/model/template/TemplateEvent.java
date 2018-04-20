@@ -5,7 +5,7 @@ import java.util.Date;
 public class TemplateEvent {
     private Integer templateEventId;
     private Integer eventNumber;
-    private Integer templateId;
+    private Integer templateHeaderId;
     private Date startDate;
     private Date endDate;
     private Integer status;
@@ -26,12 +26,12 @@ public class TemplateEvent {
         this.eventNumber = eventNumber;
     }
 
-    public Integer getTemplateId() {
-        return templateId;
+    public Integer getTemplateHeaderId() {
+        return templateHeaderId;
     }
 
-    public void setTemplateId(Integer templateId) {
-        this.templateId = templateId;
+    public void setTemplateHeaderId(Integer templateHeaderId) {
+        this.templateHeaderId = templateHeaderId;
     }
 
     public Date getStartDate() {

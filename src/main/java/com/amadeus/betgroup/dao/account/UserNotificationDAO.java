@@ -15,7 +15,7 @@ public class UserNotificationDAO {
         SqlSession session = sqlSessionFactory.openSession();
 
         try {
-            session.insert("NotificationTemplates.insert", notificationTemplate);
+            session.insert("NotificationTemplates.insertNotificationTemplate", notificationTemplate);
             session.commit();
         } finally {
             session.close();
@@ -26,20 +26,20 @@ public class UserNotificationDAO {
         SqlSession session = sqlSessionFactory.openSession();
 
         try {
-            session.update("NotificationTemplates.update", notificationTemplate);
+            session.update("NotificationTemplates.updateNotificationTemplateByCode", notificationTemplate);
             session.commit();
         } finally {
             session.close();
         }
     }
 
-    public NotificationTemplate getNotificationTemplateById(int id) {
+    public NotificationTemplate getNotificationTemplateById(String notificationCode) {
         NotificationTemplate person;
 
         SqlSession session = sqlSessionFactory.openSession();
 
         try {
-            person = session.selectOne("NotificationTemplates.selectById", id);
+            person = session.selectOne("NotificationTemplates.selectNotificationTemplateByCode", notificationCode);
         } finally {
             session.close();
         }

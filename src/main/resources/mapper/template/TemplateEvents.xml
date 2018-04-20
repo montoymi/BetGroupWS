@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TemplateEvents">
+    <resultMap id="templateEventResult" type="TemplateEvent">
+        <result property="templateEventId" column="id"/>
+        <result property="eventNumber" column="event_number"/>
+        <result property="templateHeaderId" column="template_id"/>
+        <result property="startDate" column="timestamp_from"/>
+        <result property="endDate" column="timestamp_to"/>
+        <result property="status" column="status"/>
+
+    </resultMap>
+
+    <select id="getTemplateEventListByTempHeader" parameterType="int" resultMap="templateEventResult">
+        select *
+          from template_events
+        where template_id = #{templateHeaderId};
+
+    </select>
+
+    <select id="getTemplateEventById" parameterType="int" resultMap="templateEventResult">
+        select *
+          from template_events
+        where id = #{templateEventId};
+    </select>
+
+
+</mapper>
