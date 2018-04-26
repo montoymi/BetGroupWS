@@ -2,7 +2,7 @@ package com.amadeus.betgroup.model.config;
 
 public class ParamValue {
     private String sAppCode;
-    private String sParamType;
+    private String sParamType; //
     private ParamType paramType;
     private String paramCode;
     private String paramValueString1;

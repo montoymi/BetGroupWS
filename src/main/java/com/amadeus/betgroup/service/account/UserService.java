@@ -3,8 +3,11 @@ package com.amadeus.betgroup.service.account;
 import com.amadeus.betgroup.dao.account.UserDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.User;
+import com.amadeus.betgroup.model.config.ParamValue;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 import com.amadeus.betgroup.service.commons.EmailService;
+import com.amadeus.betgroup.service.config.ParamValueService;
+import com.sun.research.ws.wadl.Param;
 
 import java.util.List;
 
@@ -28,6 +31,30 @@ public class UserService {
         }
         userDAO.registraUsuario(user);
         sendWelcomeEmail(user);
+    }
+
+    public void forgotpassword( String email ){
+
+        User user = userDAO.checkEmailExists(email);
+        if  (user==null){
+            throw new ApplicationException("No existe usuario registrado con ese email.");
+        }
+
+        ParamValueService paramValueService = new ParamValueService();
+        ParamValue paramValue = new ParamValue();
+
+        paramValue.setParamCode(String.valueOf(user.getUserId()));
+        paramValue.setsParamType("RECOVER_PASSWORD");
+        paramValue.setsAppCode("BETGROUPS");
+        paramValue = paramValueService.getParaValueById(paramValue);
+
+
+       // String message = userDAO.getForgotPassword(userId);
+//        String subject = paramValue.getParamValueString1();
+        String subject = "BetGroup Sports - Olvide Contrasenha";
+        String message = paramValue.getParamValueString1();
+
+        EmailService.sendEmail( user.getEmail(), subject, message);
     }
 
     private void sendWelcomeEmail( User user ){

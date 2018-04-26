@@ -26,6 +26,7 @@
         <typeAlias alias="TemplateHeader" type="com.amadeus.betgroup.model.template.TemplateHeader"/>
         <typeAlias alias="TemplateDetail" type="com.amadeus.betgroup.model.template.TemplateDetail"/>
         <typeAlias alias="TemplateEvent" type="com.amadeus.betgroup.model.template.TemplateEvent"/>
+        <typeAlias alias="ParamValue" type="com.amadeus.betgroup.model.config.ParamValue"/>
     </typeAliases>
 
     <environments default="development">
@@ -62,6 +63,7 @@
         <mapper resource="mapper/template/TemplateHeaders.xml"/>
         <mapper resource="mapper/template/TemplateDetails.xml"/>
         <mapper resource="mapper/template/TemplateEvents.xml"/>
+        <mapper resource="mapper/config/ParamValues.xml"/>
     </mappers>
 
 </configuration>

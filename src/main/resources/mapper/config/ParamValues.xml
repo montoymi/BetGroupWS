@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ParamValues">
+    <resultMap id="paramValueResult" type="ParamValue">
+        <result property="sAppCode" column="app_code"/>
+        <result property="sParamType" column="param_type"/>
+        <result property="paramCode" column="param_code"/>
+        <result property="paramValueString1" column="param_value_string1"/>
+        <result property="paramValueString2" column="param_value_string2"/>
+        <result property="paramValueString3" column="param_value_string3"/>
+        <result property="paramValueString4" column="param_value_string4"/>
+        <result property="paramValueString5" column="param_value_string5"/>
+    </resultMap>
+
+
+    <select id="selectParamValueByParamCode" parameterType="ParamValue" resultMap="paramValueResult">
+        SELECT *
+        FROM param_values
+        WHERE app_code = #{sAppCode} and param_type = #{sParamType} and app_code = #{sAppCode}
+    </select>
+
+</mapper>
