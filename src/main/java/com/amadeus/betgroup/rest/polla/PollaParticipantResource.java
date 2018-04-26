@@ -22,10 +22,9 @@ public class PollaParticipantResource {
     private PollaHeaderService pollaHeaderService = new PollaHeaderService();
 
     @GET
-    @Path("/{polla-id}")
-    public Response getParticipantListByPollaId(@PathParam("polla-id") int pollaId) {
-        List<PollaParticipant> pollaHeaderList = pollaParticipantService.getParticipantListByPollaId(pollaId);
-        return Response.status(OK).entity(pollaHeaderList).build();
+    public Response getParticipantListByPollaId(@QueryParam("polla-id") int pollaId) {
+        List<PollaParticipant> pollaParticipantList = pollaParticipantService.getParticipantListByPollaId(pollaId);
+        return Response.status(OK).entity(pollaParticipantList).build();
     }
 
     @POST
@@ -39,5 +38,12 @@ public class PollaParticipantResource {
 
         pollaParticipantService.inscribirUserInBetgroup(pollaParticipant);
         return Response.status(CREATED).entity(pollaParticipant).build();
+    }
+
+    @GET
+    @Path("/rankings")
+    public Response getRankingPollaByHeaderId(@QueryParam("polla-id") int pollaId) {
+        List<PollaParticipant> pollaParticipantList = pollaParticipantService.getRankingPollaByHeaderId(pollaId);
+        return Response.status(OK).entity(pollaParticipantList).build();
     }
 }
