@@ -8,6 +8,7 @@ import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 import com.amadeus.betgroup.service.commons.EmailService;
 import com.amadeus.betgroup.service.config.ParamValueService;
 import com.sun.research.ws.wadl.Param;
+import org.glassfish.jersey.jaxb.internal.XmlJaxbElementProvider;
 
 import java.util.List;
 
@@ -15,14 +16,16 @@ public class UserService {
     private UserDAO userDAO = new UserDAO(MyBatisSqlSession.getSqlSessionFactory());
 
     public User validateLogin(String username, String password) {
-        User user = userDAO.validateLogin(username, password);
-        if ( user == null ){
-            throw new ApplicationException("US009");
-            // Usuario no existe con esas credenciales. Porfavor, intente de nuevo.
-        } else {
-            user = userDAO.checkUsernameExists(username);
+        if ( userDAO.checkUsernameExists( username ) == null ){
+            throw new ApplicationException("USR003");
+            // El usuario ingresado no existe en el sistema. Porfavor, corrija e ingrese el username y trate de loguearse nuevamente.
         }
+        User user = userDAO.validateLogin(username, password);
 
+        if ( user == null ){
+            throw new ApplicationException("USR004");
+            //Las credenciales ingresadas no coinciden. Porfavolr, corrija e ingrese el password y trate de loguearse nuevamente.
+        }
         return user;
 
     }
