@@ -46,7 +46,10 @@
         WHERE user_id = #{userId}
     </update>
 
-    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="user_id">
+    <insert id="insertUser" parameterType="User">
+        <selectKey order="AFTER" keyProperty="userId" resultType="int">
+            SELECT currval('public.users_user_id_seq')
+        </selectKey>
         INSERT INTO users (
             nickname, email_address, user_password)
         VALUES (

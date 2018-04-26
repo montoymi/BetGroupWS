@@ -41,5 +41,14 @@ public class UserResource {
         userService.changePassword(user);
         return Response.status(CREATED).entity(user).build();
     }
+
+    @GET
+    @Path("/passwords")
+    public Response forgotPassword(@QueryParam("email") String email) {
+        userService.forgotPassword(email);
+        String message = "email sent to: " + email;
+        String response = "{\"message\":\"" + message + "\"}";
+        return Response.status(OK).entity(response).build();
+    }
 }
 

@@ -5,7 +5,6 @@ import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaHeader;
-import com.amadeus.betgroup.model.polla.PollaMatch;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 import com.amadeus.betgroup.service.account.CreditService;
 
@@ -34,13 +33,13 @@ public class PollaHeaderService {
         CreditService creditS = new CreditService();
         Credit credit = creditS.getCreditSummaryByUserId(userBE.getUserId());
 
-        if( pollaHeader.getPollaCost() > credit.getTotalCreditos() ){
+        if (pollaHeader.getPollaCost() > credit.getTotalCreditos()) {
             System.out.println(" No tiene creditos suficientes para inscribirse en la polla.");
         }
     }
 
-    public void crearPolla (PollaHeader pollaHeader) throws ApplicationException {
-        try{
+    public void crearPolla(PollaHeader pollaHeader) throws ApplicationException {
+        try {
             CreditService creditS = new CreditService();
             //TODO: Revisar proceso de creditos
 //            Credit creditHistory = creditS.getCreditHistoryByUserId(pollaHeader.getAdminId());
@@ -53,7 +52,7 @@ public class PollaHeaderService {
             pollaHeaderDAO.crearPolla(pollaHeader);
 
 
-        }catch( Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
@@ -68,11 +67,11 @@ public class PollaHeaderService {
         return pollaHeaderDAO.validatePollaPassword(pollaHeader);
     }
 
-    public String showGameRules( PollaHeader pollaHeader){
+    public String showGameRules(PollaHeader pollaHeader) {
 
         PollaHeaderService pollaHeaderService = new PollaHeaderService();
-        if ( pollaHeader.getPollaId() != null ){
-             pollaHeader = pollaHeaderService.getPollaById(pollaHeader.getPollaId());
+        if (pollaHeader.getPollaId() != null) {
+            pollaHeader = pollaHeaderService.getPollaById(pollaHeader.getPollaId());
         }
 /*
         PollaParticipantService pollaParticipantService = new PollaParticipantService();
@@ -83,7 +82,7 @@ public class PollaHeaderService {
 
         // mas logica a trabajar para el texto de las reglas.
         pollaHeader.getAccessFlag();
-        pollaHeader.getCostFlag(); // flag que indica que esa polla tendra un costo de :
+        pollaHeader.getCostFlag(); // flag que indica que esa polla tendrá un costo de :
         pollaHeader.getPollaCost();
         pollaHeader.getNumWildcards(); // numero de comodines si es que la template tiene modalida de juego con comodin.
 
@@ -93,31 +92,31 @@ public class PollaHeaderService {
 */
 
         String reglas;
-        if ( (pollaHeader.getModePollaFlag()==1) && (pollaHeader.getModePollitaFlag()==1) ) {
+        if ((pollaHeader.getModePollaFlag() == 1) && (pollaHeader.getModePollitaFlag() == 1)) {
             reglas = "Ud. ha seleccionado dos modalidades de Juego: 'Pozo Global' y 'Pozo por Fecha'. ";
-            reglas+= "La distribucion de la premiacion se basara segun el pozo total acumulado entre todos los participantes. /n ";
-            reglas+= "1 - El 60% del pozo total acumulado, se repartira a la modalidad de juego 'Pozo Global'.";
-            reglas+= "En esta modalidad solo se tendra un ganador, o ganadores, los cuales obtuvieron la mas alta puntuacion.";
-            reglas+= "2 - El 30% del pozo total acumulado, se repartira para el modo de juego 'Pozo por Fecha'.";
-            reglas+= "Este pozo se repartira entre todas las fechas definidas para ese juego. " +
-                    "Habra uno o varios ganadores en cada fecha, siempre que hayan obtenido la maxima puntuacion dentro de cada fecha.";
-            reglas+= "3 - El 10% del pozo total acumulado, se quedara como comision de la casa.";
-        } else if ( pollaHeader.getModePollaFlag() == 1 ){
-            reglas = "Ud. ha seleccionado la  modalidad de Juego: 'Pozo Global'.";
-            reglas+= "La distribucion de la premiacion se basara segun el pozo total acumulado entre todos los participantes. /n ";
-            reglas+= "1 - El 90% del pozo total acumulado, se repartira a la modalidad de juego 'Pozo Global'.";
-            reglas+= "En esta modalidad solo se tendra un ganador, o ganadores, los cuales obtuvieron la mas alta puntuacion.";
-            reglas+= "2 - El 30% del pozo total acumulado, se repartira para el modo de juego 'Pozo por Fecha'.";
-            reglas+= "Este pozo se repartira entre todas las fechas definidas para ese juego. " +
-                     "Habra uno o varios ganadores en cada fecha, siempre que hayan obtenido la maxima puntuacion dentro de cada fecha.";
-            reglas+= "3 - El 10% del pozo total acumulado, se quedara como comision de la casa.";
+            reglas += "La distribución de la premiación se basará según el pozo total acumulado entre todos los participantes.\n";
+            reglas += "1 - El 60% del pozo total acumulado, se repartirá a la modalidad de juego 'Pozo Global'. ";
+            reglas += "En esta modalidad solo se tendrá un ganador, o ganadores, los cuales obtuvieron la mas alta puntuación.\n";
+            reglas += "2 - El 30% del pozo total acumulado, se repartirá para el modo de juego 'Pozo por Fecha'. ";
+            reglas += "Este pozo se repartirá entre todas las fechas definidas para ese juego. " +
+                    "Habrá uno o varios ganadores en cada fecha, siempre que hayan obtenido la máxima puntuación dentro de cada fecha.\n";
+            reglas += "3 - El 10% del pozo total acumulado, se quedará como comisión de la casa.";
+        } else if (pollaHeader.getModePollaFlag() == 1) {
+            reglas = "Ud. ha seleccionado la  modalidad de Juego: 'Pozo Global'. ";
+            reglas += "La distribución de la premiación se basará según el pozo total acumulado entre todos los participantes.\n";
+            reglas += "1 - El 90% del pozo total acumulado, se repartirá a la modalidad de juego 'Pozo Global'. ";
+            reglas += "En esta modalidad solo se tendrá un ganador, o ganadores, los cuales obtuvieron la mas alta puntuación.\n";
+            reglas += "2 - El 30% del pozo total acumulado, se repartirá para el modo de juego 'Pozo por Fecha'. ";
+            reglas += "Este pozo se repartirá entre todas las fechas definidas para ese juego. " +
+                    "Habrá uno o varios ganadores en cada fecha, siempre que hayan obtenido la máxima puntuación dentro de cada fecha.\n";
+            reglas += "3 - El 10% del pozo total acumulado, se quedará como comisión de la casa.";
         } else {
-            reglas = "Ud. ha seleccionad la modalidad de Juego: 'Pozo por fecha'. ";
-            reglas+= "La distribucion de la premiacion se basara segun el pozo total acumulado entre todos los participantes. /n ";
-            reglas+= "1 - El 90% del pozo total acumulado, se repartira para el modo de juego 'Pozo por Fecha'.";
-            reglas+= "Este pozo se repartira entre todas las fechas definidas para ese juego. " +
-                     "Habra uno o varios ganadores en cada fecha, siempre que hayan obtenido la maxima puntuacion dentro de cada fecha.";
-            reglas+= "3 - El 10% del pozo total acumulado, se quedara como comision de la casa.";
+            reglas = "Ud. ha seleccionado la modalidad de Juego: 'Pozo por fecha'. ";
+            reglas += "La distribución de la premiación se basará según el pozo total acumulado entre todos los participantes.\n";
+            reglas += "1 - El 90% del pozo total acumulado, se repartirá para el modo de juego 'Pozo por Fecha'. ";
+            reglas += "Este pozo se repartirá entre todas las fechas definidas para ese juego. " +
+                    "Habrá uno o varios ganadores en cada fecha, siempre que hayan obtenido la máxima puntuación dentro de cada fecha.\n";
+            reglas += "2 - El 10% del pozo total acumulado, se quedará como comisión de la casa.";
 
         }
 

@@ -70,5 +70,8 @@ public class UserService {
         userDAO.changePassword(user);
     }
 
+    public void forgotPassword(String email) {
+
+    }
 }
 
