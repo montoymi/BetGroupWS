@@ -15,8 +15,13 @@ public class UserService {
     private UserDAO userDAO = new UserDAO(MyBatisSqlSession.getSqlSessionFactory());
 
     public User validateLogin(String username, String password) {
-        userDAO.validateLogin(username, password);
-        User user = userDAO.checkUsernameExists(username);
+        User user = userDAO.validateLogin(username, password);
+        if ( user == null ){
+            throw new ApplicationException("US009");
+            // Usuario no existe con esas credenciales. Porfavor, intente de nuevo.
+        } else {
+            user = userDAO.checkUsernameExists(username);
+        }
 
         return user;
 
