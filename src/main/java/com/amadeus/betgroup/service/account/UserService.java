@@ -48,6 +48,7 @@ public class UserService {
             throw new ApplicationException("No existe usuario registrado con ese email.");
         }
 
+        /*
         ParamValueService paramValueService = new ParamValueService();
         ParamValue paramValue = new ParamValue();
 
@@ -56,11 +57,15 @@ public class UserService {
         paramValue.setsAppCode("BETGROUPS");
         paramValue = paramValueService.getParaValueById(paramValue);
 
+*/
 
        // String message = userDAO.getForgotPassword(userId);
 //        String subject = paramValue.getParamValueString1();
+ //       String subject = "BetGroup Sports - Olvide Contrasenha";
+ //       String message = paramValue.getParamValueString1();
+
         String subject = "BetGroup Sports - Olvide Contrasenha";
-        String message = paramValue.getParamValueString1();
+        String message = userDAO.forgotPassword( user.getUserId() );
 
         EmailService.sendEmail( user.getEmail(), subject, message);
     }

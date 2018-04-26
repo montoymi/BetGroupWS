@@ -121,4 +121,18 @@ public class UserDAO {
         }
     }
 
+    public String forgotPassword ( int userId ){
+        SqlSession session = sqlSessionFactory.openSession();
+        String message;
+        try {
+            message = session.selectOne("User.forgotPassword", userId);
+            session.commit();
+
+        } finally {
+            session.close();
+        }
+        return message;
+
+    }
+
 }

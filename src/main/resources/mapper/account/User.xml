@@ -56,11 +56,18 @@
             #{username}, #{email}, md5(#{password}))
     </insert>
 
-    <select id="validateLogin" statementType="CALLABLE" parameterType="user" resultMap="selectResult">
+    <select id="validateLogin2" statementType="CALLABLE" parameterType="user" resultMap="selectResult">
         { call xx_validate_login (
             #{username, mode=IN, jdbcType=INTEGER},
             #{password, mode=IN, jdbcType=VARCHAR}
         )}
+    </select>
+
+    <select id="validateLogin" parameterType="user" resultMap="selectResult">
+        SELECT *
+          FROM users
+         WHERE trim(upper(nickname)) = trim(upper(#{username}))
+            AND user_password = md5(#{password});
     </select>
 
     <select id="checkUsernameExists" parameterType="User" resultMap="selectResult">
@@ -99,5 +106,13 @@
             user_password = md5(#{password})
         WHERE user_id = #{userId}
     </update>
+
+    <select id="forgotPassword" statementType="CALLABLE" parameterType="int" resultType="String">
+        { call xx_forgot_password (
+            #{ userId , mode=IN, jdbcType=INTEGER}
+
+        )}
+    </select>
+
 
 </mapper>

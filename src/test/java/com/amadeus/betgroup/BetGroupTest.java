@@ -42,17 +42,17 @@ public class BetGroupTest {
     public static void main(String args[]) throws Exception{
         try{
 
-//            UserService userService = new UserService();
-//            userService.forgotPassword("er.morales@gmail.com");
+     //       UserService userService = new UserService();
+      //      userService.forgotPassword("er.morales@gmail.com");
 
 
 //            opcionRegistrarUsuario();
             opcionActualizarPerfilUsuario();
-   //         opcionMisPollas();
+            opcionMisPollas();
    //         opcionCreditos();
     //        opcionAdminAdministrarEventos();
        //     opcionJuegosDisponibles();
-            opcionCrearJuego();
+   //         opcionCrearJuego();
          //   opcionMisPollas();
        //     opcionMisPollas();
 //            opcionAmigos();
