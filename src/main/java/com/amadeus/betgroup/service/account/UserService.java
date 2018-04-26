@@ -33,7 +33,7 @@ public class UserService {
         sendWelcomeEmail(user);
     }
 
-    public void forgotpassword( String email ){
+    public void forgotPassword( String email ){
 
         User user = userDAO.checkEmailExists(email);
         if  (user==null){
@@ -97,8 +97,5 @@ public class UserService {
         userDAO.changePassword(user);
     }
 
-    public void forgotPassword(String email) {
-
-    }
 }
 

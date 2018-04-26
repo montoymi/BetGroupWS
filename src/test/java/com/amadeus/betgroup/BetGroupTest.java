@@ -43,7 +43,7 @@ public class BetGroupTest {
         try{
 
             UserService userService = new UserService();
-            userService.forgotpassword("er.morales555@gmail.com");
+            userService.forgotPassword("er.morales555@gmail.com");
 
 
 //            opcionRegistrarUsuario();
