@@ -37,7 +37,7 @@
         ctt.id as transaction_type_id, ctt.description, ctt.transaction_type_code, ctt.user_description, ctt.transaction_sign,
   us.user_id, us.nickname, us.email_address, us.status, us.first_name, us.last_name
 FROM credit_transactions as ctr, credit_transaction_types as ctt, users as us
-WHERE ctr.transaction_type_id = ctt.id and  ctr.user_id = us.user_id  and  ctr.status = 0;
+WHERE ctr.transaction_type_id = ctt.id and  ctr.user_id = us.user_id  and  ctr.status = 0 order by ctr.id desc;
     </select>
 
     <select id="getCreditTransactionsByUserId" parameterType="int" resultMap="creditTransactionResult">
@@ -46,7 +46,7 @@ WHERE ctr.transaction_type_id = ctt.id and  ctr.user_id = us.user_id  and  ctr.s
                 created_by, creation_date, last_updated_by, last_updated_date,
                 ctt.id as transaction_type_id, ctt.description, ctt.transaction_type_code, ctt.user_description, ctt.transaction_sign
           FROM credit_transactions as ctr, credit_transaction_types as ctt
-          WHERE ctr.transaction_type_id = ctt.id and  user_id = #{userId}
+          WHERE ctr.transaction_type_id = ctt.id and  user_id = #{userId} order by ctr.id desc
     </select>
 
     <insert id="insertCreditTransaction" parameterType="CreditDetail" useGeneratedKeys="true" keyProperty="id">

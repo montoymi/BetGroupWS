@@ -15,15 +15,17 @@ public class FriendService {
 
     public void followFriend(int userId, int friendId) {
         Friend friend = new Friend();
-
         friend.setIdUser( userId );
         friend.setIdFriend( friendId );
 
-        if ( friendDAO.checkUserIsNotFriend(friend).size() !=0 ){
+        if ( userId == friendId ){
             //throw new ApplicationException("FR001");
+            System.out.println("Seleccione otro usuario a seguir que no sea el suyo. Proceso cancelado.");
+        }else if (friendDAO.checkUserIsNotFriend(friend).size() !=0) {
             System.out.println("Ud. ya tiene agregado a este usuario como amigo. Proceso cancelado.");
-        }else {
-            friendDAO.followFriend( friend );
+        }
+        else{
+                friendDAO.followFriend( friend );
         }
     }
 

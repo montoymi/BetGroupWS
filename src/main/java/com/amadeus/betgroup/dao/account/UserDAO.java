@@ -1,10 +1,13 @@
 package com.amadeus.betgroup.dao.account;
 
+import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.User;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserDAO {
     private SqlSessionFactory sqlSessionFactory;
@@ -58,10 +61,11 @@ public class UserDAO {
 
         try {
             user = session.selectOne("User.validateLogin", user);
+            session.commit();
+
         } finally {
             session.close();
         }
-
         return user;
     }
 

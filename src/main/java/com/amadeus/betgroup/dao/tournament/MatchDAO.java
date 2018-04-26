@@ -16,6 +16,18 @@ public class MatchDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
+    public List<Match> getMatchListWithBetsByUserId( int userId ){
+        SqlSession session = sqlSessionFactory.openSession();
+        List<Match> matchList;
+
+        try {
+            matchList = session.selectList("Match.getMatchListWithBetsByUserId", userId );
+        } finally {
+            session.close();
+        }
+        return matchList;
+    }
+
     public Match getFullMatchInfoByMatchId(int matchId){
         Match match;
         SqlSession session = sqlSessionFactory.openSession();

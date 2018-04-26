@@ -8,6 +8,11 @@
         <result property="templateDetailId" column="temp_detail_id"/>
         <result property="templateHeaderId" column="template_header_id"/>
         <result property="matchId" column="td_match_id"/>
+        <result property="templateEventId" column="template_event_id"/>
+        <result property="templateEvent.templateEventId" column="td_match_id"/>
+        <result property="templateEvent.eventNumber" column="td_match_id"/>
+        <result property="templateEvent.startDate" column="td_match_id"/>
+        <result property="templateEvent.endDate" column="td_match_id"/>
         <result property="match.matchId" column="id"/>
         <result property="match.matchCode" column="match_code"/>
         <result property="match.matchDate" column="match_date"/>

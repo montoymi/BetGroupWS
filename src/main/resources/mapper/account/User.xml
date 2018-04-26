@@ -53,21 +53,11 @@
             #{username}, #{email}, md5(#{password}))
     </insert>
 
-    <select id="validateLogin" parameterType="User" resultMap="selectResult">
-        select user_id,
-              nickname,
-              email_address,
-              user_token,
-              first_name,
-              last_name,
-              date_of_birth,
-              user_type,
-              last_login_date,
-              count_login,
-              status,
-              sex,
-              flg_notif_bets
-        from users where nickname = #{username} and user_password = md5(#{password})
+    <select id="validateLogin" statementType="CALLABLE" parameterType="user" resultMap="selectResult">
+        { call xx_validate_login (
+            #{username, mode=IN, jdbcType=INTEGER},
+            #{password, mode=IN, jdbcType=VARCHAR}
+        )}
     </select>
 
     <select id="checkUsernameExists" parameterType="User" resultMap="selectResult">

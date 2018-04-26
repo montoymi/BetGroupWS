@@ -60,5 +60,4 @@
         and pm.polla_header_id = #{pollaHeaderId};
 
     </select>
-
 </mapper>

@@ -50,4 +50,9 @@ public class PollaParticipantService {
             throw e;
         }
     }
+
+    public List<PollaParticipant> getRankingPollaByHeaderId( int pollaHeaderId ){
+        List<PollaParticipant> participantList = pollaParticipantsDAO.getRankingPollaByHeaderId(pollaHeaderId);
+        return participantList;
+    }
 }

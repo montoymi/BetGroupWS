@@ -12,6 +12,11 @@ public class MatchService {
     private MatchDAO matchDAO = new MatchDAO(MyBatisSqlSession.getSqlSessionFactory());
 
 
+    public List<Match> getMatchListWithBetsByUserId( int userId ){
+        List<Match> matchList = matchDAO.getMatchListWithBetsByUserId(userId);
+        return matchList;
+    }
+
     public Match getFullMatchInfoByMatchId(int match_id) {
         Match match = matchDAO.getFullMatchInfoByMatchId(match_id);
 

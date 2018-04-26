@@ -44,14 +44,14 @@ public class BetGroupTest {
 
 //            opcionRegistrarUsuario();
 //            opcionActualizarPerfilUsuario();
-//            opcionMisPollas();
-//            opcionCreditos();
-    //        opcionAdminAdministrarEventos();
-//            opcionCrearJuego();
             opcionMisPollas();
-//            opcionJuegosDisponibles();
+            opcionCreditos();
+            opcionAdminAdministrarEventos();
+            opcionJuegosDisponibles();
+            opcionCrearJuego();
             opcionMisPollas();
-  //          opcionAmigos();
+            opcionMisPollas();
+            opcionAmigos();
 
 
 
@@ -109,10 +109,6 @@ public class BetGroupTest {
             }
 
         }
-
-    }
-
-    private static void subOpcionVerListaAmigos( User user){
 
     }
 
@@ -477,6 +473,8 @@ public class BetGroupTest {
 
             for (int i=0; i < pollaBetList.size(); i++ ) {
                 PollaBet pollaBet = pollaBetList.get(i);
+
+
                 System.out.println( (i+1) + " - " + pollaBet.getPollaMatch().getMatch().getMatchId() + " - " + pollaBet.getPollaMatch().getMatch().getMatchCode() + ": " + pollaBet.getPollaMatch().getMatch().getLocalTeam().getTeamName()
                         + " vs "+ pollaBet.getPollaMatch().getMatch().getVisitorTeam().getTeamName() + " - Dia: " + pollaBet.getPollaMatch().getMatch().getMatchDate());
             }

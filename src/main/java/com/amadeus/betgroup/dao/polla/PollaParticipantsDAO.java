@@ -17,6 +17,19 @@ public class PollaParticipantsDAO {
     }
 
 
+    public List<PollaParticipant> getRankingPollaByHeaderId( int pollaHeaderId ){
+        SqlSession session = sqlSessionFactory.openSession();
+        List<PollaParticipant> pollaParticipantList;
+        try {
+            pollaParticipantList =session.selectList("PollaParticipants.getPollaRankingByPollaHeaderId", pollaHeaderId);
+            session.commit();
+        } finally {
+            session.close();
+        }
+
+        return pollaParticipantList;
+    }
+
     public PollaParticipant getPollaParticipantByPollaId(PollaParticipant pollaParticipant){
         SqlSession session = sqlSessionFactory.openSession();
 

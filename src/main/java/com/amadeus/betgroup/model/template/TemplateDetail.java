@@ -8,6 +8,24 @@ public class TemplateDetail {
     private Integer templateHeaderId;
     private Integer matchId;
     private Match match;
+    private Integer templateEventId;
+    private TemplateEvent templateEvent;
+
+    public Integer getTemplateEventId() {
+        return templateEventId;
+    }
+
+    public void setTemplateEventId(Integer templateEventId) {
+        this.templateEventId = templateEventId;
+    }
+
+    public TemplateEvent getTemplateEvent() {
+        return templateEvent;
+    }
+
+    public void setTemplateEvent(TemplateEvent templateEvent) {
+        this.templateEvent = templateEvent;
+    }
 
     public Integer getTemplateDetailId() {
         return templateDetailId;
