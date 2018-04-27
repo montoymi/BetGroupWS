@@ -23,7 +23,7 @@ public class MatchService {
         return match;
     }
 
-    public void updateMatchResult( int matchId, int scoreLocal, int scoreVisitor, String result, int userId )  throws ApplicationException {
+    public void updateMatchResult( int matchId, int scoreLocal, int scoreVisitor, String result, int userId ) {
         Match match = new Match();
         match.setMatchId( matchId );
         match.setScoreLocal( scoreLocal );

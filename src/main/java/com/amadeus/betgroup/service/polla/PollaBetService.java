@@ -10,7 +10,7 @@ import java.util.List;
 public class PollaBetService {
     private PollaBetDAO pollaBetDAO = new PollaBetDAO(MyBatisSqlSession.getSqlSessionFactory());
 
-    public void updatePollaBetByBetId (PollaBet pollaBet) throws ApplicationException {
+    public void updatePollaBetByBetId (PollaBet pollaBet) {
         try{
             pollaBetDAO.updatePollaBet(pollaBet);
         }catch( Exception e){
@@ -19,7 +19,7 @@ public class PollaBetService {
         }
     }
 
-    public List<PollaBet> getListBetsByParticipantId( int participantId ) throws ApplicationException {
+    public List<PollaBet> getListBetsByParticipantId( int participantId ) {
         List<PollaBet> pollaBetList;
         try{
             pollaBetList = pollaBetDAO.getListBetsByParticipantId( participantId );
