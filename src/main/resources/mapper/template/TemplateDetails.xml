@@ -9,10 +9,11 @@
         <result property="templateHeaderId" column="template_header_id"/>
         <result property="matchId" column="td_match_id"/>
         <result property="templateEventId" column="template_event_id"/>
-        <result property="templateEvent.templateEventId" column="td_match_id"/>
-        <result property="templateEvent.eventNumber" column="td_match_id"/>
-        <result property="templateEvent.startDate" column="td_match_id"/>
-        <result property="templateEvent.endDate" column="td_match_id"/>
+        <result property="templateEvent.templateEventId" column="event_id"/>
+        <result property="templateEvent.eventNumber" column="event_number"/>
+        <result property="templateEvent.startDate" column="timestamp_from"/>
+        <result property="templateEvent.endDate" column="timestamp_to"/>
+        <result property="templateEvent.status" column="status"/>
         <result property="match.matchId" column="id"/>
         <result property="match.matchCode" column="match_code"/>
         <result property="match.matchDate" column="match_date"/>

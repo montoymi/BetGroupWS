@@ -52,10 +52,10 @@ public class BetGroupTest {
    //         opcionCreditos();
     //        opcionAdminAdministrarEventos();
        //     opcionJuegosDisponibles();
-   //         opcionCrearJuego();
+            opcionCrearJuego();
          //   opcionMisPollas();
        //     opcionMisPollas();
-//            opcionAmigos();
+            opcionAmigos();
 
 
 
@@ -663,7 +663,7 @@ public class BetGroupTest {
         System.out.println( "Procediendo a crear juego");
         System.out.println( "Lista de plantillas habilitadas para creacion de Betgroup: ");
         TemplateHeaderService tempHeaderS = new TemplateHeaderService();
-        List<TemplateHeader> templateHeaderList = tempHeaderS.getAllTemplateHeaderList();
+        List<TemplateHeader> templateHeaderList = tempHeaderS.getAllActiveTemplateHeaderList();
         for (int i=0; i < templateHeaderList.size(); i++ ){
             System.out.println( (i+1) + ": " + templateHeaderList.get(i).getTemplateName());
         }

@@ -21,7 +21,7 @@ public class TemplateHeaderResource {
 
     @GET
     public Response getAllTemplateHeaderList() {
-        List<TemplateHeader> templateHeaderList = templateHeaderService.getAllTemplateHeaderList();
+        List<TemplateHeader> templateHeaderList = templateHeaderService.getAllActiveTemplateHeaderList();
         return Response.status(OK).entity(templateHeaderList).build();
     }
 }

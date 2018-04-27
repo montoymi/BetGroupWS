@@ -13,11 +13,11 @@ public class TemplateHeaderDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public List<TemplateHeader> getAllTemplateHeaderList(){
+    public List<TemplateHeader> getAllActiveTemplateHeaderList(){
         SqlSession session = sqlSessionFactory.openSession();
         List<TemplateHeader> templateHeaderList;
         try {
-            templateHeaderList =session.selectList("TemplateHeaders.getAllTemplateHeaderList");
+            templateHeaderList =session.selectList("TemplateHeaders.getAllActiveTemplateHeaderList");
             session.commit();
 
         } finally {

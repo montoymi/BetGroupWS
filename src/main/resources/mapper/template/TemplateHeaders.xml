@@ -16,7 +16,7 @@
         <result property="modePollaFlag" column="mode_polla_flg"/>
     </resultMap>
 
-    <select id="getAllTemplateHeaderList" resultMap="templateHeaderResult">
+    <select id="getAllActiveTemplateHeaderList" resultMap="templateHeaderResult">
         select * from template_headers where status = 1
     </select>
 

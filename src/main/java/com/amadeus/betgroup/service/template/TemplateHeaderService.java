@@ -10,8 +10,8 @@ public class TemplateHeaderService {
     private TemplateHeaderDAO templateHeaderDAO = new TemplateHeaderDAO(MyBatisSqlSession.getSqlSessionFactory());
 
 
-    public List<TemplateHeader> getAllTemplateHeaderList() {
-        List<TemplateHeader> templateHeaderList = templateHeaderDAO.getAllTemplateHeaderList();
+    public List<TemplateHeader> getAllActiveTemplateHeaderList() {
+        List<TemplateHeader> templateHeaderList = templateHeaderDAO.getAllActiveTemplateHeaderList();
         return templateHeaderList;
     }
 }
