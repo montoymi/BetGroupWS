@@ -1,6 +1,7 @@
 package com.amadeus.betgroup.service.account;
 
 import com.amadeus.betgroup.dao.account.FriendDAO;
+import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Friend;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaHeader;
@@ -19,13 +20,12 @@ public class FriendService {
         friend.setIdFriend( friendId );
 
         if ( userId == friendId ){
-            //throw new ApplicationException("FR001");
-            System.out.println("Seleccione otro usuario a seguir que no sea el suyo. Proceso cancelado.");
+            throw new ApplicationException("FR001"); // Seleccione otro usuario a seguir que no sea usted mismo. El proceso ha sido cancelado.
         }else if (friendDAO.checkUserIsNotFriend(friend).size() !=0) {
-            System.out.println("Ud. ya tiene agregado a este usuario como amigo. Proceso cancelado.");
+            throw new ApplicationException("FR002"); // Ud. ya tiene agregado a este usuario como amigo. El proceso ha sido cancelado.
         }
         else{
-                friendDAO.followFriend( friend );
+            friendDAO.followFriend( friend );
         }
     }
 
