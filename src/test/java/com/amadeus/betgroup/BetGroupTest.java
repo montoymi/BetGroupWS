@@ -116,7 +116,7 @@ public class BetGroupTest {
 
     }
 
-    private static void subOpcionDesvincularAmigo(User userBE) {
+    public static void subOpcionDesvincularAmigo(User userBE) {
         System.out.println( " Opcion Desvincular amigo ");
         FriendService friendService = new FriendService();
         List<Friend> friendList = friendService.getFriendListByUserId( userBE.getUserId() );
@@ -137,7 +137,7 @@ public class BetGroupTest {
         System.out.println( "Desvinculado satisfactoriamente");
     }
 
-    private static void subOpcionSeguirAmigo(User userBE) {
+    public static void subOpcionSeguirAmigo(User userBE) {
         UserService userService = new UserService();
         System.out.println( "******Opcion Seguir Amigo***************");
         System.out.println( "Lista de Usuarios registrados en el sistema: ");
@@ -508,29 +508,7 @@ public class BetGroupTest {
             pollaBetService.updatePollaBetByBetId(pollaBet);
             System.out.println( "Pronostico actualizado satisfactoriamente");
 
-            System.out.println( "********INVITAR AMIGOS*******************");
-            System.out.println( "Procediendo a invitar amigos al juego " + pollaHeader.getPollaName());
-            System.out.println( "Indique forma de invitar amigos al juego: ");
-            System.out.println( "1. Por correo electronico ");
-            System.out.println( "2. Por lista de amigos");
 
-            String sInvOptAmigos = in.nextLine();
-            Integer invOptAmigos = Integer.parseInt(sInvOptAmigos);
-
-            switch( invOptAmigos ){
-                case 1 : {
-                    subOpcionInvitarAmigoByEmail(userBE, pollaHeader);
-                    break;
-                }
-                case 2: {
-                    subOpcionInvitarAmigoByUserId( userBE, pollaHeader );
-                    break;
-                }
-                default: {
-                    System.out.println( "Opcion Incorrecta.");
-                    break;
-                }
-            }
 
 
 
@@ -539,34 +517,7 @@ public class BetGroupTest {
         }
     }
 
-    private static void subOpcionInvitarAmigoByUserId(User userBE, PollaHeader pollaHeader) {
-        FriendService friendService = new FriendService();
-        List<Friend> friendList = friendService.getFriendListByUserId( userBE.getUserId());
-        System.out.println( "Lista de amigos asociados a su cuenta: ");
-        for (int i = 0; i < friendList.size() ; i++) {
-            Friend friend = friendList.get(i);
-            System.out.println( "# " + (i+1) + friend.getUser().getUsername());
-        }
-        System.out.println( "Seleccione amigo a invitar:");
-        Scanner in = new Scanner(System.in);
-        String snumAmigo = in.nextLine();
-        Integer numAmigo = Integer.parseInt(snumAmigo);
 
-        Friend friend = friendList.get(numAmigo-1);
-        friendService.inviteFriendByUserId( userBE.getUserId(),friend.getIdUser(), pollaHeader.getPollaId());
-        System.out.println( "Amigo invitado satisfactoriamente.");
-
-    }
-
-    private static void subOpcionInvitarAmigoByEmail(User userBE, PollaHeader pollaHeader) {
-        FriendService friendService = new FriendService();
-        System.out.println( "Ingrese email de usuario a invitar: ");
-        Scanner in = new Scanner(System.in);
-        String email = in.nextLine();
-
-        friendService.inviteFriendByEmail(userBE.getUserId(), email, pollaHeader.getPollaId());
-        System.out.println( "Amigo invitado satisfactoriamente.");
-    }
 
     public static User signin(){
         System.out.println("*********LOGUEANDOSE AL SISTEMA*********************");

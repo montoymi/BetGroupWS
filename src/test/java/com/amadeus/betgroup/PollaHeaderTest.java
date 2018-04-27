@@ -1,10 +1,12 @@
 package com.amadeus.betgroup;
 
+import com.amadeus.betgroup.model.account.Friend;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaHeader;
 import com.amadeus.betgroup.model.polla.PollaParticipant;
 import com.amadeus.betgroup.model.template.TemplateDetail;
 import com.amadeus.betgroup.model.template.TemplateHeader;
+import com.amadeus.betgroup.service.account.FriendService;
 import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaParticipantService;
 import com.amadeus.betgroup.service.template.TemplateDetailService;
@@ -43,6 +45,10 @@ public class PollaHeaderTest {
                    // subOpcionMisJuegos();
                     break;
                 }
+                case "5": {
+                     subOpcionMisAmigos();
+                    break;
+                }
                 case "8": {
                     subOpcionPlantillas();
                     break;
@@ -60,6 +66,48 @@ public class PollaHeaderTest {
 
         }
 
+    }
+
+    private static void subOpcionMisAmigos() {
+        User userBE = BetGroupTest.signin();
+        FriendService friendS = new FriendService();
+        boolean flagSalir = false;
+
+        while (!flagSalir){
+            List<Friend> friendList = friendS.getFriendListByUserId( userBE.getUserId() );
+            System.out.println( "Imprimiendo lista de Amigos de " + userBE.getUsername() );
+            for (int i=0; i < friendList.size(); i++ ){
+                System.out.println( (i+1) + ": " + friendList.get(i).getAmigo().getUsername() + " | " + friendList.get(i).getAmigo().getFirstName() + " " + friendList.get(i).getAmigo().getLastName());
+            }
+            System.out.println( "Seleccione una opcion a realizar en la pantalla de Amigos: ");
+            System.out.println( "1. Seguir Amigo ");
+            System.out.println( "2. Desvincular Amigo");
+            System.out.println( "3. Salir");
+
+            Scanner in = new Scanner(System.in);
+            String sOption = in.nextLine();
+            Integer option = Integer.parseInt(sOption);
+
+            switch( option ){
+                case 1 : {
+                    BetGroupTest.subOpcionSeguirAmigo( userBE );
+                    break;
+                }
+                case 2: {
+                    BetGroupTest.subOpcionDesvincularAmigo( userBE );
+                    break;
+                }
+                case 3:{
+                    flagSalir = true;
+                    break;
+                }
+                default: {
+                    System.out.println( "Opcion Incorrecta.");
+                    break;
+                }
+            }
+
+        }
     }
 
     private static void subOpcionPlantillas() {
@@ -208,7 +256,62 @@ public class PollaHeaderTest {
     }
 
     private static void subOpcionInvitar(User userBE, PollaHeader pollaHeaderBE) {
+
+        System.out.println( "********INVITAR AMIGOS*******************");
+        System.out.println( "Procediendo a invitar amigos al juego " + pollaHeaderBE.getPollaName());
+        System.out.println( "Indique forma de invitar amigos al juego: ");
+        System.out.println( "1. Por correo electronico ");
+        System.out.println( "2. Por lista de amigos");
+        Scanner in = new Scanner(System.in);
+        String sInvOptAmigos = in.nextLine();
+        Integer invOptAmigos = Integer.parseInt(sInvOptAmigos);
+
+        switch( invOptAmigos ){
+            case 1 : {
+                subOpcionInvitarAmigoByEmail(userBE, pollaHeaderBE);
+                break;
+            }
+            case 2: {
+                subOpcionInvitarAmigoByUserId( userBE , pollaHeaderBE );
+                break;
+            }
+            default: {
+                System.out.println( "Opcion Incorrecta.");
+                break;
+            }
+        }
+
     }
+
+    private static void subOpcionInvitarAmigoByUserId(User userBE, PollaHeader pollaHeaderBE) {
+        FriendService friendService = new FriendService();
+        List<Friend> friendList = friendService.getFriendListByUserId( userBE.getUserId());
+        System.out.println( "Lista de amigos asociados a su cuenta: ");
+        for (int i = 0; i < friendList.size() ; i++) {
+            Friend friend = friendList.get(i);
+            System.out.println( "# " + (i+1) + friend.getUser().getUsername());
+        }
+        System.out.println( "Seleccione amigo a invitar:");
+        Scanner in = new Scanner(System.in);
+        String snumAmigo = in.nextLine();
+        Integer numAmigo = Integer.parseInt(snumAmigo);
+
+        Friend friend = friendList.get(numAmigo-1);
+        friendService.inviteFriendByUserId( userBE.getUserId(),friend.getIdUser(), pollaHeaderBE.getPollaId());
+        System.out.println( "Amigo invitado satisfactoriamente.");
+    }
+
+    private static void subOpcionInvitarAmigoByEmail(User userBE, PollaHeader pollaHeaderBE) {
+        FriendService friendService = new FriendService();
+        System.out.println( "Ingrese email de usuario a invitar: ");
+        Scanner in = new Scanner(System.in);
+        String email = in.nextLine();
+
+        friendService.inviteFriendByEmail(userBE.getUserId(), email, pollaHeaderBE.getPollaId());
+        System.out.println( "Amigo invitado satisfactoriamente.");
+
+    }
+
 
     private static void subOpcionParticipantes(User userBE, PollaHeader pollaHeaderBE) {
     }

@@ -63,7 +63,7 @@ public class FriendService {
         }
         message += " Este juego empieza el XXXXXXXX " ;
 
-        EmailService.sendEmail( invitado.getEmail(), subject, message);
+        EmailService.sendEmail( invitado==null?email:invitado.getEmail(), subject, message);
     }
 
     public void inviteFriendByUserId( int userId, int friendId, int pollaHeaderId ){
