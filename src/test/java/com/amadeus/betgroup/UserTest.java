@@ -37,7 +37,7 @@ public class UserTest extends JerseyTest {
 
     @Test
     public void testValidateUser() {
-        WebTarget target = target().path("users").queryParam("username", "admin").queryParam("password", "test1");
+        WebTarget target = target().path("users").queryParam("username", "Kcire").queryParam("password", "bacardi1");
         Response response = target.request(MediaType.APPLICATION_JSON).get();
 
         assertEquals(200, response.getStatus());

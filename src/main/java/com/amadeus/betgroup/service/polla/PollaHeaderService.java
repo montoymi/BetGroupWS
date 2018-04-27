@@ -38,7 +38,7 @@ public class PollaHeaderService {
         }
     }
 
-    public void crearPolla(PollaHeader pollaHeader) throws ApplicationException {
+    public void crearPolla(PollaHeader pollaHeader) {
         try {
             CreditService creditS = new CreditService();
             //TODO: Revisar proceso de creditos
