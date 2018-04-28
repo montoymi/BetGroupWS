@@ -6,6 +6,7 @@ import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.CreditDetail;
 import com.amadeus.betgroup.model.account.Friend;
 import com.amadeus.betgroup.model.account.User;
+import com.amadeus.betgroup.model.config.SlideIonic;
 import com.amadeus.betgroup.model.polla.PollaBet;
 import com.amadeus.betgroup.model.polla.PollaHeader;
 import com.amadeus.betgroup.model.polla.PollaMatch;
@@ -19,6 +20,7 @@ import com.amadeus.betgroup.model.tournament.Tournament;
 import com.amadeus.betgroup.service.account.CreditService;
 import com.amadeus.betgroup.service.account.FriendService;
 import com.amadeus.betgroup.service.account.UserService;
+import com.amadeus.betgroup.service.admin.AdminService;
 import com.amadeus.betgroup.service.polla.PollaBetService;
 import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaMatchService;
@@ -42,7 +44,18 @@ public class BetGroupTest {
     public static void main(String args[]) throws Exception{
         try{
 
-     //       UserService userService = new UserService();
+            AdminService adminService = new AdminService();
+            List<SlideIonic> slideIonicList = adminService.getSlidesforInicioPage("en");
+            for (int i = 0; i < slideIonicList.size(); i++) {
+                SlideIonic slide = slideIonicList.get(i);
+                System.out.println("" + slide.getTitle() + " / " + slide.getDescription() + " / " + slide.getImage() );
+            }
+
+            //adminService.notifyUsersOfBetsByMatchId();
+
+
+
+            //       UserService userService = new UserService();
       //      userService.forgotPassword("er.morales@gmail.com");
 
 
@@ -59,8 +72,7 @@ public class BetGroupTest {
 
 
 
-    //        AdminService adminService = new AdminService();
-     //       adminService.notifyUsersOfBetsByMatchId();
+
 
         } catch( Exception e ){
             e.printStackTrace();

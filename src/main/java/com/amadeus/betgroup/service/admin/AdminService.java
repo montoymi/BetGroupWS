@@ -1,9 +1,36 @@
 package com.amadeus.betgroup.service.admin;
 
+import com.amadeus.betgroup.model.config.ParamValue;
+import com.amadeus.betgroup.model.config.SlideIonic;
 import com.amadeus.betgroup.service.commons.EmailService;
+import com.amadeus.betgroup.service.config.ParamValueService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminService {
 
+
+    public List<SlideIonic> getSlidesforInicioPage(String lang){
+        ParamValueService paramValueService = new ParamValueService();
+
+        ParamValue paramValue = new ParamValue();
+        paramValue.setsAppCode("BETGROUP");
+        paramValue.setsParamType("SLIDES_INICIO");
+        List<ParamValue> paramValueList = paramValueService.getParamValueList(paramValue);
+        List<SlideIonic> slideIonicList = new ArrayList<>();
+
+        for (int i = 0; i < paramValueList.size(); i++) {
+            paramValue = paramValueList.get(i);
+            SlideIonic slide = new SlideIonic();
+            slide.setTitle( paramValue.getParamValueString1());
+            slide.setDescription(paramValue.getParamValueString2());
+            slide.setImage( paramValue.getParamValueString3());
+            slideIonicList.add(slide);
+        }
+
+        return slideIonicList;
+    }
 
     public void notifyUsersOfBetsByMatchId(  ){
 // Obtener todas las pollas activas o en juego que tengan asociadas un especifico match.
