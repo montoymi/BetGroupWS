@@ -19,7 +19,14 @@
     <select id="selectParamValueByParamCode" parameterType="ParamValue" resultMap="paramValueResult">
         SELECT *
         FROM param_values
-        WHERE app_code = #{sAppCode} and param_type = #{sParamType} and app_code = #{sAppCode}
+        WHERE app_code = #{sAppCode} and param_type = #{sParamType} and param_code = #{paramCode}
     </select>
+
+    <select id="selectListParamValueByParamCode" parameterType="ParamValue" resultMap="paramValueResult">
+        SELECT *
+        FROM param_values
+        WHERE app_code = #{sAppCode} and param_type = #{sParamType} ORDER BY param_code;
+    </select>
+
 
 </mapper>
