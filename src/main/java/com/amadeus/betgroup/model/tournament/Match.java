@@ -24,6 +24,8 @@ public class Match {
     private Date lastUpdatedDate;
     private Integer lastUpdatedBy;
 
+    private String image;
+
     public String getMatchCode() {
         return matchCode;
     }

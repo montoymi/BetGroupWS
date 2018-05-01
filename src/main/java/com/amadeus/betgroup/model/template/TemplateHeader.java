@@ -2,6 +2,8 @@ package com.amadeus.betgroup.model.template;
 
 import com.amadeus.betgroup.model.tournament.Sport;
 
+import java.util.Date;
+
 public class TemplateHeader {
 
     private Integer templateHeaderId;
@@ -14,6 +16,24 @@ public class TemplateHeader {
     private Integer modeWildcardFlag;
     private Integer modePollitaFlag;
     private Integer modePollaFlag;
+    private Date startDate;
+    private Date endDate;
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
     public String getImage() {
         return image;

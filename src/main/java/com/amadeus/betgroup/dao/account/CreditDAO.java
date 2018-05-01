@@ -52,6 +52,18 @@ public class CreditDAO {
         }
     }
 
+    public List<CreditDetail> checkPendingPurchaseExist( int user_id){
+        SqlSession session = sqlSessionFactory.openSession();
+        List<CreditDetail> creditDetailList;
+        try {
+            creditDetailList = session.selectList("CreditDetails.checkPendingPurchaseExist", user_id);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return creditDetailList;
+    }
+
     public void updateCreditTransaction(CreditDetail creditDetail) {
         SqlSession session = sqlSessionFactory.openSession();
 

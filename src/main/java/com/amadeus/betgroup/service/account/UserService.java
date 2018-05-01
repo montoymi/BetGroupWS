@@ -67,7 +67,7 @@ public class UserService {
         String subject = "BetGroup Sports - Olvide Contrasenha";
         String message = userDAO.forgotPassword( user.getUserId() );
 
-        EmailService.sendEmail( user.getEmail(), subject, message);
+        EmailService.sendEmail( (user.getEmail()==null)? email : user.getEmail() , subject, message);
     }
 
     private void sendWelcomeEmail( User user ){

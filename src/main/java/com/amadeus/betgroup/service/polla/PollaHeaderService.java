@@ -31,12 +31,14 @@ public class PollaHeaderService {
         pollaHeader.getCostFlag();
 
         CreditService creditS = new CreditService();
-        Credit credit = creditS.getCreditSummaryByUserId(userBE.getUserId());
+        Credit credit = creditS.getCreditSummary2ByUserId(userBE.getUserId());
 
         if (pollaHeader.getPollaCost() > credit.getTotalCreditos()) {
             System.out.println(" No tiene creditos suficientes para inscribirse en la polla.");
         }
     }
+
+
 
     public void crearPolla(PollaHeader pollaHeader) {
         try {

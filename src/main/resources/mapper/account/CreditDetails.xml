@@ -14,11 +14,11 @@
         <result property="comments" column="comments"/>
         <result property="userId" column="user_id"/>
         <result property="user.userId" column="user_id"/>
-        <result property="user.username" column="user_id"/>
-        <result property="user.email" column="user_id"/>
-        <result property="user.status" column="user_id"/>
-        <result property="user.firstName" column="user_id"/>
-        <result property="user.lastName" column="user_id"/>
+        <result property="user.username" column="nickname"/>
+        <result property="user.email" column="email_address"/>
+        <result property="user.status" column="user_status"/>
+        <result property="user.firstName" column="first_name"/>
+        <result property="user.lastName" column="last_name"/>
         <result property="createdBy" column="created_by"/>
         <result property="creationDate" column="creation_date"/>
         <result property="lastUpdatedBy" column="last_updated_by"/>
@@ -30,12 +30,19 @@
         <result property="creditTransationType.userDescription" column="user_description"/>
     </resultMap>
 
+
+    <select id="checkPendingPurchaseExist" resultMap="creditTransactionResult">
+        SELECT  *
+        FROM credit_transactions as ctr
+        WHERE ctr.user_id = #{user_id} and  ctr.status = 0 and ctr.transaction_type_id = 1;
+    </select>
+
     <select id="getAllPendingCreditTransactions" resultMap="creditTransactionResult">
         SELECT  ctr.id as credit_transaction_id, transaction_type_id as credit_transaction_type_id,
   transaction_date, credit_amount, ctr.status, comments, ctr.user_id,
   created_by, creation_date, last_updated_by, last_updated_date,
         ctt.id as transaction_type_id, ctt.description, ctt.transaction_type_code, ctt.user_description, ctt.transaction_sign,
-  us.user_id, us.nickname, us.email_address, us.status, us.first_name, us.last_name
+  us.user_id, us.nickname, us.email_address, us.status as user_status, us.first_name, us.last_name
 FROM credit_transactions as ctr, credit_transaction_types as ctt, users as us
 WHERE ctr.transaction_type_id = ctt.id and  ctr.user_id = us.user_id  and  ctr.status = 0 order by ctr.id desc;
     </select>

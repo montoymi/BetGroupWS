@@ -44,31 +44,18 @@ public class BetGroupTest {
     public static void main(String args[]) throws Exception{
         try{
 
-            AdminService adminService = new AdminService();
-            List<SlideIonic> slideIonicList = adminService.getSlidesforInicioPage("en");
-            for (int i = 0; i < slideIonicList.size(); i++) {
-                SlideIonic slide = slideIonicList.get(i);
-                System.out.println("" + slide.getTitle() + " / " + slide.getDescription() + " / " + slide.getImage() );
-            }
-
             //adminService.notifyUsersOfBetsByMatchId();
-
-
-
-            //       UserService userService = new UserService();
-      //      userService.forgotPassword("er.morales@gmail.com");
-
-
+            opcionForgotPassword();
 //            opcionRegistrarUsuario();
-            opcionActualizarPerfilUsuario();
-            opcionMisPollas();
+    //        opcionActualizarPerfilUsuario();
+     //       opcionMisPollas();
    //         opcionCreditos();
     //        opcionAdminAdministrarEventos();
-       //     opcionJuegosDisponibles();
+            opcionJuegosDisponibles();
             opcionCrearJuego();
          //   opcionMisPollas();
        //     opcionMisPollas();
-            opcionAmigos();
+         //   opcionAmigos();
 
 
 
@@ -79,8 +66,21 @@ public class BetGroupTest {
         }
     }
 
+    private static void opcionForgotPassword() {
+        System.out.println( "*******OLVIDE PASSWORD**************");
+        Scanner in = new Scanner(System.in);
+
+        System.out.println( "Porfavor, Ingrese su password:");
+        String email = in.nextLine();
+
+        UserService userService = new UserService();
+        userService.forgotPassword(email);
+
+    }
+
     private static void opcionAmigos() {
         System.out.println( "*******AMIGOS**************");
+
         User userBE = signin();
         FriendService friendS = new FriendService();
 
@@ -177,7 +177,7 @@ public class BetGroupTest {
         boolean flagSalir = false;
         while ( !flagSalir) {
             CreditService creditService = new CreditService();
-            Credit credit = creditService.getCreditSummaryByUserId(userBE.getUserId());
+            Credit credit = creditService.getCreditDetailByUserId(userBE.getUserId());
             credit.setUser( userBE );
             System.out.println( "*********************");
             System.out.println( "Resumen de creditos de usuario: " + userBE.getUsername() );
@@ -243,7 +243,7 @@ public class BetGroupTest {
 
         for (int i = 0; i < creditDetailList.size(); i++) {
             CreditDetail   creditDetail = creditDetailList.get(i);
-            System.out.println( "# " + (i+1) + " - ID: " + creditDetail.getCreditDetailId() + " - Ammount: " + creditDetail.getCreditAmount() +
+            System.out.println( "# " + (i+1) + " - " + creditDetail.getUser().getUsername() + " ID: " + creditDetail.getCreditDetailId() + " - Ammount: " + creditDetail.getCreditAmount() +
                                 "Trx Type Code: " + creditDetail.getCreditTransationType().getTransactionTypeCode() +
                                 "Trx Description: " + creditDetail.getCreditTransationType().getUserDescription() +
                                 "Trx Date: " + creditDetail.getTransactionDate() + " Status - " + creditDetail.getStatus());
@@ -279,7 +279,7 @@ public class BetGroupTest {
         creditDetail.setStatus( 0 ); // 2pending to be approved by ADMIN
         creditDetail.setUserId(userBE.getUserId());
 
-        creditService.addCreditTransaction( creditDetail );
+        creditService.comprarCreditos( creditDetail );
         System.out.println( "Creditos anhadidos satisfactoriamente....");
     }
 
@@ -299,7 +299,7 @@ public class BetGroupTest {
         creditDetail.setUserId( credit.getUserId() );
         creditDetail.setCredit(credit);
 
-        creditService.addCreditTransaction(creditDetail);
+        creditService.cobrarCreditos(creditDetail);
         System.out.println( "Creditos cobrados satisfactoriamente....");
     }
 

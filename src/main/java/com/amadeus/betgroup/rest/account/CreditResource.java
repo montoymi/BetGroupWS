@@ -19,13 +19,19 @@ public class CreditResource {
 
     @GET
     public Response getCreditSummaryByUserId(@QueryParam("user-id") int userId) {
-        Credit credit = creditService.getCreditSummaryByUserId(userId);
+        Credit credit = creditService.getCreditDetailByUserId(userId);
         return Response.status(OK).entity(credit).build();
     }
 
     @POST
-    public Response addCreditTransaction(CreditDetail creditDetail) {
-        creditService.addCreditTransaction(creditDetail);
+    public Response comprarCreditos(CreditDetail creditDetail) {
+        creditService.comprarCreditos(creditDetail);
+        return Response.status(CREATED).entity(creditDetail).build();
+    }
+
+    @POST
+    public Response cobrarCreditos(CreditDetail creditDetail) {
+        creditService.cobrarCreditos(creditDetail);
         return Response.status(CREATED).entity(creditDetail).build();
     }
 }
