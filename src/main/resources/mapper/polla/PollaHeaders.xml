@@ -65,7 +65,7 @@
     <select id="validatePollaPassword" parameterType="PollaHeader" resultType="int">
         SELECT count(1)
         FROM polla_headers ph
-        WHERE ph.id = #{pollaId} AND ph.password = md5(#{password})
+        WHERE ph.id = #{pollaId} AND ph.password = #{password}
     </select>
 
 

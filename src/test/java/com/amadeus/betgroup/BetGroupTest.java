@@ -48,11 +48,11 @@ public class BetGroupTest {
             opcionForgotPassword();
 //            opcionRegistrarUsuario();
     //        opcionActualizarPerfilUsuario();
-     //       opcionMisPollas();
-   //         opcionCreditos();
+   //         opcionMisPollas();
+   //        opcionCreditos();
     //        opcionAdminAdministrarEventos();
             opcionJuegosDisponibles();
-            opcionCrearJuego();
+     //       opcionCrearJuego();
          //   opcionMisPollas();
        //     opcionMisPollas();
          //   opcionAmigos();
@@ -421,7 +421,7 @@ public class BetGroupTest {
             System.out.println("# Eventos: " + pollaMatchList.size());
             System.out.println("Estado: ");
             System.out.println("Puntos acumulados: ");
-
+/*
             System.out.println( "*********************");
             System.out.println( "*******REGLAS**************");
 
@@ -478,7 +478,7 @@ public class BetGroupTest {
 
             System.out.println( "*********************");
             System.out.println( "actualizando pronosticos para usuario: " + userBE.getUsername());
-
+*/
 
             System.out.println("Listado de Eventos a pronosticar: ");
             PollaBetService pollaBetService = new PollaBetService();

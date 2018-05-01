@@ -11,7 +11,7 @@ import java.util.List;
 public class CreditService {
     private CreditDAO creditDAO = new CreditDAO(MyBatisSqlSession.getSqlSessionFactory());
 
-    public Credit getCreditSummary2ByUserId(int userId) {
+    public Credit getCreditSummaryByUserId(int userId) {
         Credit creditHeader = creditDAO.getCreditSummaryByUserID(userId);
         return creditHeader;
     }

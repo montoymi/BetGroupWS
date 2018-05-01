@@ -7,6 +7,7 @@ import com.amadeus.betgroup.model.polla.PollaParticipant;
 import com.amadeus.betgroup.model.template.TemplateDetail;
 import com.amadeus.betgroup.model.template.TemplateHeader;
 import com.amadeus.betgroup.service.account.FriendService;
+import com.amadeus.betgroup.service.admin.AdminService;
 import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaParticipantService;
 import com.amadeus.betgroup.service.template.TemplateDetailService;
@@ -21,6 +22,7 @@ public class PollaHeaderTest {
         boolean flagSalir = false;
         while ( !flagSalir ){
             System.out.println( "Seleccione una de las siguientes opciones: ");
+            System.out.println( "0. Inicio");
             System.out.println( "1. Mis Juegos");
             System.out.println( "2. Juegos Disponibles");
             System.out.println( "3. Crear Juegos");
@@ -37,7 +39,10 @@ public class PollaHeaderTest {
 
             switch ( sOption ){
 
-                case "1": {
+                case "0": {
+                    subOpcionInicio();
+                    break;
+                }case "1": {
                     subOpcionMisJuegos();
                     break;
                 }
@@ -65,6 +70,12 @@ public class PollaHeaderTest {
 
 
         }
+
+    }
+
+    private static void subOpcionInicio() {
+        AdminService adminService = new AdminService();
+       // adminService
 
     }
 

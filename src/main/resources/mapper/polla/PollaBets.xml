@@ -25,7 +25,7 @@
         <result property="pollaMatch.match.resultMatch" column="result_match"/>
         <result property="pollaMatch.match.scoreLocal" column="local_score"/>
         <result property="pollaMatch.match.scoreVisitor" column="visitor_score"/>
-        <result property="pollaMatch.match.enabled_flag" column="status"/>
+        <result property="pollaMatch.match.enabled_flag" column="match_status"/>
         <result property="pollaMatch.match.localId" column="match_local_team_id"/>
         <result property="pollaMatch.match.localTeam.teamId" column="local_team_id"/>
         <result property="pollaMatch.match.localTeam.teamName" column="local_team_name"/>
@@ -72,7 +72,7 @@
             m.result_match,
             m.local_score,
             m.visitor_score,
-            m.status,
+            m.status                AS match_status,
             m.local_team_id,
             tl.team_name            AS local_team_name,
             tl.image                AS image_local,
