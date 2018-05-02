@@ -45,7 +45,8 @@ public class UserService {
 
         User user = userDAO.checkEmailExists(email);
         if  (user==null){
-            throw new ApplicationException("No existe usuario registrado con ese email.");
+            throw new ApplicationException("USR005");
+            //No existe usuario registrado con ese email
         }
 
         /*
