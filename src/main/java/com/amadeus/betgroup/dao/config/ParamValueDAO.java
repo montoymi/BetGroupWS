@@ -1,10 +1,13 @@
 package com.amadeus.betgroup.dao.config;
 
 import com.amadeus.betgroup.model.config.ParamValue;
+import com.amadeus.betgroup.model.config.SlideIonic;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ParamValueDAO {
     private SqlSessionFactory sqlSessionFactory;
@@ -41,4 +44,16 @@ public class ParamValueDAO {
 
     }
 
+    public List<ParamValue> selectInitSlideIonicList(String lang) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<ParamValue> paramValueList;
+        try {
+            paramValueList = session.selectList("ParamValues.selectSlideListInicio", lang);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return paramValueList;
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.amadeus.betgroup.model.config;
 
 public class SlideIonic {
+    private String numSlide;
     private String title;
     private String description;
 
@@ -26,6 +27,14 @@ public class SlideIonic {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getNumSlide() {
+        return numSlide;
+    }
+
+    public void setNumSlide(String numSlide) {
+        this.numSlide = numSlide;
     }
 
     private String image;

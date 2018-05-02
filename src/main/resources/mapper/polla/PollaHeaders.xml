@@ -31,6 +31,7 @@
     <select id="getMisPollasByUserId" parameterType="int" resultMap="selectResult">
         SELECT ph.* FROM polla_headers AS ph, polla_participants AS pp
         WHERE ph.id = pp.polla_header_id AND pp.user_id = #{userId} and ph.status = 1
+        ORDER BY ph.start_date, end_date, polla_name
     </select>
 
     <select id="getPollasDisponiblesByUserId" parameterType="PollaHeader" resultMap="selectResult">
@@ -39,6 +40,7 @@
         from polla_participants pp
         where pp.polla_header_id = ph.id
         and pp.user_id = #{userId} ) and ph.status = 1
+        order by ph.start_date, ph.end_date, ph.polla_name
     </select>
 
     <select id="createBetGroup" statementType="CALLABLE" parameterType="map">

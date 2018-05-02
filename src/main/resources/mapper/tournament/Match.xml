@@ -50,6 +50,30 @@
         <result property="group.phase.tournament.sport.logo" column="logo"/>
     </resultMap>
 
+    <select id="getMatchListWithBetsByUserId"  parameterType="int" resultMap="matchResult">
+        SELECT DISTINCT sp.id  as ssport_id, sp.code, sp.name, sp.logo,
+        t.id as ttournament_id, t.sport_id, t.tournament_name, t.status as tourna_status, t.start_date as tourna_start_date,
+        p.id as pphase_id, p.tournament_id, p.phase_name, p.phase_order, p.status as phase_status,
+        g.id as ggroup_id, g.phase_id, g.group_name, g.group_order, g.status as group_status, g.group_code,
+        m.id, m.group_id,
+        m.local_team_id, tl.team_name as local_team_name, tl.image as image_local,
+        m.visitor_team_id, tv.team_name as visitor_team_name, tv.image as image_visitor,
+        m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_place, m.match_code, m.status as match_status
+        FROM polla_participants AS pp, polla_bets AS pb, polla_matches AS pm,
+            matchs AS m, teams as tl, teams as tv, groups as g, phases as p, tournaments as t, sports as sp
+       WHERE  m.local_team_id = tl.id
+        and sp.id = t.sport_id
+        and m.visitor_team_id = tv.id
+        and m.group_id = g.id
+        and g.phase_id = p.id
+        and p.tournament_id = t.id and pm.match_id= m.id and
+             pm.id = pb.polla_match_id AND
+             pp.id = pb.polla_participant_id AND
+             pp.user_id = #{userId} AND m.match_date > now() and m.status = 1
+      order by m.match_date;
+    </select>
+
+
     <select id="selectAllMatchesByGroupId" parameterType="map" resultMap="matchResult">
         select sp.id as ssport_id, sp.code, sp.name, sp.logo,
                t.id as ttournament_id, t.sport_id, t.tournament_name, t.status as tourna_status, t.start_date as tourna_start_date,
@@ -164,27 +188,6 @@
         )}
     </update>
 
-    <select id="getMatchListWithBetsByUserId"  parameterType="int" resultMap="matchResult">
-        SELECT DISTINCT sp.id, sp.code, sp.name, sp.logo,
-        t.id, t.sport_id, t.tournament_name, t.status, t.start_date,
-        p.id, p.tournament_id, p.phase_name, p.phase_order, p.status,
-        g.id, g.phase_id, g.group_name, g.status, g.group_code,
-        m.id, m.group_id,
-        m.local_team_id, tl.team_name as local_team_name, tl.image as image_local,
-        m.visitor_team_id, tv.team_name as visitor_team_name, tv.image as image_visitor,
-        m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_place, m.match_code, m.status
-        FROM polla_participants AS pp, polla_bets AS pb, polla_matches AS pm,
-            matchs AS m, teams as tl, teams as tv, groups as g, phases as p, tournaments as t, sports as sp
-       WHERE  m.local_team_id = tl.id
-        and sp.id = t.sport_id
-        and m.visitor_team_id = tv.id
-        and m.group_id = g.id
-        and g.phase_id = p.id
-        and p.tournament_id = t.id and pm.match_id= m.id and
-             pm.id = pb.polla_match_id AND
-             pp.id = pb.polla_participant_id AND
-             pp.user_id = #{userId} AND m.match_date > now();
-    </select>
 
 
 </mapper>

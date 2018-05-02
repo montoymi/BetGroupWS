@@ -5,6 +5,7 @@ import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.polla.PollaBet;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 
+import java.util.Date;
 import java.util.List;
 
 public class PollaBetService {
@@ -12,9 +13,13 @@ public class PollaBetService {
 
     public void updatePollaBetByBetId (PollaBet pollaBet) {
         try{
-            pollaBetDAO.updatePollaBet(pollaBet);
+            if (  (new Date()).after( pollaBet.getPollaMatch().getMatch().getMatchDate() ) ){
+                throw new ApplicationException("BET001");
+                //Este pronostico no puede ser actualizado, dado que el evento ya empezo segun la fecha y hora actual definidos.
+            } else{
+                pollaBetDAO.updatePollaBet(pollaBet);
+            }
         }catch( Exception e){
-            e.printStackTrace();
             throw e;
         }
     }

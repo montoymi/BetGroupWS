@@ -2,6 +2,7 @@ package com.amadeus.betgroup;
 
 import com.amadeus.betgroup.model.account.Friend;
 import com.amadeus.betgroup.model.account.User;
+import com.amadeus.betgroup.model.config.SlideIonic;
 import com.amadeus.betgroup.model.polla.PollaHeader;
 import com.amadeus.betgroup.model.polla.PollaParticipant;
 import com.amadeus.betgroup.model.template.TemplateDetail;
@@ -75,8 +76,16 @@ public class PollaHeaderTest {
 
     private static void subOpcionInicio() {
         AdminService adminService = new AdminService();
-       // adminService
+        List<SlideIonic> slideIonicList = adminService.getSlidesforInicioPage("en");
+        System.out.println( "Lista de Slides Ionic pagina Inicio");
 
+        for (int i = 0; i < slideIonicList.size(); i++) {
+            SlideIonic slide = slideIonicList.get(i);
+            System.out.println( " slide # " + slide.getNumSlide());
+            System.out.println( " title # " + slide.getTitle());
+            System.out.println( " description # " + slide.getDescription());
+            System.out.println( " image # " + slide.getImage());
+        }
     }
 
     private static void subOpcionMisAmigos() {

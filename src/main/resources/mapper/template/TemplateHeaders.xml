@@ -20,7 +20,7 @@
     </resultMap>
 
     <select id="getAllActiveTemplateHeaderList" resultMap="templateHeaderResult">
-        select * from template_headers where status = 1
+        select * from template_headers where status = 1 order by start_date, end_date, template_header_name
     </select>
 
 </mapper>
