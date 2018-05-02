@@ -16,6 +16,10 @@ public class AdminService {
         return slideIonicList;
     }
 
+    public void contactenos( int user_id, String asunto, String mensaje ){
+        
+    }
+
 
 
     public void notifyUsersOfBetsByMatchId(  ){
