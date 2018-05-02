@@ -3,6 +3,7 @@ package com.amadeus.betgroup.rest.account;
 import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.CreditDetail;
 import com.amadeus.betgroup.service.account.CreditService;
+import org.apache.ibatis.annotations.Param;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -24,12 +25,14 @@ public class CreditResource {
     }
 
     @POST
+    @Path("/comprar")
     public Response comprarCreditos(CreditDetail creditDetail) {
         creditService.comprarCreditos(creditDetail);
         return Response.status(CREATED).entity(creditDetail).build();
     }
 
     @POST
+    @Path("/cobrar")
     public Response cobrarCreditos(CreditDetail creditDetail) {
         creditService.cobrarCreditos(creditDetail);
         return Response.status(CREATED).entity(creditDetail).build();
