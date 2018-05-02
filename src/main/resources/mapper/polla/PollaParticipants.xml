@@ -13,8 +13,8 @@
         <result property="earnings" column="earnings"/>
         <result property="position" column="position"/>
         <result property="status" column="status"/>
-        <result property="numWildCardsLeft" column="status"/>
-        <result property="numWildCards" column="status"/>
+        <result property="numWildCardsLeft" column="num_wildcards_left"/>
+        <result property="numWildCards" column="num_wildcards"/>
         <association property="user" resultMap="userResult"/>
     </resultMap>
     <resultMap id="userResult" type="User">
@@ -25,6 +25,8 @@
         <result property="lastName" column="last_name"/>
 
     </resultMap>
+
+
     <select id="getPollaRankingByPollaHeaderId" parameterType="int" resultMap="participantsResult">
         select pp.polla_header_id, pp.position, pp.id, pp.num_wildcards, pp.num_wildcards_left,
                pp.id,
@@ -40,7 +42,7 @@
 
     <select id="getPollaParticipantByPollaId" parameterType="PollaParticipant" resultMap="participantsResult">
         SELECT pp.id, pp.polla_header_id, pp.inscription_date, pp.admin_payment_status, pp.total,
-              pp.earnings, pp.position, pp.status,
+              pp.earnings, pp.position, pp.status, pp.num_wildcards_left
               aa.user_id, aa.first_name, aa.last_name, aa.email_address, aa.nickname
          FROM polla_participants AS pp, users AS aa
         WHERE pp.user_id = aa.user_id  AND pp.polla_header_id = #{pollaHeaderId} AND pp.user_id = #{user.userId}

@@ -21,6 +21,8 @@ public class PollaHeaderTest {
 
     public static void main ( String args[] ) throws Exception{
         boolean flagSalir = false;
+        User userBE = BetGroupTest.signin();
+
         while ( !flagSalir ){
             System.out.println( "Seleccione una de las siguientes opciones: ");
             System.out.println( "0. Inicio");
@@ -44,15 +46,19 @@ public class PollaHeaderTest {
                     subOpcionInicio();
                     break;
                 }case "1": {
-                    subOpcionMisJuegos();
+                    subOpcionMisJuegos( userBE );
                     break;
                 }
                 case "2": {
-                   // subOpcionMisJuegos();
+                    subOpcionJuegosDisponibles( userBE );
+                    break;
+                }
+                case "3": {
+//                    subOpcionMisAmigos( userBE );
                     break;
                 }
                 case "5": {
-                     subOpcionMisAmigos();
+  //                   subOpcionMisAmigos( userBE );
                     break;
                 }
                 case "8": {
@@ -74,6 +80,10 @@ public class PollaHeaderTest {
 
     }
 
+    private static void subOpcionJuegosDisponibles(User userBE){
+
+    }
+
     private static void subOpcionInicio() {
         AdminService adminService = new AdminService();
         List<SlideIonic> slideIonicList = adminService.getSlidesforInicioPage("en");
@@ -88,8 +98,7 @@ public class PollaHeaderTest {
         }
     }
 
-    private static void subOpcionMisAmigos() {
-        User userBE = BetGroupTest.signin();
+    private static void subOpcionMisAmigos(User userBE) {
         FriendService friendS = new FriendService();
         boolean flagSalir = false;
 
@@ -154,8 +163,7 @@ public class PollaHeaderTest {
 
     }
 
-    private static void subOpcionMisJuegos() {
-        User userBE = BetGroupTest.signin();
+    private static void subOpcionMisJuegos(User userBE) {
 
         PollaHeaderService pollaHeaderS = new PollaHeaderService();
         List<PollaHeader> pollaHeaderList = pollaHeaderS.getMisPollasByUserId( userBE.getUserId());
@@ -256,9 +264,9 @@ public class PollaHeaderTest {
         pollaHeaderBE.getEnabled_flag(); // Definir estados de Polla
         // 0: Terminada 1: En Proceso 2: Abierta 3: Cancelada
 
-        //pollaHeaderBE.getProjectStartDate();
-        //pollaHeaderBE.getProjectEndDate();
-        //pollaHeaderBE.getPozoAcumulado();
+        pollaHeaderBE.getStartDate();
+        pollaHeaderBE.getEndDate();
+        pollaHeaderBE.getTotal_bet();
 
         PollaParticipantService pollaParticipantService = new PollaParticipantService();
         PollaParticipant pollaParticipant = pollaParticipantService.getPollaParticipantByPollaId(pollaHeaderBE.getPollaId(), userBE.getUserId() );
