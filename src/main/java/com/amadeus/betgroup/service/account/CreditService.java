@@ -32,17 +32,20 @@ public class CreditService {
     public void comprarCreditos( CreditDetail creditDetail ){
 
         if ( creditDetail.getTransactionTypeId() == 1 ) {
-            if( creditDetail.getCreditAmount() > 5000){
-                throw new ApplicationException("No se puede comprar mas del maximo permitido en la aplicacion. Ingrese un monto a comprar no mayor a 5000");
+            if( creditDetail.getCreditAmount() > 5000){ //TODO: Cambiar parametro estatico por dinamico desde la BD.
+                throw new ApplicationException("CRE004");
+                //No se puede comprar mas del maximo permitido en la aplicacion. Ingrese un monto a comprar no mayor a 5000
             } else if( creditDAO.checkPendingPurchaseExist(creditDetail.getUserId()) == null ){
-                throw new ApplicationException("Existe una transaccion de compra pendiente de aprobacion. Esper a que se procese, para proceder con una nueva compra.");
+                throw new ApplicationException("CRE005");
+                //Existe una transaccion de compra pendiente de aprobacion. Esper a que se procese, para proceder con una nueva compra.
             } else{
                 creditDetail.setStatus( 0 ); // 2pending to be approved by ADMIN
                 creditDetail.setComments(" Creditos comprados ");
                 creditDAO.addCreditTransaction(creditDetail);
             }
         }else{
-            throw new ApplicationException("Accion comprar creditos no es igual a tipo de transaccion con codigo 2");
+            throw new ApplicationException("CRE006");
+            //Accion comprar creditos no es igual a tipo de transaccion con codigo 2
         }
     }
 

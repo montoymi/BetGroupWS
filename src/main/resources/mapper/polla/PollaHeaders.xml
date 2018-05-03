@@ -25,6 +25,9 @@
         <result property="modePollaFlag" column="mode_polla_flg"/>
         <result property="modePollitaFlag" column="mode_pollita_flg"/>
         <result property="modeWildcardFlag" column="mode_wildcard_flg"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="total_bet" column="total_bet"/>
 
     </resultMap>
 

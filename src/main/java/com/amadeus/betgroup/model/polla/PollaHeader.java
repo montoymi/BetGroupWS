@@ -2,6 +2,7 @@ package com.amadeus.betgroup.model.polla;
 
 import com.amadeus.betgroup.model.account.User;
 
+import java.util.Date;
 import java.util.List;
 
 public class PollaHeader {
@@ -26,8 +27,11 @@ public class PollaHeader {
     private Integer numWildcards;
     private Integer modePollitaFlag;
     private Integer modePollaFlag;
-
     private String rules;
+
+    private Date startDate;
+    private Date endDate;
+    private Integer total_bet;
 
     public List<PollaEvent> getPollaEventList() {
         return pollaEventList;
@@ -55,6 +59,30 @@ public class PollaHeader {
 
     public Integer getModeWildcardFlag() {
         return modeWildcardFlag;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Integer getTotal_bet() {
+        return total_bet;
+    }
+
+    public void setTotal_bet(Integer total_bet) {
+        this.total_bet = total_bet;
     }
 
     public void setModeWildcardFlag(Integer wildcardFlag) {

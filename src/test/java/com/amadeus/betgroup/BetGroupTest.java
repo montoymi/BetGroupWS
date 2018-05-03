@@ -43,7 +43,7 @@ import java.util.Scanner;
 public class BetGroupTest {
     public static void main(String args[]) throws Exception{
         try{
-   //   opcionCreditos();
+      opcionCreditos();
             //adminService.notifyUsersOfBetsByMatchId();
    //         opcionForgotPassword();
 //            opcionRegistrarUsuario();
