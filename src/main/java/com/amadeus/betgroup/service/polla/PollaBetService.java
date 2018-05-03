@@ -11,6 +11,28 @@ import java.util.List;
 public class PollaBetService {
     private PollaBetDAO pollaBetDAO = new PollaBetDAO(MyBatisSqlSession.getSqlSessionFactory());
 
+    public void updateBetsByMatchIdUserId(PollaBet pollaBet , String overrideFlag){
+        try{
+            pollaBetDAO.updateBetsByMatchIdUserId( pollaBet, overrideFlag );
+        }catch( Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+
+
+    }
+
+    public List<PollaBet> getListBetsByMatchIdUserId(int userId, int matchId) {
+        List<PollaBet> pollaBetList;
+        try{
+            pollaBetList = pollaBetDAO.getListBetsByMatchIdUserId( userId, matchId );
+        }catch( Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+        return pollaBetList;
+    }
+
     public void updatePollaBetByBetId (PollaBet pollaBet) {
         try{
             if (  (new Date()).after( pollaBet.getPollaMatch().getMatch().getMatchDate() ) ){

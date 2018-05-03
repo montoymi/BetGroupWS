@@ -4,7 +4,9 @@ import com.amadeus.betgroup.model.polla.PollaBet;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PollaBetDAO {
     private SqlSessionFactory sqlSessionFactory;
@@ -13,6 +15,21 @@ public class PollaBetDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
+    public List<PollaBet> getListBetsByMatchIdUserId(int userId, int matchId){
+        SqlSession session = sqlSessionFactory.openSession();
+        List<PollaBet> pollaBetList;
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("userId", userId);
+            map.put("matchId", matchId);
+            pollaBetList = session.selectList("PollaBets.getListBetsByMatchIdUserId", map);
+            session.commit();
+        } finally {
+            session.close();
+        }
+
+        return pollaBetList;
+    }
     public void updatePollaBet(PollaBet pollaBet) {
         SqlSession session = sqlSessionFactory.openSession();
 
@@ -34,5 +51,21 @@ public class PollaBetDAO {
             session.close();
         }
         return pollaBetList;
+    }
+
+    public void updateBetsByMatchIdUserId(PollaBet pollaBet, String overrideFlag) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<PollaBet> pollaBetList;
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("pollaBet", pollaBet);
+            map.put("overrideFlag", overrideFlag);
+            session.update("PollaBets.updateBetsByMatchIdUserId", map);
+            session.commit();
+        } finally {
+            session.close();
+        }
+
+
     }
 }
