@@ -1,6 +1,8 @@
 package com.amadeus.betgroup.service.commons;
 
 
+import com.amadeus.betgroup.exception.ApplicationException;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -10,14 +12,15 @@ import java.util.Date;
 import java.util.Properties;
 
 public class EmailService {
-
     public static String sendEmail(String toAddress, String subject, String message) {
+        String result = "";
+
         // sets SMTP server properties
         String hostmail = "mail.betgroupsports.com";
         String portmail = "8025";
         String usermail = "admin@betgroupsports.com";
         String passmail = "LaPollaDeMiAmigo2018";
-        String result = "";
+
         try{
             Properties properties = new Properties();
             properties.put("mail.smtp.host", hostmail);
@@ -31,7 +34,7 @@ public class EmailService {
                     return new PasswordAuthentication(usermail, passmail);
                 }
             };
-            Session session = Session.getDefaultInstance(properties, auth);
+            Session session = Session.getInstance(properties, auth);
 // creates a new e-mail message
             Message msg = new MimeMessage(session);
 
@@ -54,12 +57,11 @@ public class EmailService {
 
             // sends the e-mail
             Transport.send(msg);
-
         } catch(Exception e){
             result = " Error con correo a" + toAddress + ". " + e.getMessage() + "<br/>";
-        } finally{
-            return result;
+            throw new ApplicationException(result);
         }
 
+        return result;
     }
 }
