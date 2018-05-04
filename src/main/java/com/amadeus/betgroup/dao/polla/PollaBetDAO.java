@@ -1,5 +1,6 @@
 package com.amadeus.betgroup.dao.polla;
 
+import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.polla.PollaBet;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -53,19 +54,25 @@ public class PollaBetDAO {
         return pollaBetList;
     }
 
-    public void updateBetsByMatchIdUserId(PollaBet pollaBet, String overrideFlag) {
+    public void updateBetsByMatchIdUserId(List<PollaBet> pollaBetList) {
+        String overrideFlag = "Y"; //TODO: Revisar
+
         SqlSession session = sqlSessionFactory.openSession();
-        List<PollaBet> pollaBetList;
+
         try {
-            Map<String, Object> map = new HashMap<>();
-            map.put("pollaBet", pollaBet);
-            map.put("overrideFlag", overrideFlag);
-            session.update("PollaBets.updateBetsByMatchIdUserId", map);
+            for (PollaBet pollaBet : pollaBetList) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("pollaBet", pollaBet);
+                map.put("overrideFlag", overrideFlag);
+                session.update("PollaBets.updateBetsByMatchIdUserId", map);
+            }
+
             session.commit();
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
         } finally {
             session.close();
         }
-
-
     }
 }

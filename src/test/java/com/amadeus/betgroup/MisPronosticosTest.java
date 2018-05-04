@@ -70,7 +70,7 @@ public class MisPronosticosTest {
       //  String modoPronostico = (new Scanner(System.in)).nextLine();
 
         System.out.println("Procediendo a registrar el pronostico en TODOS los diferentes juegos asociados ");
-        pollaBetService.updateBetsByMatchIdUserId(pollaBet , "Y"); // Y refiere a que el flag override es V y chancara los datos que hay.
+     //   pollaBetService.updateBetsByMatchIdUserId(pollaBet , "Y"); // Y refiere a que el flag override es V y chancara los datos que hay.
         System.out.println( "Pronostico actualizado satisfactoriamente");
 
 

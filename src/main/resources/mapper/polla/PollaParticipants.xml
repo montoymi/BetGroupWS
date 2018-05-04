@@ -42,7 +42,7 @@
 
     <select id="getPollaParticipantByPollaId" parameterType="PollaParticipant" resultMap="participantsResult">
         SELECT pp.id, pp.polla_header_id, pp.inscription_date, pp.admin_payment_status, pp.total,
-              pp.earnings, pp.position, pp.status, pp.num_wildcards_left
+              pp.earnings, pp.position, pp.status, pp.num_wildcards_left,
               aa.user_id, aa.first_name, aa.last_name, aa.email_address, aa.nickname
          FROM polla_participants AS pp, users AS aa
         WHERE pp.user_id = aa.user_id  AND pp.polla_header_id = #{pollaHeaderId} AND pp.user_id = #{user.userId}

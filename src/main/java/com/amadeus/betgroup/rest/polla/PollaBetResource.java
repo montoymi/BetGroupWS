@@ -21,6 +21,7 @@ public class PollaBetResource {
     private PollaBetService pollaBetService = new PollaBetService();
 
     @GET
+    @Path("/games")
     public Response getListBetsByPollaIdAndUserId(@QueryParam("polla-id") int pollaId, @QueryParam("user-id") int userId) {
         PollaParticipant pollaParticipant = pollaParticipantService.getPollaParticipantByPollaId(pollaId, userId);
         List<PollaBet> pollaBetList = pollaBetService.getListBetsByParticipantId(pollaParticipant.getPollaParticipantId());
@@ -28,8 +29,21 @@ public class PollaBetResource {
     }
 
     @POST
+    @Path("/games")
     public Response updatePollaBetByBetId(PollaBet pollaBet) {
         pollaBetService.updatePollaBetByBetId(pollaBet);
         return Response.status(CREATED).entity(pollaBet).build();
+    }
+
+    @GET
+    public Response getListBetsByMatchIdUserId(@QueryParam("match-id") int matchId, @QueryParam("user-id") int userId) {
+        List<PollaBet> pollaBetList = pollaBetService.getListBetsByMatchIdUserId(userId, matchId);
+        return Response.status(OK).entity(pollaBetList).build();
+    }
+
+    @POST
+    public Response updateBetsByMatchIdUserId(List<PollaBet> pollaBetList) {
+        pollaBetService.updateBetsByMatchIdUserId(pollaBetList);
+        return Response.status(CREATED).entity(pollaBetList).build();
     }
 }
