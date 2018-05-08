@@ -28,17 +28,24 @@
         WHERE app_code = #{sAppCode} and param_type = #{sParamType} ORDER BY param_code;
     </select>
 
-    <select id="selectSlideListInicio" parameterType="String" resultMap="paramValueResult">
+    <select id="selectSlideListInicio2" parameterType="String" resultMap="paramValueResult">
         SELECT param_code,
                param_value_string1,
                param_value_string2,
-              param_value_string3
-          FROM param_values
+               param_value_string3
+          FROM param_values_tl
           WHERE app_code = 'BETGROUP'
             and param_type = 'SLIDES_INICIO'
             and UPPER(param_language) = UPPER(#{lang})
         ORDER BY param_code;
     </select>
 
+    <select id="selectSlideListInicio" parameterType="String" resultMap="paramValueResult">
+        select r_num_slide as param_code,
+               r_title as param_value_string1,
+               r_content as param_value_string2,
+               r_image as param_value_string3
+          from xx_get_slides_detail(#{lang});
+    </select>
 
 </mapper>

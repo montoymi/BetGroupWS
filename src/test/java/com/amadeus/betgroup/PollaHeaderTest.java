@@ -170,7 +170,13 @@ public class PollaHeaderTest {
         System.out.println( "Seleccione una de las siguientes opciones: ");
         for (int i=0; i < pollaHeaderList.size(); i++ ){
             PollaHeader pollaHeader = pollaHeaderList.get(i);
-            System.out.println( (i+1) + " # - ID: " + pollaHeader.getPollaId() + " - Nombre: " + pollaHeader.getPollaName() + " - Inscripcion: " + (( pollaHeader.getCostFlag() == 0 )? 0 : pollaHeader.getPollaCost()) + "  -  Acceso: " + ((pollaHeader.getAccessFlag()==0)? "Publico": "Privado"));
+            System.out.println( (i+1) + " # - ID: " + pollaHeader.getPollaId() + " - Nombre: " + pollaHeader.getPollaName() +
+                                " - Inscripcion: " + (( pollaHeader.getCostFlag() == 0 )? 0 : pollaHeader.getPollaCost()) +
+                                " - Acceso: " + ((pollaHeader.getAccessFlag()==0)? "Publico": "Privado" + " - BetGroup Code: " + pollaHeader.getBetgroupCode()) +
+                                " - Start Date: " + pollaHeader.getStartDate() + " -  End Date: " + pollaHeader.getEndDate()  +
+                                " - Pozo Total: " + pollaHeader.getTotal_bet() + " - Num Participantes: " + pollaHeader.getNumParticipants() +
+                                " - Admin: " + pollaHeader.getAdmin().getUsername() + " -  Status: " + pollaHeader.getEnabled_flag() +
+                                " - Image: " + pollaHeader.getImage() + " - Cod Polla: " + pollaHeader.getBetgroupCode() );
         }
         System.out.println("Seleccione # Polla a ver Detalle: ");
         Scanner in = new Scanner(System.in);
@@ -258,15 +264,18 @@ public class PollaHeaderTest {
         pollaHeaderBE.getAdmin().getUsername();
         pollaHeaderBE.getAccessFlag();
         pollaHeaderBE.getCostFlag();
-        pollaHeaderBE.getPollaMatchList().size();
-        pollaHeaderBE.getPollaParticipantList().size();
-        pollaHeaderBE.getPollaEventList().size();
+        pollaHeaderBE.getNumParticipants();
+        pollaHeaderBE.getNumEvents();
+        pollaHeaderBE.getNumMatchs();
+
         pollaHeaderBE.getEnabled_flag(); // Definir estados de Polla
         // 0: Terminada 1: En Proceso 2: Abierta 3: Cancelada
 
         pollaHeaderBE.getStartDate();
         pollaHeaderBE.getEndDate();
         pollaHeaderBE.getTotal_bet();
+        pollaHeaderBE.getBetgroupCode();
+
 
         PollaParticipantService pollaParticipantService = new PollaParticipantService();
         PollaParticipant pollaParticipant = pollaParticipantService.getPollaParticipantByPollaId(pollaHeaderBE.getPollaId(), userBE.getUserId() );
@@ -279,7 +288,6 @@ public class PollaHeaderTest {
         pollaParticipant.getStatus();
         pollaParticipant.getInscriptionDate();
         pollaParticipant.getPollaParticipantId();
-      //  pollaParticipant.get
 
     }
 

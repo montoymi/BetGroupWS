@@ -57,6 +57,28 @@
     </insert>
 
     <select id="validateLogin2" statementType="CALLABLE" parameterType="user" resultMap="selectResult">
+        select r_validate_access ,
+    r_nickname ,
+    r_user_id ,
+    r_email_address ,
+    r_user_token ,
+    r_user_status ,
+    r_first_name ,
+    r_last_name ,
+    r_date_of_birth ,
+    r_user_type ,
+    r_last_login_date ,
+    r_count_login ,
+    r_referred_user_id ,
+    r_country_code ,
+    r_sex ,
+    r_preferred_language,
+    r_status ,
+    r_flg_notif_bets
+      from public.xx_validate_login(
+    #{username},
+    #{password});
+
         { call xx_validate_login (
             #{username, mode=IN, jdbcType=INTEGER},
             #{password, mode=IN, jdbcType=VARCHAR}

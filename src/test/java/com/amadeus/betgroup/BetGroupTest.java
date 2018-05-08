@@ -46,12 +46,12 @@ public class BetGroupTest {
  //     opcionCreditos();
             //adminService.notifyUsersOfBetsByMatchId();
    //         opcionForgotPassword();
-//            opcionRegistrarUsuario();
+  //          opcionRegistrarUsuario();
   //          opcionActualizarPerfilUsuario();
-            opcionMisPollas();
+  //          opcionMisPollas();
 
- //           opcionAdminAdministrarEventos();
-      //      opcionJuegosDisponibles();
+            opcionAdminAdministrarEventos();
+ //            opcionJuegosDisponibles();
     //        opcionCrearJuego();
          //   opcionMisPollas();
        //     opcionMisPollas();
@@ -608,6 +608,7 @@ public class BetGroupTest {
         if ( flagInscripCompleta && !flagInscripCancel){
             PollaParticipant pollaParticipant = new PollaParticipant();
             pollaParticipant.setPollaHeaderId(pollaHeader.getPollaId());
+            pollaParticipant.setUserId( userBE.getUserId());
             pollaParticipant.setUser(userBE);
 
             PollaParticipantService pollaParticipantService = new PollaParticipantService();

@@ -32,6 +32,33 @@ public class PollaHeader {
     private Date startDate;
     private Date endDate;
     private Integer total_bet;
+    private Integer numParticipants;
+    private Integer numEvents;
+    private Integer numMatchs;
+
+    public Integer getNumEvents() {
+        return numEvents;
+    }
+
+    public void setNumEvents(Integer numEvents) {
+        this.numEvents = numEvents;
+    }
+
+    public Integer getNumMatchs() {
+        return numMatchs;
+    }
+
+    public void setNumMatchs(Integer numMatchs) {
+        this.numMatchs = numMatchs;
+    }
+
+    public Integer getNumParticipants() {
+        return numParticipants;
+    }
+
+    public void setNumParticipants(Integer numParticipants) {
+        this.numParticipants = numParticipants;
+    }
 
     public List<PollaEvent> getPollaEventList() {
         return pollaEventList;

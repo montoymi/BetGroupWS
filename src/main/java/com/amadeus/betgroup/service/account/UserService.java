@@ -73,9 +73,9 @@ public class UserService {
 
     private void sendWelcomeEmail( User user ){
         String subject = "BetGroup Sports - Usuario Registrado";
-        String message = "<h1 style=\"color: #006dcc\" >Bienvenido a BetGroup Sports " + user.getUsername() + "! + </h1>";
+        String message = "<h1 style=\"color: #006dcc\" >Bienvenido a BetGroup Sports " + user.getUsername() + "  </h1>";
         message += "<br>";
-        message += "Esperamos puedas pasarla bien entre amigos y que puedas ganar uno que otro pozo que se esten organizando en la red. ";
+        message += "Esperamos puedas pasarla bien entre amigos y que puedas ganar las diferentes ligas que se esten organizando en BetGroup. ";
         message += "Aqui tus credenciales para que puedas loguearte al sistema: USER= " + user.getUsername() + "  PASSWORD= " + user.getPassword();
         message += "Te deseamos la mejor de las suertes, y esperemos puedas ganar a tus amigos y demas acertando con tus pronosticos!";
         message += "<br>";

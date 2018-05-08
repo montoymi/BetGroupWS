@@ -73,7 +73,6 @@
       order by m.match_date;
     </select>
 
-
     <select id="selectAllMatchesByGroupId" parameterType="map" resultMap="matchResult">
         select sp.id as ssport_id, sp.code, sp.name, sp.logo,
                t.id as ttournament_id, t.sport_id, t.tournament_name, t.status as tourna_status, t.start_date as tourna_start_date,
@@ -177,7 +176,7 @@
                id = #{matchId}
     </select>
 
-    <update id="updateMatchResult" statementType="CALLABLE" parameterType="map">
+    <select id="updateMatchResult" statementType="CALLABLE" parameterType="map">
         { call xx_update_match_results (
         #{match.matchId, mode=IN, jdbcType=INTEGER},
         #{match.scoreLocal, mode=IN, jdbcType=INTEGER},
@@ -186,7 +185,7 @@
         #{match.lastUpdatedBy, mode=IN, jdbcType=INTEGER},
         #{mensaje,mode=OUT, jdbcType=VARCHAR }
         )}
-    </update>
+    </select>
 
 
 

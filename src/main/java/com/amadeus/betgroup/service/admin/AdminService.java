@@ -17,7 +17,9 @@ public class AdminService {
     }
 
     public void contactenos( int user_id, String asunto, String mensaje ){
-        
+
+    //    EmailService.sendEmail(destinatario, subject, contenido);
+
     }
 
 

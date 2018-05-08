@@ -28,13 +28,18 @@
         <result property="startDate" column="start_date"/>
         <result property="endDate" column="end_date"/>
         <result property="total_bet" column="total_bet"/>
-
+        <result property="numParticipants" column="num_participants"/>
+        <result property="numMatchs" column="num_matchs"/>
+        <result property="numEvents" column="num_events"/>
     </resultMap>
 
     <select id="getMisPollasByUserId" parameterType="int" resultMap="selectResult">
-        SELECT ph.* FROM polla_headers AS ph, polla_participants AS pp
-        WHERE ph.id = pp.polla_header_id AND pp.user_id = #{userId} and ph.status = 1
-        ORDER BY ph.start_date, end_date, polla_name
+        SELECT ph.*, (select count(pp1.*) as num_participants from polla_participants as pp1 where pp1.polla_header_id = ph.id), u.nickname
+          FROM polla_headers AS ph, polla_participants AS pp, users as u
+         WHERE ph.id = pp.polla_header_id AND
+               ph.admin_user_id = u.user_id AND
+               pp.user_id = #{userId}
+      ORDER BY ph.status desc, ph.start_date asc, end_date, polla_name
     </select>
 
     <select id="getPollasDisponiblesByUserId" parameterType="PollaHeader" resultMap="selectResult">
@@ -63,8 +68,15 @@
     </select>
 
     <select id="getPollaById" parameterType="int" resultMap="selectResult">
-        SELECT ph.* FROM polla_headers AS ph
-        WHERE ph.id = #{id}
+        SELECT ph.*,
+               (select count(pp1.*) as num_participants from polla_participants as pp1 where pp1.polla_header_id = ph.id),
+               (select count(pev.*) as num_events from polla_events as pev where pev.polla_header_id = ph.id),
+               (select count(pm.*) as num_matchs from polla_matches as pm where pm.polla_header_id = ph.id),
+               u.nickname
+          FROM polla_headers AS ph, users as u
+         WHERE ph.admin_user_id = u.user_id AND
+               ph.id = #{id}
+      ORDER BY ph.status desc, ph.start_date asc, end_date, polla_name
     </select>
 
     <select id="validatePollaPassword" parameterType="PollaHeader" resultType="int">
