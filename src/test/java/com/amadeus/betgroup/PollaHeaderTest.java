@@ -254,8 +254,11 @@ public class PollaHeaderTest {
     }
 
     private static void subOpcionInfo(User userBE, PollaHeader pollaHeaderBE) {
-        PollaHeaderService pollaHeaderService = new PollaHeaderService();
-        pollaHeaderBE = pollaHeaderService.getPollaById( pollaHeaderBE.getPollaId());
+
+
+        PollaParticipantService pollaParticipantService = new PollaParticipantService();
+        PollaParticipant pollaParticipant = pollaParticipantService.getPollaParticipantByPollaId(pollaHeaderBE.getPollaId(), userBE.getUserId() );
+        pollaHeaderBE = pollaParticipant.getPollaHeader();
 
         pollaHeaderBE.getPollaName();
         pollaHeaderBE.getImage();
@@ -277,11 +280,10 @@ public class PollaHeaderTest {
         pollaHeaderBE.getBetgroupCode();
 
 
-        PollaParticipantService pollaParticipantService = new PollaParticipantService();
-        PollaParticipant pollaParticipant = pollaParticipantService.getPollaParticipantByPollaId(pollaHeaderBE.getPollaId(), userBE.getUserId() );
+
 
         pollaParticipant.getEarnings();
-        pollaParticipant.getNumWildCards();
+      //  pollaParticipant.getNumWildCards();
         pollaParticipant.getNumWildCardsLeft();
         pollaParticipant.getPosition();
         pollaParticipant.getTotal();

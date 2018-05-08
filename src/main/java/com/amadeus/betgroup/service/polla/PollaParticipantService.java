@@ -17,13 +17,18 @@ public class PollaParticipantService {
 
     public PollaParticipant getPollaParticipantByPollaId(int polla_header_id, int user_id){
         try{
+
+            PollaHeaderService pollaHeaderService = new PollaHeaderService();
+            PollaHeader pollaHeaderBE = pollaHeaderService.getPollaById( polla_header_id );
             PollaParticipant pollaParticipant = new PollaParticipant();
-            pollaParticipant.setPollaHeaderId(polla_header_id);
             User participant = new User();
             participant.setUserId(user_id);
             pollaParticipant.setUser(participant);
-
+            pollaParticipant.setPollaHeaderId(polla_header_id);
             pollaParticipant = pollaParticipantsDAO.getPollaParticipantByPollaId(pollaParticipant);
+
+            pollaParticipant.setPollaHeader( pollaHeaderBE );
+
             return pollaParticipant;
         }catch( Exception e){
             e.printStackTrace();
