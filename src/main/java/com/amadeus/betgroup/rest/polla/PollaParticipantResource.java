@@ -22,6 +22,13 @@ public class PollaParticipantResource {
     private PollaHeaderService pollaHeaderService = new PollaHeaderService();
 
     @GET
+    @Path("/{polla-id}")
+    public Response getPollaParticipantByPollaId(@PathParam("polla-id") int pollaId, @QueryParam("user-id") int userId) {
+        PollaParticipant pollaParticipant = pollaParticipantService.getPollaParticipantByPollaId(pollaId, userId);
+        return Response.status(OK).entity(pollaParticipant).build();
+    }
+
+    @GET
     public Response getParticipantListByPollaId(@QueryParam("polla-id") int pollaId) {
         List<PollaParticipant> pollaParticipantList = pollaParticipantService.getParticipantListByPollaId(pollaId);
         return Response.status(OK).entity(pollaParticipantList).build();
