@@ -57,7 +57,7 @@ public class CreditService {
                 throw new ApplicationException("CRE002");
             } else{
                 creditDetail.setStatus( 0 ); // pending to be approved by ADMIN
-                creditDetail.setComments(" Creditos comprados ");
+                creditDetail.setComments(" Creditos cobrados ");
                 creditDAO.addCreditTransaction(creditDetail);
             }
         }else{
