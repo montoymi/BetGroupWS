@@ -7,6 +7,7 @@ import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.polla.PollaHeader;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 import com.amadeus.betgroup.service.account.CreditService;
+import org.apache.ibatis.exceptions.PersistenceException;
 
 import java.util.List;
 
@@ -52,8 +53,8 @@ public class PollaHeaderService {
             }
 */
             pollaHeaderDAO.crearPolla(pollaHeader);
-
-
+        } catch (PersistenceException e) {
+            throw new ApplicationException(e);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
