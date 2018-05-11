@@ -8,6 +8,7 @@ import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 import com.amadeus.betgroup.service.commons.EmailService;
 import com.amadeus.betgroup.service.config.ParamValueService;
 import com.sun.research.ws.wadl.Param;
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.glassfish.jersey.jaxb.internal.XmlJaxbElementProvider;
 
 import java.util.List;
@@ -66,9 +67,13 @@ public class UserService {
  //       String message = paramValue.getParamValueString1();
 
         String subject = "BetGroup Sports - Olvide Contrasenha";
-        String message = userDAO.forgotPassword( user.getUserId() );
 
-        EmailService.sendEmail( (user.getEmail()==null)? email : user.getEmail() , subject, message);
+        try {
+            String message = userDAO.forgotPassword( user.getUserId() );
+            EmailService.sendEmail( (user.getEmail()==null)? email : user.getEmail() , subject, message);
+        } catch (PersistenceException e) {
+            throw new ApplicationException(e);
+        }
     }
 
     private void sendWelcomeEmail( User user ){
