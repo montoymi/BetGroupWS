@@ -45,15 +45,15 @@ public class BetGroupTest {
         try{
  //     opcionCreditos();
             //adminService.notifyUsersOfBetsByMatchId();
-   //         opcionForgotPassword();
+       //     opcionForgotPassword();
   //          opcionRegistrarUsuario();
   //          opcionActualizarPerfilUsuario();
   //          opcionMisPollas();
 
-            opcionAdminAdministrarEventos();
- //            opcionJuegosDisponibles();
-    //        opcionCrearJuego();
-         //   opcionMisPollas();
+         //   opcionAdminAdministrarEventos();
+             opcionJuegosDisponibles();
+         //   opcionCrearJuego();
+            opcionMisPollas();
        //     opcionMisPollas();
          //   opcionAmigos();
 
@@ -70,11 +70,11 @@ public class BetGroupTest {
         System.out.println( "*******OLVIDE PASSWORD**************");
         Scanner in = new Scanner(System.in);
 
-        System.out.println( "Porfavor, Ingrese su password:");
+        System.out.println( "Porfavor, Ingrese su email:");
         String email = in.nextLine();
 
         UserService userService = new UserService();
-        userService.forgotPassword(email);
+        userService.forgotPassword(email, "en");
 
     }
 

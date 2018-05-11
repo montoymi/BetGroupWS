@@ -171,7 +171,7 @@
               AND m.local_team_id = tl.id
               AND m.visitor_team_id = tv.id
               AND pm.polla_header_id = ph.id
-              AND polla_participant_id = #{pollaParticipantId} order by m.match_date desc;
+              AND polla_participant_id = #{pollaParticipantId} order by m.match_date asc;
     </select>
 
 </mapper>

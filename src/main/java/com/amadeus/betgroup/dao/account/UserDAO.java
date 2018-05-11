@@ -121,11 +121,15 @@ public class UserDAO {
         }
     }
 
-    public String forgotPassword ( int userId ){
+    public String forgotPassword ( int userId, String lang ){
         SqlSession session = sqlSessionFactory.openSession();
         String message;
         try {
-            message = session.selectOne("User.forgotPassword", userId);
+            Map<String, Object> map = new HashMap<>();
+            map.put("userId", userId);
+            map.put("lang", lang);
+
+            message = session.selectOne("User.forgotPassword", map);
             session.commit();
 
         } finally {

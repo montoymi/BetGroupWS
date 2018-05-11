@@ -42,34 +42,18 @@ public class UserService {
         sendWelcomeEmail(user);
     }
 
-    public void forgotPassword( String email ){
+    public void forgotPassword( String email, String lang ){
 
         User user = userDAO.checkEmailExists(email);
         if  (user==null){
             throw new ApplicationException("USR005");
             //No existe usuario registrado con ese email
         }
-
-        /*
-        ParamValueService paramValueService = new ParamValueService();
-        ParamValue paramValue = new ParamValue();
-
-        paramValue.setParamCode(String.valueOf(user.getUserId()));
-        paramValue.setsParamType("RECOVER_PASSWORD");
-        paramValue.setsAppCode("BETGROUPS");
-        paramValue = paramValueService.getParaValueById(paramValue);
-
-*/
-
-       // String message = userDAO.getForgotPassword(userId);
-//        String subject = paramValue.getParamValueString1();
- //       String subject = "BetGroup Sports - Olvide Contrasenha";
- //       String message = paramValue.getParamValueString1();
-
+        //TODO: Este subject debe ser de acuerdo al idioma seleccionado.
         String subject = "BetGroup Sports - Olvide Contrasenha";
 
         try {
-            String message = userDAO.forgotPassword( user.getUserId() );
+            String message = userDAO.forgotPassword( user.getUserId(), lang );
             EmailService.sendEmail( (user.getEmail()==null)? email : user.getEmail() , subject, message);
         } catch (PersistenceException e) {
             throw new ApplicationException(e);
