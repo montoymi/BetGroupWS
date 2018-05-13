@@ -20,6 +20,24 @@ public class User {
     private List<Friend> friendList;
     private String sex;
     private Integer flagNotification;
+    private String countryCode;
+    private String preferredLang;
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getPreferredLang() {
+        return preferredLang;
+    }
+
+    public void setPreferredLang(String preferredLang) {
+        this.preferredLang = preferredLang;
+    }
 
     public Integer getFlagNotification() {
         return flagNotification;

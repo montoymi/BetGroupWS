@@ -11,6 +11,7 @@
         <result property="match.matchId" column="id"/>
         <result property="match.matchCode" column="match_code"/>
         <result property="match.matchDate" column="match_date"/>
+        <result property="match.matchDateWithTimezone" column="match_date_with_timestamp"/>
         <result property="match.matchPlace" column="match_place"/>
         <result property="match.resultMatch" column="result_match"/>
         <result property="match.scoreLocal" column="local_score"/>
@@ -30,7 +31,7 @@
         select pm.id as polla_match_id, pm.polla_header_id, pm.match_id,
               m.id, m.local_team_id, tl.team_name as local_team_name, tl.image as image_local,
               m.visitor_team_id, tv.team_name as visitor_team_name, tv.image as image_visitor,
-              m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_place, m.match_code, m.status
+              m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_date_with_timestamp , m.match_place, m.match_code, m.status
               from matchs as m, teams as tl, teams as tv, polla_matches as pm
               where pm.match_id = m.id
               and m.local_team_id = tl.id
@@ -47,7 +48,7 @@
         m.id, m.group_id,
         m.local_team_id, tl.team_name as local_team_name, tl.image as image_local,
         m.visitor_team_id, tv.team_name as visitor_team_name, tv.image as image_visitor,
-        m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_place, m.match_code, m.status,
+        m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_date_with_timestamp ,m.match_place, m.match_code, m.status,
         pm.id, pm.polla_header_id, pm.match_id
         from matchs as m, teams as tl, teams as tv, groups as g, phases as p, tournaments as t, polla_matches as pm, sports as sp
         where m.local_team_id = tl.id

@@ -22,6 +22,7 @@
         <result property="scoreLocal" column="local_score"/>
         <result property="scoreVisitor" column="visitor_score"/>
         <result property="matchDate" column="match_date"/>
+        <result property="matchDateWithTimezone" column="match_date_with_timestamp"/>
         <result property="enabled_flag" column="match_status"/>
         <result property="matchCode" column="match_code"/>
         <result property="resultMatch" column="result_match"/>
@@ -58,7 +59,7 @@
         m.id, m.group_id,
         m.local_team_id, tl.team_name as local_team_name, tl.image as image_local,
         m.visitor_team_id, tv.team_name as visitor_team_name, tv.image as image_visitor,
-        m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_place, m.match_code, m.status as match_status
+        m.local_score, m.visitor_score, m.result_match, m.match_date, m.match_date_with_timestamp, m.match_place, m.match_code, m.status as match_status
         FROM polla_participants AS pp, polla_bets AS pb, polla_matches AS pm,
             matchs AS m, teams as tl, teams as tv, groups as g, phases as p, tournaments as t, sports as sp
        WHERE  m.local_team_id = tl.id
@@ -88,6 +89,7 @@
                m.visitor_score,
                m.result_match,
                m.match_date,
+               m.match_date_with_timestamp,
                m.match_place,
                m.match_code,
                m.status as match_status
@@ -122,7 +124,7 @@
                m.local_score,
                m.visitor_score,
                m.result_match,
-               m.match_date,
+               m.match_date, m.match_date_with_timestamp,
                m.match_place,
                m.match_code,
                m.status as match_status
@@ -147,7 +149,7 @@
     <insert id="insertMatch" parameterType="Match" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO matchs (
         group_id, local_team_id, visitor_team_id,
-        match_date, status, match_code, match_place)
+        match_date, match_date_with_timestamp, status, match_code, match_place)
         VALUES (
         #{groupId}, #{localId}, #{visitorId}, #{matchDate},
         #{enabled_flag}, #{matchCode}, #{matchPlace} )
@@ -159,6 +161,7 @@
         local_team_id = #{localId} AND
         visitor_team_id = #{visitorId} AND
         match_date = #{matchDate} AND
+        match_date_with_timestamp = #{matchDateWithTimezone} AND
         status = #{enabled_flag} AND
         match_code = #{matchCode} AND
         match_place = #{matchPlace}
@@ -166,7 +169,7 @@
     </update>
 
     <select id="selectMatchById" parameterType="map" resultMap="matchResult">
-        select m.id as match_id, m.match_code, m.match_date , m.match_place,
+        select m.id as match_id, m.match_code, m.match_date , m.match_date_with_timestamp, m.match_place,
                m.result_match, m.local_score, m.visitor_score, m.status,
                m.local_team_id, tl.team_name as local_team_name, tl.image as image_local,
                m.visitor_team_id, tv.team_name as visitor_team_name, tv.image as image_visitor
@@ -186,7 +189,6 @@
         #{mensaje,mode=OUT, jdbcType=VARCHAR }
         )}
     </select>
-
 
 
 </mapper>

@@ -2,6 +2,7 @@ package com.amadeus.betgroup.dao.account;
 
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.User;
+import com.amadeus.betgroup.model.config.Email;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -120,7 +121,23 @@ public class UserDAO {
             session.close();
         }
     }
+/*
+    public Email forgotPassword2 (int userId, String lang ){
+        SqlSession session = sqlSessionFactory.openSession();
+        Email emailBE;
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("userId", userId);
+            map.put("lang", lang);
+            emailBE = session.selectOne("User.forgotPassword", map);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return emailBE;
 
+    }
+*/
     public String forgotPassword ( int userId, String lang ){
         SqlSession session = sqlSessionFactory.openSession();
         String message;

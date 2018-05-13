@@ -26,6 +26,28 @@ public class Match {
 
     private String image;
 
+    private Date matchDateWithTimezone;
+
+    public void setLastUpdatedBy(Integer lastUpdatedBy) {
+        this.lastUpdatedBy = lastUpdatedBy;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Date getMatchDateWithTimezone() {
+        return matchDateWithTimezone;
+    }
+
+    public void setMatchDateWithTimezone(Date matchDateWithTimezone) {
+        this.matchDateWithTimezone = matchDateWithTimezone;
+    }
+
     public String getMatchCode() {
         return matchCode;
     }

@@ -50,8 +50,8 @@ public class BetGroupTest {
   //          opcionActualizarPerfilUsuario();
   //          opcionMisPollas();
 
-         //   opcionAdminAdministrarEventos();
-             opcionJuegosDisponibles();
+     //       opcionAdminAdministrarEventos();
+     //        opcionJuegosDisponibles();
          //   opcionCrearJuego();
             opcionMisPollas();
        //     opcionMisPollas();
@@ -411,7 +411,7 @@ public class BetGroupTest {
             UserService userS = new UserService();
             User admin = userS.selectUserById(pollaHeader.getAdminId());
             System.out.println("Administrador: " + admin.getUsername());
-            System.out.println("Fecha de inicio: " );
+            System.out.println("Fecha de inicio: " + pollaHeader.getStartDate() + " - "  + pollaHeader.getEndDate() );
             PollaParticipantService pollaParticipantS = new PollaParticipantService();
             List<PollaParticipant> participantList = pollaParticipantS.getParticipantListByPollaId(pollaHeader.getPollaId());
             System.out.println("# Participantes: " + participantList.size());
@@ -421,7 +421,7 @@ public class BetGroupTest {
             System.out.println("# Eventos: " + pollaMatchList.size());
             System.out.println("Estado: ");
             System.out.println("Puntos acumulados: ");
-/*
+
             System.out.println( "*********************");
             System.out.println( "*******REGLAS**************");
 
@@ -439,7 +439,7 @@ public class BetGroupTest {
             for (int i=0; i < pollaMatchList.size(); i++ ) {
                 PollaMatch pollaMatch = pollaMatchList.get(i);
                 System.out.println( pollaMatch.getMatch().getMatchId() + " - " + pollaMatch.getMatch().getMatchCode() + ": " + pollaMatch.getMatch().getLocalTeam().getTeamName()
-                        + " vs "+ pollaMatch.getMatch().getVisitorTeam().getTeamName() + " - Dia: " + pollaMatch.getMatch().getMatchDate());
+                        + " vs "+ pollaMatch.getMatch().getVisitorTeam().getTeamName() + " - Dia: " + pollaMatch.getMatch().getMatchDate()  + "  - Dia TZ: " + pollaMatch.getMatch().getMatchDateWithTimezone() );
             }
 
             System.out.println( "*********************");
@@ -478,7 +478,7 @@ public class BetGroupTest {
 
             System.out.println( "*********************");
             System.out.println( "actualizando pronosticos para usuario: " + userBE.getUsername());
-*/
+
 
             System.out.println("Listado de Eventos a pronosticar: ");
             PollaBetService pollaBetService = new PollaBetService();

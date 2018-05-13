@@ -3,6 +3,7 @@ package com.amadeus.betgroup.service.account;
 import com.amadeus.betgroup.dao.account.UserDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.User;
+import com.amadeus.betgroup.model.config.Email;
 import com.amadeus.betgroup.model.config.ParamValue;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 import com.amadeus.betgroup.service.commons.EmailService;
@@ -53,7 +54,10 @@ public class UserService {
         String subject = "BetGroup Sports - Olvide Contrasenha";
 
         try {
+       //     Email emailBE = userDAO.forgotPassword( user.getUserId(), lang );
+
             String message = userDAO.forgotPassword( user.getUserId(), lang );
+
             EmailService.sendEmail( (user.getEmail()==null)? email : user.getEmail() , subject, message);
         } catch (PersistenceException e) {
             throw new ApplicationException(e);
