@@ -91,4 +91,20 @@ public class PollaHeaderDAO {
 
         return count == 1;
     }
+
+    public String getPollaGameRules(PollaHeader pollaHeader, String lang) {
+        SqlSession session = sqlSessionFactory.openSession();
+        String gameRules;
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("pollaHeader", pollaHeader);
+            map.put("lang", lang);
+            gameRules = session.selectOne("PollaHeaders.getPollaGameRules", map);
+            session.commit();
+
+        } finally {
+            session.close();
+        }
+        return gameRules;
+    }
 }

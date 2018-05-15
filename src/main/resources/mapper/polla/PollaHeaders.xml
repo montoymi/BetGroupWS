@@ -86,4 +86,21 @@
     </select>
 
 
+    <select id="getPollaGameRules" parameterType="map" resultType="String">
+        select * from xx_get_rules(
+            #{pollaHeader.modePollaFlag},--p_polla_flg integer,
+            #{pollaHeader.modePollitaFlag},--p_pollita_flg integer,
+            #{pollaHeader.modeWildcardFlag},--p_wildcards_flg integer,
+            #{pollaHeader.accessFlag},--p_public_flg integer,
+            #{pollaHeader.costFlag},--p_cost_flag integer,
+            #{pollaHeader.pollaCost},--p_cost integer,
+            #{pollaHeader.numEvents},--p_num_events integer,
+            #{pollaHeader.numWildcards},--p_num_wildcards integer,
+            1,--p_num_players_prize_polla integer,
+            1,--p_num_players_prize_pollita integer,
+            #{lang})
+
+    </select>
+
+
 </mapper>

@@ -27,7 +27,7 @@ public class PollaParticipantService {
             pollaParticipant.setPollaHeaderId(polla_header_id);
             pollaParticipant = pollaParticipantsDAO.getPollaParticipantByPollaId(pollaParticipant);
 
-            pollaParticipant.setPollaHeader( pollaHeaderBE );
+          //  pollaParticipant.setPollaHeader( pollaHeaderBE );
 
             return pollaParticipant;
         }catch( Exception e){

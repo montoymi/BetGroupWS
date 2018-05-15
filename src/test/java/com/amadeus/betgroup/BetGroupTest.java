@@ -51,9 +51,9 @@ public class BetGroupTest {
   //          opcionMisPollas();
 
      //       opcionAdminAdministrarEventos();
-     //        opcionJuegosDisponibles();
-         //   opcionCrearJuego();
-            opcionMisPollas();
+   //          opcionJuegosDisponibles();
+            opcionCrearJuego();
+     //       opcionMisPollas();
        //     opcionMisPollas();
          //   opcionAmigos();
 
@@ -672,13 +672,33 @@ public class BetGroupTest {
             Integer costoPolla = Integer.parseInt(sCostoPolla);
             pollaHeader.setPollaCost(costoPolla);
         }
+
+
         System.out.print("Administrador del Betgroup a crear: " + userBE.getUsername());
         pollaHeader.setAdminId( userBE.getUserId());
         pollaHeader.setTemplateHeaderId( templateHeader.getTemplateHeaderId() );
 
+        pollaHeader.setModePollaFlag(1);
+        pollaHeader.setModePollitaFlag(0);
+
         PollaHeaderService pollaHeaderS = new PollaHeaderService();
-        pollaHeaderS.crearPolla(pollaHeader);
-        System.out.println("Polla creada satisfactoriamente.");
+
+        System.out.print("Mostrando reglas antes de Crear polla :");
+        String gameRules = pollaHeaderS.showGameRules(pollaHeader, "es");
+        System.out.print(gameRules);
+
+        System.out.print("Esta de acuerdo con Reglas? (1: Si / 0: No)" );
+        String sFlagConforme = in.nextLine(); // 1: Privado - 0: Publico
+        Integer flagConforme = Integer.parseInt(sFlagConforme);
+
+        if (flagConforme == 1){
+            pollaHeaderS.crearPolla(pollaHeader);
+            System.out.println("Polla creada satisfactoriamente.");
+        } else {
+            System.out.println("Usuario no conforme con reglas. Cancelando creacion de juego.");
+        }
+
+
     }
 
     public static void opcionRegistrarUsuario(){

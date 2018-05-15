@@ -70,60 +70,8 @@ public class PollaHeaderService {
         return pollaHeaderDAO.validatePollaPassword(pollaHeader);
     }
 
-    public String showGameRules(PollaHeader pollaHeader) {
-
-        PollaHeaderService pollaHeaderService = new PollaHeaderService();
-        if (pollaHeader.getPollaId() != null) {
-            pollaHeader = pollaHeaderService.getPollaById(pollaHeader.getPollaId());
-        }
-/*
-        PollaParticipantService pollaParticipantService = new PollaParticipantService();
-        pollaHeader.setPollaParticipantList( pollaParticipantService.getParticipantListByPollaId(pollaHeader.getPollaId()));
-
-        PollaMatchService pollaMatchS = new PollaMatchService();
-        pollaHeader.setPollaMatchList( pollaMatchS.getPollaMatchesByPollaId(pollaHeader.getPollaId()) );
-
-        // mas logica a trabajar para el texto de las reglas.
-        pollaHeader.getAccessFlag();
-        pollaHeader.getCostFlag(); // flag que indica que esa polla tendrá un costo de :
-        pollaHeader.getPollaCost();
-        pollaHeader.getNumWildcards(); // numero de comodines si es que la template tiene modalida de juego con comodin.
-
-        pollaHeader.getPollaParticipantList(); // cuantos participantes tiene
-        pollaHeader.getPollaMatchList(); // cuantos partidos tiene
-        pollaHeader.getPollaEventList(); //cuantas fechas tiene
-*/
-
-        String reglas;
-        if ((pollaHeader.getModePollaFlag() == 1) && (pollaHeader.getModePollitaFlag() == 1)) {
-            reglas = "Ud. ha seleccionado dos modalidades de Juego: 'Pozo Global' y 'Pozo por Fecha'. ";
-            reglas += "La distribución de la premiación se basará según el pozo total acumulado entre todos los participantes.\n";
-            reglas += "1 - El 60% del pozo total acumulado, se repartirá a la modalidad de juego 'Pozo Global'. ";
-            reglas += "En esta modalidad solo se tendrá un ganador, o ganadores, los cuales obtuvieron la mas alta puntuación.\n";
-            reglas += "2 - El 30% del pozo total acumulado, se repartirá para el modo de juego 'Pozo por Fecha'. ";
-            reglas += "Este pozo se repartirá entre todas las fechas definidas para ese juego. " +
-                    "Habrá uno o varios ganadores en cada fecha, siempre que hayan obtenido la máxima puntuación dentro de cada fecha.\n";
-            reglas += "3 - El 10% del pozo total acumulado, se quedará como comisión de la casa.";
-        } else if (pollaHeader.getModePollaFlag() == 1) {
-            reglas = "Ud. ha seleccionado la  modalidad de Juego: 'Pozo Global'. ";
-            reglas += "La distribución de la premiación se basará según el pozo total acumulado entre todos los participantes.\n";
-            reglas += "1 - El 90% del pozo total acumulado, se repartirá a la modalidad de juego 'Pozo Global'. ";
-            reglas += "En esta modalidad solo se tendrá un ganador, o ganadores, los cuales obtuvieron la mas alta puntuación.\n";
-            reglas += "2 - El 30% del pozo total acumulado, se repartirá para el modo de juego 'Pozo por Fecha'. ";
-            reglas += "Este pozo se repartirá entre todas las fechas definidas para ese juego. " +
-                    "Habrá uno o varios ganadores en cada fecha, siempre que hayan obtenido la máxima puntuación dentro de cada fecha.\n";
-            reglas += "3 - El 10% del pozo total acumulado, se quedará como comisión de la casa.";
-        } else {
-            reglas = "Ud. ha seleccionado la modalidad de Juego: 'Pozo por fecha'. ";
-            reglas += "La distribución de la premiación se basará según el pozo total acumulado entre todos los participantes.\n";
-            reglas += "1 - El 90% del pozo total acumulado, se repartirá para el modo de juego 'Pozo por Fecha'. ";
-            reglas += "Este pozo se repartirá entre todas las fechas definidas para ese juego. " +
-                    "Habrá uno o varios ganadores en cada fecha, siempre que hayan obtenido la máxima puntuación dentro de cada fecha.\n";
-            reglas += "2 - El 10% del pozo total acumulado, se quedará como comisión de la casa.";
-
-        }
-
-        return reglas;
+    public String showGameRules(PollaHeader pollaHeader, String lang) {
+        return pollaHeaderDAO.getPollaGameRules(pollaHeader, lang);
     }
 
 

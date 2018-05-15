@@ -47,7 +47,7 @@ public class FriendService {
         if (invitado != null){
             PollaParticipantService pollaParticipantService = new PollaParticipantService();
             PollaParticipant pollaParticipant = pollaParticipantService.getPollaParticipantByPollaId(pollaHeaderId, invitado.getUserId() );
-            if ( pollaParticipant ==  null ){
+            if ( pollaParticipant !=  null ){
                 throw new ApplicationException("INVAMIG001");
                 //Este usuario ya esta inscrito en este juego.
             }else{
