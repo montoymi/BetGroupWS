@@ -27,7 +27,11 @@ public class PollaParticipantService {
             pollaParticipant.setPollaHeaderId(polla_header_id);
             pollaParticipant = pollaParticipantsDAO.getPollaParticipantByPollaId(pollaParticipant);
 
-          //  pollaParticipant.setPollaHeader( pollaHeaderBE );
+            // este metodo se invoca desde info de polla y desde invitacion de amigo con el objetivo de poder saber si el participante
+            //ya se encuentra inscrito.
+            if ( pollaParticipant != null ){
+                pollaParticipant.setPollaHeader( pollaHeaderBE );
+            }
 
             return pollaParticipant;
         }catch( Exception e){
