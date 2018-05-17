@@ -18,8 +18,26 @@ public class TemplateHeader {
     private Integer modePollaFlag;
     private Date startDate;
     private Date endDate;
+	private Integer numEvents;
+	private Integer numMatchs;
 
-    public Date getStartDate() {
+	public Integer getNumEvents() {
+		return numEvents;
+	}
+
+	public void setNumEvents(Integer numEvents) {
+		this.numEvents = numEvents;
+	}
+
+	public Integer getNumMatchs() {
+		return numMatchs;
+	}
+
+	public void setNumMatchs(Integer numMatchs) {
+		this.numMatchs = numMatchs;
+	}
+
+	public Date getStartDate() {
         return startDate;
     }
 

@@ -16,11 +16,17 @@
         <result property="modePollaFlag" column="mode_polla_flg"/>
         <result property="startDate" column="start_date"/>
         <result property="endDate" column="end_date"/>
+		<result property="numMatchs" column="num_matchs"/>
+		<result property="numEvents" column="num_events"/>
 
     </resultMap>
 
     <select id="getAllActiveTemplateHeaderList" resultMap="templateHeaderResult">
-        select * from template_headers where start_date > now() order by start_date, end_date, template_header_name
+        select th.*,
+        	(select count(tev.*) as num_events from template_events as tev where tev.template_id = th.id),
+            (select count(tm.*) as num_matchs from template_details as tm where tm.template_header_id = th.id)
+        from template_headers as th
+        where th.start_date > now() order by th.start_date, th.end_date, th.template_header_name
     </select>
 
 </mapper>
