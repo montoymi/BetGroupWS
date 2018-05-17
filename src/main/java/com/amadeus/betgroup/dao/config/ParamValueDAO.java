@@ -72,4 +72,22 @@ public class ParamValueDAO {
 		}
 		return paramValue;
     }
+
+    public ParamValue getInvitationMessage(String senderEmail, String invitedEmail, int pollaHeaderId, String lang ){
+		SqlSession session = sqlSessionFactory.openSession();
+		ParamValue paramValue = new ParamValue();
+		try {
+			Map<String, Object> map = new HashMap<>();
+			map.put("senderEmail", senderEmail);
+			map.put("invitedEmail", invitedEmail);
+			map.put("pollaHeaderId", pollaHeaderId);
+			map.put("lang", lang);
+
+			paramValue = session.selectOne("ParamValues.selectInvitationMessage", map);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		return paramValue;
+	}
 }

@@ -335,7 +335,8 @@ public class PollaHeaderTest {
         Integer numAmigo = Integer.parseInt(snumAmigo);
 
         Friend friend = friendList.get(numAmigo-1);
-        friendService.inviteFriendByUserId( userBE.getUserId(),friend.getIdUser(), pollaHeaderBE.getPollaId());
+
+        friendService.inviteFriend( friend.getUser().getEmail(), friend.getAmigo().getEmail(), pollaHeaderBE.getPollaId(), "es");
         System.out.println( "Amigo invitado satisfactoriamente.");
     }
 
@@ -345,7 +346,8 @@ public class PollaHeaderTest {
         Scanner in = new Scanner(System.in);
         String email = in.nextLine();
 
-        friendService.inviteFriendByEmail(userBE.getUserId(), email, pollaHeaderBE.getPollaId());
+        friendService.inviteFriend( userBE.getEmail(), email, pollaHeaderBE.getPollaId(), "es");
+
         System.out.println( "Amigo invitado satisfactoriamente.");
 
     }

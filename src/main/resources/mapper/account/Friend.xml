@@ -9,16 +9,16 @@
         <result property="idUser" column="user_friend_id"/>
         <result property="idFriend" column="friend_user_id"/>
         <result property="status" column="friend_status"/>
-        <result property="user.userId" column="ffriend_user_id"/>
-        <result property="user.firstName" column="friend_first_name"/>
-        <result property="user.lastName" column="friend_last_name"/>
-        <result property="user.username" column="friend_nickname"/>
-        <result property="user.email" column="friend_email"/>
+        <result property="user.userId" column="user_id"/>
+        <result property="user.firstName" column="first_name"/>
+        <result property="user.lastName" column="last_name"/>
+        <result property="user.username" column="nickname"/>
+        <result property="user.email" column="email"/>
         <result property="amigo.userId" column="ffriend_user_id"/>
-        <result property="amigo.firstName" column="friend_first_name"/>
-        <result property="amigo.lastName" column="friend_last_name"/>
-        <result property="amigo.username" column="friend_nickname"/>
-        <result property="amigo.email" column="friend_email"/>
+        <result property="amigo.firstName" column="ffriend_first_name"/>
+        <result property="amigo.lastName" column="ffriend_last_name"/>
+        <result property="amigo.username" column="ffriend_nickname"/>
+        <result property="amigo.email" column="ffriend_email"/>
 
     </resultMap>
 
@@ -38,16 +38,16 @@
           fr.friend_id as friend_user_id,
           fr.status as friend_status,
           frus.user_id as ffriend_user_id,
-          frus.first_name as friend_first_name,
-          frus.last_name as friend_last_name,
-          frus.nickname as friend_nickname,
-          frus.email_address as friend_email,
-          frus.sex as friend_sex,
+          frus.first_name as ffriend_first_name,
+          frus.last_name as ffriend_last_name,
+          frus.nickname as ffriend_nickname,
+          frus.email_address as ffriend_email,
+          frus.sex as ffriend_sex,
           us.user_id as user_id,
           us.first_name as first_name,
           us.last_name as last_name,
           us.nickname as nickname,
-          us.email_address as _email
+          us.email_address as email
         from friends as fr,
           users   as us,
           users   as frus

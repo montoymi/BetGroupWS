@@ -40,15 +40,7 @@ public class FriendResource {
     @POST
     @Path("/{polla-id}")
     public Response inviteFriend(@PathParam("polla-id") int pollaId, Friend friend) {
-        User user = friend.getUser();
-        User amigo = friend.getAmigo();
-
-        if (amigo.getUserId() != null) {
-            friendService.inviteFriendByUserId(user.getUserId(), amigo.getUserId(), pollaId);
-        } else {
-            friendService.inviteFriendByEmail(user.getUserId(), amigo.getEmail(), pollaId);
-        }
-
+        friendService.inviteFriend( friend.getUser().getEmail(), friend.getAmigo().getEmail() , pollaId, friend.getUser().getPreferredLang());
         return Response.status(CREATED).entity(friend).build();
     }
 }

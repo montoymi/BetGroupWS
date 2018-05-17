@@ -4,10 +4,12 @@ import com.amadeus.betgroup.dao.account.FriendDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Friend;
 import com.amadeus.betgroup.model.account.User;
+import com.amadeus.betgroup.model.config.ParamValue;
 import com.amadeus.betgroup.model.polla.PollaHeader;
 import com.amadeus.betgroup.model.polla.PollaParticipant;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 import com.amadeus.betgroup.service.commons.EmailService;
+import com.amadeus.betgroup.service.config.ParamValueService;
 import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaParticipantService;
 
@@ -39,10 +41,9 @@ public class FriendService {
         return friendDAO.getFriendListByUserId( user_id );
     }
 
-    public void inviteFriendByEmail( int userId, String email, int pollaHeaderId ){
+    public void inviteFriend( String emisorEmail, String invitadoEmail, int pollaHeaderId, String lang ){
         UserService userService = new UserService();
-        User emisor = userService.selectUserById(userId);
-        User invitado = userService.getUserByEmail(email);
+        User invitado = userService.getUserByEmail(invitadoEmail);
 
         if (invitado != null){
             PollaParticipantService pollaParticipantService = new PollaParticipantService();
@@ -55,67 +56,13 @@ public class FriendService {
                 //Esto va a necesitar que se manejen invitaciones, el cual no tenemos a la fecha.
             }
         }
+		ParamValueService paramValueService = new ParamValueService();
+		ParamValue paramValue = paramValueService.getInviteMessage( emisorEmail, invitadoEmail, pollaHeaderId, lang);
+		String subject = paramValue.getParamValueString1();
+		String message = paramValue.getParamValueString2();
 
-        PollaHeaderService pollaHeaderService = new PollaHeaderService();
-        PollaHeader pollaHeader = pollaHeaderService.getPollaById( pollaHeaderId);
-        User pollaAdmin = userService.selectUserById( pollaHeader.getAdminId() );
+		EmailService.sendEmail( invitadoEmail, subject, message);
 
-        //TODO: Esto deberia jalar de BD el codigo con la notificacion q se debe enviar al usuario por invitacion un Juego.
-        String subject = "BetGroupSports - Invitacion a Juego";
-        String message = "Hola " + (invitado==null?email:invitado.getUsername()) + ", el usuario " + emisor.getUsername() + " te ha invitado al juego: '" + pollaHeader.getPollaName() + "', ";
-//        message += "', el cual es administrado por el usuario: " + pollaHeader.getAdmin().getUsername() + "." ;
-
-        if ( pollaHeader.getAccessFlag() == 1){ //1: Polla Privada
-            message += "Esta polla es privada y el password para que te puedas inscribir es:" + pollaHeader.getPassword() + ". ";
-        }else{ // 0: Polla Publica
-            message += "Esta polla es publica, asi que solo necesitaras inscribirte. ";
-        }
-        if ( pollaHeader.getCostFlag() == 1 ){
-            message += "Esta polla tiene un costo de inscripcion y necesitaras " + pollaHeader.getPollaCost() + " creditos, para inscribirte al juego.";
-        }else{
-            message += "Esta polla no tiene ningun costo.";
-        }
-        message += " Este juego empieza el  " + pollaHeader.getStartDate() ;
-        message += ". Esperamos poder contar con tu participacion.";
-
-        EmailService.sendEmail( invitado==null?email:invitado.getEmail(), subject, message);
     }
 
-    public void inviteFriendByUserId( int userId, int friendId, int pollaHeaderId ){
-        UserService userService = new UserService();
-        User emisor = userService.selectUserById(userId);
-        User invitado = userService.selectUserById(friendId);
-
-        PollaHeaderService pollaHeaderService = new PollaHeaderService();
-        PollaHeader pollaHeader = pollaHeaderService.getPollaById( pollaHeaderId);
-        User pollaAdmin = userService.selectUserById( pollaHeader.getAdminId() );
-
-        if (invitado != null){
-            PollaParticipantService pollaParticipantService = new PollaParticipantService();
-            PollaParticipant pollaParticipant = pollaParticipantService.getPollaParticipantByPollaId(pollaHeaderId, invitado.getUserId() );
-            if ( pollaParticipant ==  null ){
-                throw new ApplicationException("INVAMIG001");
-                //Este usuario ya esta inscrito en este juego.
-            }
-        }
-
-        //TODO: Esto deberia jalar de BD el codigo con la notificacion q se debe enviar al usuario por invitacion un Juego.
-        String subject = "BetGroupSports - Invitacion a Juego";
-        String message = "Hola " + invitado.getUsername() + ", el usuario " + emisor.getUsername() + " te ha invitado al juego: '" + pollaHeader.getPollaName() + "'. ";
-//        message += "', el cual es administrado por el usuario: " + pollaAdmin.getUsername() + "." ;
-
-        if ( pollaHeader.getAccessFlag() == 1){ //1: Polla Privada
-            message += "Esta polla es privada y el password para que te puedas inscribir es:" + pollaHeader.getPassword();
-        }else{ // 0: Polla Publica
-            message += "Esta polla es publica, asi que solo necesitaras inscribirte. ";
-        }
-        if ( pollaHeader.getCostFlag() == 1 ){
-            message += "Esta polla tiene un costo y necesitara " + pollaHeader.getPollaCost() + " creditos, para inscribirte a la polla.";
-        }else{
-            message += "Esta polla no tiene ningun costo.";
-        }
-        message += " Este juego empieza el " + pollaHeader.getStartDate() ;
-        message += ". Esperamos poder contar con tu participacion.";
-        EmailService.sendEmail( invitado.getEmail(), subject, message);
-    }
 }

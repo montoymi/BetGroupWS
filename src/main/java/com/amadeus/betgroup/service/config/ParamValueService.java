@@ -39,6 +39,13 @@ public class   ParamValueService {
         return slideIonicList;
     }
 
+
+	public ParamValue getInviteMessage( String senderEmail, String invitedEmail, int pollaHeaderId, String lang){
+		ParamValue paramValue;
+		paramValue = paramValueDAO.getInvitationMessage( senderEmail, invitedEmail, pollaHeaderId,lang);
+		return paramValue;
+	}
+
 	public ParamValue getWelcomeMessage(String username, String lang){
 
 		ParamValue paramValue = new ParamValue();
