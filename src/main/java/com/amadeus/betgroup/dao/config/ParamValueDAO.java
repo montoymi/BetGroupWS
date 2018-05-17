@@ -56,4 +56,20 @@ public class ParamValueDAO {
         return paramValueList;
 
     }
+
+	public ParamValue getWelcomeMessage(String username, String lang) {
+		SqlSession session = sqlSessionFactory.openSession();
+		ParamValue paramValue = new ParamValue();
+		try {
+			Map<String, Object> map = new HashMap<>();
+			map.put("username", username);
+			map.put("lang", lang);
+
+			paramValue = session.selectOne("ParamValues.selectUserWelcomeMessage", map);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		return paramValue;
+    }
 }

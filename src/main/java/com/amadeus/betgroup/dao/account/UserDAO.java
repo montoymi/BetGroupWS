@@ -29,15 +29,16 @@ public class UserDAO {
     }
 
 
-    public void registraUsuario(User user) {
+    public User registraUsuario(User user) {
         SqlSession session = sqlSessionFactory.openSession();
 
         try {
-            session.insert("User.insertUser", user);
+             user = session.selectOne("User.registraUsuario", user);
             session.commit();
         } finally {
             session.close();
         }
+        return user;
     }
 
     public User selectUserById(int userId) {

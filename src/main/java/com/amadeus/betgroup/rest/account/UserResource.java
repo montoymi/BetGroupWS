@@ -24,8 +24,8 @@ public class UserResource {
     }
 
     @POST
-    public Response registraUsuario(User user) {
-        userService.registraUsuario(user);
+    public Response registraUsuario(User user, String lang) {
+        userService.registraUsuario(user, lang);
         return Response.status(CREATED).entity(user).build();
     }
 

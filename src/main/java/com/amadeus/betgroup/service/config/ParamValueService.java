@@ -39,6 +39,15 @@ public class   ParamValueService {
         return slideIonicList;
     }
 
+	public ParamValue getWelcomeMessage(String username, String lang){
+
+		ParamValue paramValue = new ParamValue();
+		paramValue.setParamLanguage(lang);
+		paramValue = paramValueDAO.getWelcomeMessage(username, lang);
+
+		return paramValue;
+	}
+
     public String getCondTerms(String lang){
 
     	ParamValue paramValue = new ParamValue();

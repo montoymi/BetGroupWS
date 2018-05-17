@@ -53,7 +53,7 @@ public class BetGroupTest {
      //       opcionAdminAdministrarEventos();
    //          opcionJuegosDisponibles();
     //        opcionCrearJuego();
-     //       opcionMisPollas();
+   //         opcionMisPollas();
        //     opcionMisPollas();
          //   opcionAmigos();
 
@@ -734,12 +734,13 @@ public class BetGroupTest {
                     }
                 }
                 System.out.println("Procediendo a registrar al usuario en el sistema ");
-                userService.registraUsuario(userBE);
+                userBE = userService.registraUsuario(userBE, "es");
                 flagRegistro = true;
             } catch(ApplicationException e) {
                 System.out.println(e.getMessage());
             }
         }
+        userBE.setPassword( password );
         userBE = userService.validateLogin(userBE.getUsername(), userBE.getPassword());
         System.out.println( "Informacion de usuario registrado: " );
         System.out.println( "username = " + userBE.getUsername());

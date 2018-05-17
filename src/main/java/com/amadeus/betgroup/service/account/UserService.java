@@ -32,15 +32,19 @@ public class UserService {
 
     }
 
-    public void registraUsuario(User user) throws ApplicationException {
+    public User registraUsuario(User user, String lang) throws ApplicationException {
         if (userDAO.checkUsernameExists(user.getUsername()) != null) {
             throw new ApplicationException("USR001");
         }
         if (userDAO.checkEmailExists(user.getEmail()) != null) {
             throw new ApplicationException("USR002");
         }
-        userDAO.registraUsuario(user);
-        sendWelcomeEmail(user);
+        user = userDAO.registraUsuario(user);
+
+        sendWelcomeEmail(user, lang);
+
+        return user;
+
     }
 
     public void forgotPassword( String email, String lang ){
@@ -64,18 +68,12 @@ public class UserService {
         }
     }
 
-    private void sendWelcomeEmail( User user ){
-        String subject = "BetGroup Sports - Usuario Registrado";
-        String message = "<h1 style=\"color: #006dcc\" >Bienvenido a BetGroup Sports " + user.getUsername() + "  </h1>";
-        message += "<br>";
-        message += "Esperamos puedas pasarla bien entre amigos y que puedas ganar las diferentes ligas que se esten organizando en BetGroup. ";
-        message += "Aqui tus credenciales para que puedas loguearte al sistema: USER= " + user.getUsername() + "  PASSWORD= " + user.getPassword();
-        message += "Te deseamos la mejor de las suertes, y esperemos puedas ganar a tus amigos y demas acertando con tus pronosticos!";
-        message += "<br>";
-        message += "<br>";
-        message += "Atentamente";
-        message += "<br>";
-        message+= "BetGroup Sports";
+    private void sendWelcomeEmail( User user , String lang){
+        ParamValueService paramValueService = new ParamValueService();
+
+        ParamValue paramValue = paramValueService.getWelcomeMessage( user.getUsername(), lang );
+    	String subject = paramValue.getParamValueString1();
+    	String message = paramValue.getParamValueString2();
 
         EmailService.sendEmail( user.getEmail(), subject, message);
 
