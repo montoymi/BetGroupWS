@@ -3,6 +3,8 @@ package com.amadeus.betgroup;
 
 import com.amadeus.betgroup.rest.account.UserResource;
 
+import com.amadeus.betgroup.rest.config.ParamValueResource;
+import com.amadeus.betgroup.service.config.ParamValueService;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
@@ -48,10 +50,23 @@ public class UserTest extends JerseyTest {
         response.close();
     }
 
+    @Test
+    public void testGetCondTerms() {
+        WebTarget target = target().path("params/terms").queryParam("lang", "es");
+        Response response = target.request(MediaType.APPLICATION_JSON).get();
+
+        assertEquals(200, response.getStatus());
+
+        System.out.println("Output received from web method getCondTerms ....");
+        System.out.println("terms: " + response.readEntity(String.class));
+
+        response.close();
+    }
+
     @ApplicationPath("/")
     public class MyResourceConfig extends ResourceConfig {
         MyResourceConfig() {
-            super(UserResource.class);
+            super(UserResource.class, ParamValueResource.class);
         }
     }
 }

@@ -36,6 +36,8 @@ public class PollaHeader {
     private Integer numEvents;
     private Integer numMatchs;
 
+    private String lang;
+
     public Integer getNumEvents() {
         return numEvents;
     }
@@ -242,5 +244,13 @@ public class PollaHeader {
 
     public void setRules(String rules) {
         this.rules = rules;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

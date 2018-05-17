@@ -23,16 +23,15 @@ public class   ParamValueService {
 
     public List<SlideIonic> getInitSlideIonicList(String lang) {
         List<ParamValue> paramValueList = paramValueDAO.selectInitSlideIonicList(lang);
-        List<SlideIonic> slideIonicList = new ArrayList();
+        List<SlideIonic> slideIonicList = new ArrayList<>();
 
-        for (int i = 0; i < paramValueList.size(); i++) {
-            ParamValue paramValue = paramValueList.get(i);
+        for (ParamValue paramValue : paramValueList) {
             SlideIonic slide = new SlideIonic();
 
-            slide.setNumSlide( paramValue.getParamCode() );
-            slide.setTitle( paramValue.getParamValueString1());
+            slide.setNumSlide(paramValue.getParamCode());
+            slide.setTitle(paramValue.getParamValueString1());
             slide.setDescription(paramValue.getParamValueString2());
-            slide.setImage( paramValue.getParamValueString3());
+            slide.setImage(paramValue.getParamValueString3());
             slideIonicList.add(slide);
         }
 

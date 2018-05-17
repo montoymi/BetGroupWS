@@ -48,7 +48,7 @@ public class BetGroupTest {
  //     opcionCreditos();
             //adminService.notifyUsersOfBetsByMatchId();
        //     opcionForgotPassword();
-//           opcionRegistrarUsuario();
+           opcionRegistrarUsuario();
   //          opcionActualizarPerfilUsuario();
   //          opcionMisPollas();
 
@@ -56,7 +56,7 @@ public class BetGroupTest {
    //          opcionJuegosDisponibles();
     //        opcionCrearJuego();
    //         opcionMisPollas();
-            opcionMisPollas();
+        //    opcionMisPollas();
          //   opcionAmigos();
 
 
