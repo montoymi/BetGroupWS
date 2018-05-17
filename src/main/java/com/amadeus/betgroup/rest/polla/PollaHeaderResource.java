@@ -53,7 +53,8 @@ public class PollaHeaderResource {
 
     @POST
     @Path("/rules")
-    public Response getGameRules(PollaHeader pollaHeader, String lang) {
+    public Response getGameRules(PollaHeader pollaHeader) {
+        String lang = pollaHeader.getLang();
         String rules = pollaHeaderService.showGameRules(pollaHeader, lang);
         pollaHeader.setRules(rules);
         return Response.status(OK).entity(pollaHeader).build();

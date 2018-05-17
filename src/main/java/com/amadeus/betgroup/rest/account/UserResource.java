@@ -24,8 +24,9 @@ public class UserResource {
     }
 
     @POST
-    public Response registraUsuario(User user, String lang) {
-        userService.registraUsuario(user, lang);
+    public Response registraUsuario(User user) {
+        // Se asigna porque la función que crea en un select.
+        user = userService.registraUsuario(user, user.getPreferredLang());
         return Response.status(CREATED).entity(user).build();
     }
 
