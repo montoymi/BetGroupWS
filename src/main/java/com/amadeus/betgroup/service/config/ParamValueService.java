@@ -12,7 +12,9 @@ public class   ParamValueService {
     private ParamValueDAO paramValueDAO = new ParamValueDAO(MyBatisSqlSession.getSqlSessionFactory());
 
     public ParamValue getParamValue(ParamValue paramValue) {
-        return paramValueDAO.selectOneParamValue(paramValue);
+        //usualmente este parametro contendra ya los criterios necesarios que hacen unicos a este registro.
+		//Las llaves a usar son appcode, param type, para code, param language
+    	return paramValueDAO.selectOneParamValue(paramValue);
     }
 
     public List<ParamValue> getParamValueList(ParamValue paramValue) {
@@ -40,10 +42,11 @@ public class   ParamValueService {
     public String getCondTerms(String lang){
 
     	ParamValue paramValue = new ParamValue();
-
-    	paramValue = getParamValue(paramValue);
-
-		String condTerm;
+    	paramValue.setsAppCode("BETGROUPS");
+    	paramValue.setsParamType("COND_TERM_PRIVA");
+    	paramValue.setParamCode("1");
+    	paramValue.setParamLanguage(lang);
+    	paramValue = paramValueDAO.selectOneParamValue(paramValue);
 
 		return paramValue.getParamValueString1();
 	}

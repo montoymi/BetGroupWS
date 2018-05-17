@@ -21,7 +21,7 @@
     <select id="selectParamValueByParamCode" parameterType="ParamValue" resultMap="paramValueResult">
         SELECT *
         FROM param_values_tl
-        WHERE app_code = 'BETGROUP' and param_type = #{sParamType} and param_code = #{paramCode} and param_language =#{paramLanguage}
+        WHERE app_code = #{sAppCode} and param_type = #{sParamType} and param_code = #{paramCode} and param_language =#{paramLanguage}
     </select>
 
     <select id="selectListParamValueByParamCode" parameterType="ParamValue" resultMap="paramValueResult">
