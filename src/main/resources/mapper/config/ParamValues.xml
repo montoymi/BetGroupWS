@@ -13,13 +13,15 @@
         <result property="paramValueString3" column="param_value_string3"/>
         <result property="paramValueString4" column="param_value_string4"/>
         <result property="paramValueString5" column="param_value_string5"/>
-    </resultMap>
+		<result property="paramLanguage" column="param_language"/>
+
+	</resultMap>
 
 
     <select id="selectParamValueByParamCode" parameterType="ParamValue" resultMap="paramValueResult">
         SELECT *
-        FROM param_values
-        WHERE app_code = #{sAppCode} and param_type = #{sParamType} and param_code = #{paramCode}
+        FROM param_values_tl
+        WHERE app_code = 'BETGROUP' and param_type = #{sParamType} and param_code = #{paramCode} and param_language =#{paramLanguage}
     </select>
 
     <select id="selectListParamValueByParamCode" parameterType="ParamValue" resultMap="paramValueResult">

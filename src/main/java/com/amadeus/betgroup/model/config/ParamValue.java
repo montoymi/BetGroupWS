@@ -10,8 +10,17 @@ public class ParamValue {
     private String paramValueString3;
     private String paramValueString4;
     private String paramValueString5;
+    private String paramLanguage;
 
-    public String getsAppCode() {
+	public String getParamLanguage() {
+		return paramLanguage;
+	}
+
+	public void setParamLanguage(String paramLanguage) {
+		this.paramLanguage = paramLanguage;
+	}
+
+	public String getsAppCode() {
         return sAppCode;
     }
 

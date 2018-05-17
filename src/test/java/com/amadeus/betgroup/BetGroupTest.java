@@ -46,13 +46,13 @@ public class BetGroupTest {
  //     opcionCreditos();
             //adminService.notifyUsersOfBetsByMatchId();
        //     opcionForgotPassword();
-  //          opcionRegistrarUsuario();
+           opcionRegistrarUsuario();
   //          opcionActualizarPerfilUsuario();
   //          opcionMisPollas();
 
      //       opcionAdminAdministrarEventos();
    //          opcionJuegosDisponibles();
-            opcionCrearJuego();
+    //        opcionCrearJuego();
      //       opcionMisPollas();
        //     opcionMisPollas();
          //   opcionAmigos();

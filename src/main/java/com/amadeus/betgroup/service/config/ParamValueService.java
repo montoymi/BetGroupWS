@@ -8,7 +8,7 @@ import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParamValueService {
+public class   ParamValueService {
     private ParamValueDAO paramValueDAO = new ParamValueDAO(MyBatisSqlSession.getSqlSessionFactory());
 
     public ParamValue getParamValue(ParamValue paramValue) {
@@ -36,4 +36,15 @@ public class ParamValueService {
 
         return slideIonicList;
     }
+
+    public String getCondTerms(String lang){
+
+    	ParamValue paramValue = new ParamValue();
+
+    	paramValue = getParamValue(paramValue);
+
+		String condTerm;
+
+		return paramValue.getParamValueString1();
+	}
 }

@@ -46,7 +46,7 @@
         WHERE user_id = #{userId}
     </update>
 
-    <insert id="insertUser" parameterType="User">
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="user_id">
         INSERT INTO users (
             nickname, email_address, user_password)
         VALUES (
