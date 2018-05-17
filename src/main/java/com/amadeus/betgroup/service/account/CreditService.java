@@ -65,21 +65,6 @@ public class CreditService {
         }
     }
 
-    private void addCreditTransaction(CreditDetail creditDetail){
-
-        if ( creditDetail.getTransactionTypeId() == 1 ){
-
-        } else if( creditDetail.getTransactionTypeId() == 2 ) {
-            if ( creditDetail.getCredit().getTotalCreditos() < 1000 ) { //TODO: Cambiar parametro estatico por dinamico desde la BD.
-                throw new ApplicationException("CRE001");
-            } else if ( creditDetail.getCredit().getTotalCreditos() < creditDetail.getCreditAmount() ) {
-                throw new ApplicationException("CRE002");
-            }
-        }
-
-        creditDAO.addCreditTransaction(creditDetail);
-    }
-
     public void updateCreditTransaction(CreditDetail creditDetail){
         creditDAO.updateCreditTransaction(creditDetail);
     }

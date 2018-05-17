@@ -6,6 +6,7 @@ import com.amadeus.betgroup.model.account.Credit;
 import com.amadeus.betgroup.model.account.CreditDetail;
 import com.amadeus.betgroup.model.account.Friend;
 import com.amadeus.betgroup.model.account.User;
+import com.amadeus.betgroup.model.config.ParamValue;
 import com.amadeus.betgroup.model.config.SlideIonic;
 import com.amadeus.betgroup.model.polla.PollaBet;
 import com.amadeus.betgroup.model.polla.PollaHeader;
@@ -21,6 +22,7 @@ import com.amadeus.betgroup.service.account.CreditService;
 import com.amadeus.betgroup.service.account.FriendService;
 import com.amadeus.betgroup.service.account.UserService;
 import com.amadeus.betgroup.service.admin.AdminService;
+import com.amadeus.betgroup.service.config.ParamValueService;
 import com.amadeus.betgroup.service.polla.PollaBetService;
 import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaMatchService;
@@ -46,7 +48,7 @@ public class BetGroupTest {
  //     opcionCreditos();
             //adminService.notifyUsersOfBetsByMatchId();
        //     opcionForgotPassword();
-           opcionRegistrarUsuario();
+//           opcionRegistrarUsuario();
   //          opcionActualizarPerfilUsuario();
   //          opcionMisPollas();
 
@@ -733,9 +735,22 @@ public class BetGroupTest {
                         System.out.println("Los passwords no coinciden. Ingrese el nuevo password otra vuelta: ");
                     }
                 }
-                System.out.println("Procediendo a registrar al usuario en el sistema ");
-                userBE = userService.registraUsuario(userBE, "es");
-                flagRegistro = true;
+
+                ParamValueService paramValueService = new ParamValueService();
+                String condTerms = paramValueService.getCondTerms( "es" );
+				System.out.println("Mostrando condiciones y terminos: ");
+				System.out.println(condTerms);
+				System.out.print("Acepta condiciones? (Y / N) ");
+				String respuesta = in.nextLine();
+
+				if (respuesta.contentEquals("Y") ){
+					System.out.println("Procediendo a registrar al usuario en el sistema ");
+					userBE = userService.registraUsuario(userBE, "es");
+					flagRegistro = true;
+				}
+
+
+
             } catch(ApplicationException e) {
                 System.out.println(e.getMessage());
             }

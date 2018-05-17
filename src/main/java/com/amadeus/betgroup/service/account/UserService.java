@@ -23,7 +23,6 @@ public class UserService {
             // El usuario ingresado no existe en el sistema. Porfavor, corrija e ingrese el username y trate de loguearse nuevamente.
         }
         User user = userDAO.validateLogin(username, password);
-
         if ( user == null ){
             throw new ApplicationException("USR004");
             //Las credenciales ingresadas no coinciden. Porfavolr, corrija e ingrese el password y trate de loguearse nuevamente.
