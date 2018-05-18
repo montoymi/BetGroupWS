@@ -26,7 +26,7 @@
         	(select count(tev.*) as num_events from template_events as tev where tev.template_id = th.id),
             (select count(tm.*) as num_matchs from template_details as tm where tm.template_header_id = th.id)
         from template_headers as th
-        where th.start_date > now() order by th.start_date, th.end_date, th.template_header_name
+        where th.start_date > now() and th.status = 2 order by th.start_date, th.end_date, th.template_header_name
     </select>
 
 </mapper>
