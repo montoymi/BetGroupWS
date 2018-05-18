@@ -34,21 +34,32 @@
     </resultMap>
 
     <select id="getMisPollasByUserId" parameterType="int" resultMap="selectResult">
-        SELECT ph.*, (select count(pp1.*) as num_participants from polla_participants as pp1 where pp1.polla_header_id = ph.id), u.nickname
+        SELECT ph.*,
+               (select count(pp1.*) as num_participants from polla_participants as pp1 where pp1.polla_header_id = ph.id),
+	       	   (select count(pev.*) as num_events from polla_events as pev where pev.polla_header_id = ph.id),
+	           (select count(pm.*) as num_matchs from polla_matches as pm where pm.polla_header_id = ph.id),
+               u.nickname
           FROM polla_headers AS ph, polla_participants AS pp, users as u
          WHERE ph.id = pp.polla_header_id AND
                ph.admin_user_id = u.user_id AND
                pp.user_id = #{userId}
-      ORDER BY ph.status desc, ph.start_date asc, end_date, polla_name
+      ORDER BY ph.start_date desc, num_participants desc, ph.polla_name
     </select>
 
     <select id="getPollasDisponiblesByUserId" parameterType="PollaHeader" resultMap="selectResult">
-        select * from polla_headers as ph
-        where not exists (select 1
-        from polla_participants pp
-        where pp.polla_header_id = ph.id
-        and pp.user_id = #{userId} ) and ph.start_date > now()
-        order by ph.start_date, ph.end_date, ph.polla_name
+        select ph.*,
+       		  (select count(pp1.*) as num_participants from polla_participants as pp1 where pp1.polla_header_id = ph.id),
+       		  (select count(pev.*) as num_events from polla_events as pev where pev.polla_header_id = ph.id),
+       		  (select count(pm.*) as num_matchs from polla_matches as pm where pm.polla_header_id = ph.id),
+       		  u.nickname
+		 from polla_headers as ph, users as u
+		where ph.admin_user_id = u.user_id and
+      			not exists (select 1 from polla_participants pp
+            	  	       where pp.polla_header_id = ph.id and
+			 					 pp.user_id = #{userId}  )
+      		and ph.start_date > now() and ph.status = 2
+			order by ph.start_date desc, num_participants desc, ph.polla_name
+
     </select>
 
     <select id="createBetGroup" statementType="CALLABLE" parameterType="map">
