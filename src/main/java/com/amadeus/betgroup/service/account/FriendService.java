@@ -51,9 +51,9 @@ public class FriendService {
             if ( pollaParticipant !=  null ){
                 throw new ApplicationException("INVAMIG001");
                 //Este usuario ya esta inscrito en este juego.
-            }else{
-                //if ya ha sido invitado anteriormente, no se le podra enviar otra invitacion.
-                //Esto va a necesitar que se manejen invitaciones, el cual no tenemos a la fecha.
+            }else if( invitadoEmail.contentEquals(emisorEmail)){
+				throw new ApplicationException("INVAMIG002");
+				//No se puede invitar a usted mismo a un juego.
             }
         }
 		ParamValueService paramValueService = new ParamValueService();
