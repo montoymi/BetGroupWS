@@ -35,7 +35,7 @@ public class CreditService {
             if( creditDetail.getCreditAmount() > 5000){ //TODO: Cambiar parametro estatico por dinamico desde la BD.
                 throw new ApplicationException("CRE004");
                 //No se puede comprar mas del maximo permitido en la aplicacion. Ingrese un monto a comprar no mayor a 5000
-            } else if( creditDAO.checkPendingPurchaseExist(creditDetail.getUserId()) == null ){
+            } else if( creditDAO.checkPendingPurchaseExist(creditDetail.getUserId()) != null ){
                 throw new ApplicationException("CRE005");
                 //Existe una transaccion de compra pendiente de aprobacion. Esper a que se procese, para proceder con una nueva compra.
             } else{
