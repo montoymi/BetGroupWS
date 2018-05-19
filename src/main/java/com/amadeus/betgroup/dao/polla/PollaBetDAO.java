@@ -64,7 +64,7 @@ public class PollaBetDAO {
                 Map<String, Object> map = new HashMap<>();
                 map.put("pollaBet", pollaBet);
                 map.put("overrideFlag", overrideFlag);
-                session.update("PollaBets.updateBetsByMatchIdUserId", map);
+                session.update("PollaBets.updatePollaBet", map);
             }
 
             session.commit();
