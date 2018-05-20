@@ -122,39 +122,5 @@ public class UserDAO {
             session.close();
         }
     }
-/*
-    public Email forgotPassword2 (int userId, String lang ){
-        SqlSession session = sqlSessionFactory.openSession();
-        Email emailBE;
-        try {
-            Map<String, Object> map = new HashMap<>();
-            map.put("userId", userId);
-            map.put("lang", lang);
-            emailBE = session.selectOne("User.forgotPassword", map);
-            session.commit();
-        } finally {
-            session.close();
-        }
-        return emailBE;
-
-    }
-*/
-    public String forgotPassword ( int userId, String lang ){
-        SqlSession session = sqlSessionFactory.openSession();
-        String message;
-        try {
-            Map<String, Object> map = new HashMap<>();
-            map.put("userId", userId);
-            map.put("lang", lang);
-
-            message = session.selectOne("User.forgotPassword", map);
-            session.commit();
-
-        } finally {
-            session.close();
-        }
-        return message;
-
-    }
 
 }

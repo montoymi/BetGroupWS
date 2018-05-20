@@ -15,6 +15,8 @@
         <result property="points" column="polla_bet_points"/>
         <result property="status" column="polla_bet_status"/>
         <result property="flagWildcard" column="flg_wildcard"/>
+
+
         <result property="pollaMatch.pollaMatchId" column="polla_match_id"/>
         <result property="pollaMatch.pollaHeaderId" column="polla_match_header_id"/>
         <result property="pollaMatch.matchId" column="polla_match_match_id"/>
@@ -51,18 +53,6 @@
         <result property="pollaParticipant.pollaHeader.image" column="image"/>
 
     </resultMap>
-
-    <!--<select id="getListBetsByMatchIdUserId" parameterType="map" resultMap="pollaBetResults">
-        select ph.id, ph.polla_name, ph.start_date, ph.end_date, ph.total_bet, ph.image,
-               pb.id, pb.local_bet_score, pb.visitor_bet_score, pb.result_bet, pb.status,
-               pp.id, pp.position, pp.num_wildcards_left, pp.total, pp.earnings, u.user_id, ma.id as match_id
-          from matchs as ma, polla_matches as pm, polla_headers as ph, polla_bets as pb, polla_participants as pp, users as u
-         where ma.id = pm.match_id and pm.polla_header_id = ph.id
-           and pb.polla_participant_id = pp.id and pb.polla_match_id = pm.id
-           and u.user_id = pp.user_id
-           and pm.match_id= #{matchId} and pp.user_id = #{userId};
-
-    </select>-->
 
     <select id="getListBetsByMatchIdUserId" parameterType="map" resultMap="pollaBetResults">
         SELECT

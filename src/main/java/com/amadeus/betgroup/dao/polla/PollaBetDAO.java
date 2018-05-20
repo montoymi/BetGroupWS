@@ -56,17 +56,11 @@ public class PollaBetDAO {
 
     public void updateBetsByMatchIdUserId(List<PollaBet> pollaBetList) {
         String overrideFlag = "Y"; //TODO: Revisar
-
         SqlSession session = sqlSessionFactory.openSession();
-
         try {
             for (PollaBet pollaBet : pollaBetList) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("pollaBet", pollaBet);
-                map.put("overrideFlag", overrideFlag);
-                session.update("PollaBets.updatePollaBet", map);
+                session.update("PollaBets.updatePollaBet", pollaBet);
             }
-
             session.commit();
         } catch (Exception e) {
             session.rollback();

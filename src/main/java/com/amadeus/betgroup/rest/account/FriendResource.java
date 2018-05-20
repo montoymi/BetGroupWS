@@ -3,6 +3,7 @@ package com.amadeus.betgroup.rest.account;
 import com.amadeus.betgroup.model.account.Friend;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.service.account.FriendService;
+import com.amadeus.betgroup.service.account.UserService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -17,6 +18,7 @@ import static javax.ws.rs.core.Response.Status.OK;
 @Produces({MediaType.APPLICATION_JSON})
 public class FriendResource {
     private FriendService friendService = new FriendService();
+	private UserService userService = new UserService();
 
     @GET
     public Response getFriendListByUserId(@QueryParam("user-id") int userId) {
@@ -40,7 +42,8 @@ public class FriendResource {
     @POST
     @Path("/{polla-id}")
     public Response inviteFriend(@PathParam("polla-id") int pollaId, Friend friend) {
-        friendService.inviteFriend( friend.getUser().getEmail(), friend.getAmigo().getEmail() , pollaId, friend.getUser().getPreferredLang());
+    	User invitado = userService.selectUserById( friend.getAmigo().getUserId());
+		friendService.inviteFriend( friend.getUser().getEmail() , invitado.getEmail() , pollaId, friend.getUser().getPreferredLang());
         return Response.status(CREATED).entity(friend).build();
     }
 }

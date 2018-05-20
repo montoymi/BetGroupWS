@@ -139,12 +139,6 @@
         WHERE user_id = #{userId}
     </update>
 
-    <select id="forgotPassword" statementType="CALLABLE" parameterType="map" resultType="String">
-        { call xx_forgot_password (
-            #{ userId , mode=IN, jdbcType=INTEGER},
-            #{ lang , mode=IN, jdbcType=VARCHAR}
-        )}
-    </select>
 
 
 </mapper>

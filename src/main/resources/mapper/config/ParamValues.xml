@@ -58,7 +58,8 @@
     </select>
 
 	<select id="forgotPassword" parameterType="map" resultMap="paramValueResult">
-       select *
+       select r_out_subject as param_value_string1,
+              r_out_body as param_value_string2
         from xx_forgot_password ( #{userId} , #{lang})
     </select>
 
