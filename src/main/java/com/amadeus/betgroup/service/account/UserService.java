@@ -58,9 +58,12 @@ public class UserService {
 
         try {
        //     Email emailBE = userDAO.forgotPassword( user.getUserId(), lang );
+		//	ParamValueService paramValueService = new ParamValueService();
+		//	ParamValue paramValue = paramValueService.getForgotPasswordMessage( user.getUserId(), lang);
+		//	EmailService.sendEmail( (user.getEmail()==null)? email : user.getEmail() , paramValue.getParamValueString1(), paramValue.getParamValueString2());
+
 
             String message = userDAO.forgotPassword( user.getUserId(), lang );
-
             EmailService.sendEmail( (user.getEmail()==null)? email : user.getEmail() , subject, message);
         } catch (PersistenceException e) {
             throw new ApplicationException(e);

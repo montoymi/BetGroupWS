@@ -65,4 +65,13 @@ public class   ParamValueService {
 
 		return paramValue.getParamValueString1();
 	}
+
+
+	public ParamValue getForgotPasswordMessage( int userId, String lang ) {
+		ParamValue paramValue = new ParamValue();
+		paramValue.setParamLanguage(lang);
+		paramValue = paramValueDAO.getForgotPasswordMessage(userId, lang);
+
+		return paramValue;
+	}
 }

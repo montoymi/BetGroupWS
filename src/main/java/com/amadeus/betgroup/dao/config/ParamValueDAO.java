@@ -59,12 +59,11 @@ public class ParamValueDAO {
 
 	public ParamValue getWelcomeMessage(String username, String lang) {
 		SqlSession session = sqlSessionFactory.openSession();
-		ParamValue paramValue = new ParamValue();
+		ParamValue paramValue;
 		try {
 			Map<String, Object> map = new HashMap<>();
 			map.put("username", username);
 			map.put("lang", lang);
-
 			paramValue = session.selectOne("ParamValues.selectUserWelcomeMessage", map);
 			session.commit();
 		} finally {
@@ -75,7 +74,7 @@ public class ParamValueDAO {
 
     public ParamValue getInvitationMessage(String senderEmail, String invitedEmail, int pollaHeaderId, String lang ){
 		SqlSession session = sqlSessionFactory.openSession();
-		ParamValue paramValue = new ParamValue();
+		ParamValue paramValue;
 		try {
 			Map<String, Object> map = new HashMap<>();
 			map.put("senderEmail", senderEmail);
@@ -90,4 +89,21 @@ public class ParamValueDAO {
 		}
 		return paramValue;
 	}
+
+	public ParamValue getForgotPasswordMessage(int userId, String lang) {
+		SqlSession session = sqlSessionFactory.openSession();
+		ParamValue paramValue;
+		try {
+			Map<String, Object> map = new HashMap<>();
+			map.put("userId", userId);
+			map.put("lang", lang);
+
+			paramValue = session.selectOne("ParamValues.forgotPassword", map);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		return paramValue;
+	}
+
 }

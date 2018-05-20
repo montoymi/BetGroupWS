@@ -57,4 +57,9 @@
           from xx_get_slides_detail(#{lang});
     </select>
 
+	<select id="forgotPassword" parameterType="map" resultMap="paramValueResult">
+       select *
+        from xx_forgot_password ( #{userId} , #{lang})
+    </select>
+
 </mapper>
