@@ -45,15 +45,15 @@ import java.util.Scanner;
 public class BetGroupTest {
     public static void main(String args[]) throws Exception{
         try{
- //     opcionCreditos();
+  //    opcionCreditos();
             //adminService.notifyUsersOfBetsByMatchId();
-            opcionForgotPassword();
+       //     opcionForgotPassword();
  //          opcionRegistrarUsuario();
   //          opcionActualizarPerfilUsuario();
   //          opcionMisPollas();
 
      //       opcionAdminAdministrarEventos();
-   //          opcionJuegosDisponibles();
+             opcionJuegosDisponibles();
     //        opcionCrearJuego();
  //           opcionMisPollas();
         //    opcionMisPollas();

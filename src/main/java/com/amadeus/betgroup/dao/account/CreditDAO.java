@@ -57,6 +57,9 @@ public class CreditDAO {
         List<CreditDetail> creditDetailList;
         try {
             creditDetailList = session.selectList("CreditDetails.checkPendingPurchaseExist", user_id);
+            if ( creditDetailList.size() == 0 ){
+				creditDetailList = null;
+			}
             session.commit();
         } finally {
             session.close();

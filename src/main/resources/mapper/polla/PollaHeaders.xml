@@ -43,7 +43,7 @@
          WHERE ph.id = pp.polla_header_id AND
                ph.admin_user_id = u.user_id AND
                pp.user_id = #{userId}
-      ORDER BY ph.start_date desc, num_participants desc, ph.polla_name
+      ORDER BY ph.status, ph.start_date asc, num_participants desc, ph.polla_name
     </select>
 
     <select id="getPollasDisponiblesByUserId" parameterType="PollaHeader" resultMap="selectResult">
@@ -58,7 +58,7 @@
             	  	       where pp.polla_header_id = ph.id and
 			 					 pp.user_id = #{userId}  )
       		and ph.start_date > now() and ph.status = 2
-			order by ph.start_date desc, num_participants desc, ph.polla_name
+			order by ph.start_date asc, num_participants desc, ph.polla_name
 
     </select>
 

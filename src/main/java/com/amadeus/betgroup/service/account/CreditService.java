@@ -13,6 +13,11 @@ public class CreditService {
 
     public Credit getCreditSummaryByUserId(int userId) {
         Credit creditHeader = creditDAO.getCreditSummaryByUserID(userId);
+		if( creditHeader == null) {
+			creditHeader = new Credit();
+			creditHeader.setUserId(userId);
+			creditHeader.setTotalCreditos(0);
+		}
         return creditHeader;
     }
 

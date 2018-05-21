@@ -154,14 +154,14 @@
             m.visitor_team_id,
             tv.team_name            AS visitor_team_name,
             tv.image                AS image_visitor,
-            ph.mode_wildcard_flg
+            ph.mode_wildcard_flg, ph.polla_name, ph.num_wildcard
         FROM polla_bets AS pb, polla_matches AS pm, matchs AS m, teams AS tl, teams AS tv, polla_headers ph
         WHERE pb.polla_match_id = pm.id
               AND pm.match_id = m.id
               AND m.local_team_id = tl.id
               AND m.visitor_team_id = tv.id
               AND pm.polla_header_id = ph.id
-              AND polla_participant_id = #{pollaParticipantId} order by m.match_date asc;
+              AND polla_participant_id = #{pollaParticipantId} order by m.status desc, m.match_date asc;
     </select>
 
 </mapper>
