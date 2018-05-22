@@ -70,7 +70,7 @@
         and p.tournament_id = t.id and pm.match_id= m.id and
              pm.id = pb.polla_match_id AND
              pp.id = pb.polla_participant_id AND
-             pp.user_id = #{userId} AND m.match_date > now() and m.status = 1
+             pp.user_id = #{userId} AND m.match_date_with_timestamp > now() and m.status = 1
       order by m.match_date;
     </select>
 
