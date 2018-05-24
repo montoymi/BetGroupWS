@@ -100,7 +100,8 @@
               AND m.visitor_team_id = tv.id
               AND pm.polla_header_id = ph.id
               AND pb.polla_participant_id = pp.id
-              AND pm.match_id = #{matchId} AND pp.user_id = #{userId};
+              AND pm.match_id = #{matchId} AND pp.user_id = #{userId}
+              order by m.match_date_with_timestamp asc;
     </select>
 
     <update id="updateBetsByMatchIdUserId" statementType="CALLABLE" parameterType="map">
