@@ -23,6 +23,7 @@
         <result property="pollaMatch.match.matchId" column="match_id"/>
         <result property="pollaMatch.match.matchCode" column="match_code"/>
         <result property="pollaMatch.match.matchDate" column="match_date"/>
+		<result property="pollaMatch.match.matchDateWithTimezone" column="match_date_with_timestamp"/>
         <result property="pollaMatch.match.matchPlace" column="match_place"/>
         <result property="pollaMatch.match.resultMatch" column="result_match"/>
         <result property="pollaMatch.match.scoreLocal" column="local_score"/>
@@ -72,6 +73,7 @@
             m.id                    AS match_id,
             m.match_code,
             m.match_date,
+            m.match_date_with_timestamp,
             m.match_place,
             m.result_match,
             m.local_score,
@@ -143,6 +145,7 @@
             m.id                    AS match_id,
             m.match_code,
             m.match_date,
+            m.match_date_with_timestamp,
             m.match_place,
             m.result_match,
             m.local_score,

@@ -327,7 +327,7 @@ public class PollaHeaderTest {
         System.out.println( "Lista de amigos asociados a su cuenta: ");
         for (int i = 0; i < friendList.size() ; i++) {
             Friend friend = friendList.get(i);
-            System.out.println( "# " + (i+1) + friend.getUser().getUsername());
+            System.out.println( "# " + (i+1) + friend.getAmigo().getUsername());
         }
         System.out.println( "Seleccione amigo a invitar:");
         Scanner in = new Scanner(System.in);
