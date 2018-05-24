@@ -38,6 +38,7 @@
         <result property="pollaMatch.match.visitorTeam.teamName" column="visitor_team_name"/>
         <result property="pollaMatch.match.visitorTeam.image" column="image_visitor"/>
         <result property="pollaMatch.pollaHeader.modeWildcardFlag" column="mode_wildcard_flg"/>
+		<result property="pollaMatch.pollaHeader.templateHeader.templateName" column="template_header_name"/>
 
         <result property="pollaParticipant.pollaParticipantId" column="participant_id"/>
         <result property="pollaParticipant.userId" column="user_id"/>
@@ -86,15 +87,17 @@
             tv.team_name            AS visitor_team_name,
             tv.image                AS image_visitor,
             ph.mode_wildcard_flg,
+            th.template_header_name,
             pp.id,
             pp.position,
             pp.num_wildcards_left,
             pp.total,
             pp.earnings,
-            ph.polla_name
+            ph.polla_name, ph.start_date, ph.end_date
         FROM polla_bets AS pb, polla_matches AS pm, matchs AS m, teams AS tl, teams AS tv, polla_headers ph,
-            polla_participants AS pp
+            polla_participants AS pp, template_headers as th
         WHERE pb.polla_match_id = pm.id
+              AND ph.template_header_id = th.id
               AND pm.match_id = m.id
               AND m.local_team_id = tl.id
               AND m.visitor_team_id = tv.id
@@ -158,14 +161,16 @@
             m.visitor_team_id,
             tv.team_name            AS visitor_team_name,
             tv.image                AS image_visitor,
-            ph.mode_wildcard_flg, ph.polla_name, ph.num_wildcard
-        FROM polla_bets AS pb, polla_matches AS pm, matchs AS m, teams AS tl, teams AS tv, polla_headers ph
+            ph.mode_wildcard_flg, ph.polla_name, ph.num_wildcard, th.template_header_name, ph.start_date, ph.end_date
+        FROM polla_bets AS pb, polla_matches AS pm, matchs AS m, teams AS tl, teams AS tv,
+        	 polla_headers ph, template_headers as th
         WHERE pb.polla_match_id = pm.id
+        	  AND ph.template_header_id = th.id
               AND pm.match_id = m.id
               AND m.local_team_id = tl.id
               AND m.visitor_team_id = tv.id
               AND pm.polla_header_id = ph.id
-              AND polla_participant_id = #{pollaParticipantId} order by m.status desc, m.match_date asc;
+              AND polla_participant_id = #{pollaParticipantId} order by m.status desc, m.match_date_with_timestamp asc;
     </select>
 
 </mapper>
