@@ -1,6 +1,7 @@
 package com.amadeus.betgroup.model.polla;
 
 import com.amadeus.betgroup.model.account.User;
+import com.amadeus.betgroup.model.template.TemplateHeader;
 
 import java.util.Date;
 import java.util.List;
@@ -9,7 +10,7 @@ public class PollaHeader {
     private Integer pollaId;
     private String pollaName;
     private Integer templateHeaderId;
-
+	private TemplateHeader templateHeader;
     private String betgroupCode;
     private Integer adminId;
     private User admin;
@@ -18,7 +19,7 @@ public class PollaHeader {
     private Integer accessFlag; // 0: publico ; 1: private
     private String password;
     private Integer costFlag;
-    private String image;
+	private String image;
     private List<PollaMatch> pollaMatchList;
     private List<PollaParticipant> pollaParticipantList;
     private List<PollaEvent> pollaEventList;
@@ -38,7 +39,17 @@ public class PollaHeader {
 
     private String lang;
 
-    public Integer getNumEvents() {
+
+	public TemplateHeader getTemplateHeader() {
+		return templateHeader;
+	}
+
+	public void setTemplateHeader(TemplateHeader templateHeader) {
+		this.templateHeader = templateHeader;
+	}
+
+
+	public Integer getNumEvents() {
         return numEvents;
     }
 
