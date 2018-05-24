@@ -71,7 +71,7 @@
              pm.id = pb.polla_match_id AND
              pp.id = pb.polla_participant_id AND
              pp.user_id = #{userId} AND m.match_date_with_timestamp > now() and m.status = 1
-      order by m.match_date;
+      order by m.match_date_with_timestamp;
     </select>
 
     <select id="selectAllMatchesByGroupId" parameterType="map" resultMap="matchResult">
