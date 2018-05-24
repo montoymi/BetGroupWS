@@ -5,13 +5,12 @@ import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.account.Friend;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.config.ParamValue;
-import com.amadeus.betgroup.model.polla.PollaHeader;
 import com.amadeus.betgroup.model.polla.PollaParticipant;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
 import com.amadeus.betgroup.service.commons.EmailService;
 import com.amadeus.betgroup.service.config.ParamValueService;
-import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaParticipantService;
+import org.apache.ibatis.exceptions.PersistenceException;
 
 import java.util.List;
 
@@ -41,28 +40,31 @@ public class FriendService {
         return friendDAO.getFriendListByUserId( user_id );
     }
 
-    public void inviteFriend( String emisorEmail, String invitadoEmail, int pollaHeaderId, String lang ){
+    public void inviteFriend(String emisorEmail, String invitadoEmail, int pollaHeaderId, String lang) {
         UserService userService = new UserService();
         User invitado = userService.getUserByEmail(invitadoEmail);
 
-        if (invitado != null){
+        if (invitado != null) {
             PollaParticipantService pollaParticipantService = new PollaParticipantService();
-            PollaParticipant pollaParticipant = pollaParticipantService.getPollaParticipantByPollaId(pollaHeaderId, invitado.getUserId() );
-            if ( pollaParticipant !=  null ){
+            PollaParticipant pollaParticipant = pollaParticipantService.getPollaParticipantByPollaId(pollaHeaderId, invitado.getUserId());
+            if (pollaParticipant != null) {
                 throw new ApplicationException("INVAMIG001");
                 //Este usuario ya esta inscrito en este juego.
-            }else if( invitadoEmail.contentEquals(emisorEmail)){
-				throw new ApplicationException("INVAMIG002");
-				//No se puede invitar a usted mismo a un juego.
+            } else if (invitadoEmail.contentEquals(emisorEmail)) {
+                throw new ApplicationException("INVAMIG002");
+                //No se puede invitar a usted mismo a un juego.
             }
         }
-		ParamValueService paramValueService = new ParamValueService();
-		ParamValue paramValue = paramValueService.getInviteMessage( emisorEmail, invitadoEmail, pollaHeaderId, lang);
-		String subject = paramValue.getParamValueString1();
-		String message = paramValue.getParamValueString2();
 
-		EmailService.sendEmail( invitadoEmail, subject, message);
+        ParamValueService paramValueService = new ParamValueService();
 
+        try {
+            ParamValue paramValue = paramValueService.getInviteMessage(emisorEmail, invitadoEmail, pollaHeaderId, lang);
+            String subject = paramValue.getParamValueString1();
+            String message = paramValue.getParamValueString2();
+            EmailService.sendEmail(invitadoEmail, subject, message);
+        } catch (PersistenceException e) {
+            throw new ApplicationException(e);
+        }
     }
-
 }

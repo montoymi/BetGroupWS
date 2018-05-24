@@ -46,10 +46,17 @@ public class UserResource {
     @GET
     @Path("/passwords")
     public Response forgotPassword(@QueryParam("email") String email, @QueryParam("lang") String lang) {
-        userService.forgotPassword(email,lang);
+        userService.forgotPassword(email, lang);
         String message = "email sent to: " + email;
         String response = "{\"message\":\"" + message + "\"}";
         return Response.status(OK).entity(response).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response selectUserById(@PathParam("id") int id) {
+        User user = userService.selectUserById(id);
+        return Response.status(OK).entity(user).build();
     }
 }
 
