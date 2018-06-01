@@ -79,4 +79,20 @@ public class PollaParticipantsDAO {
     }
 
 
+	public List<PollaParticipant> getParticipantListByPollaIdAndLang(Integer pollaId, String lang) {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<PollaParticipant> pollaParticipants;
+		try {
+			Map<String, Object> map = new HashMap<>();
+			map.put("pollaId", pollaId);
+			map.put("lang", lang);
+
+			pollaParticipants =session.selectList("PollaParticipants.getParticipantListByPollaIdAndLang", map);
+			session.commit();
+
+		} finally {
+			session.close();
+		}
+		return pollaParticipants;
+	}
 }

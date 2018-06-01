@@ -43,4 +43,9 @@ public class MatchService {
         List<Match> matchList = matchDAO.getAllMatchesByGroupId(groupId);
         return matchList;
     }
+
+	public List<Match> getMatchListDueStart() {
+		List<Match> matchList = matchDAO.getMatchListDueStart();
+		return matchList;
+	}
 }

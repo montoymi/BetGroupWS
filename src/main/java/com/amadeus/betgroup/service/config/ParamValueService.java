@@ -1,6 +1,7 @@
 package com.amadeus.betgroup.service.config;
 
 import com.amadeus.betgroup.dao.config.ParamValueDAO;
+import com.amadeus.betgroup.model.config.CardIonic;
 import com.amadeus.betgroup.model.config.ParamValue;
 import com.amadeus.betgroup.model.config.SlideIonic;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
@@ -20,6 +21,23 @@ public class   ParamValueService {
     public List<ParamValue> getParamValueList(ParamValue paramValue) {
         return paramValueDAO.selectListParamValue(paramValue);
     }
+
+	public List<CardIonic> getHomeCardList(int userId, String lang) {
+		List<ParamValue> paramValueList = paramValueDAO.selectHomeCardList(userId, lang);
+		List<CardIonic> cardIonicList = new ArrayList<>();
+
+		for (ParamValue paramValue : paramValueList) {
+			CardIonic card = new CardIonic();
+
+			card.setCardType("NEWS");
+			card.setContent1("Esperamos puedas pasarla bien durante esta BETA. Estamore comunicandote cualquier ");
+			card.setImage1("assets/img/");
+			card.setTitle("Bienvenido a Kiniela Sports");
+			cardIonicList.add(card);
+		}
+
+		return cardIonicList;
+	}
 
     public List<SlideIonic> getInitSlideIonicList(String lang) {
         List<ParamValue> paramValueList = paramValueDAO.selectInitSlideIonicList(lang);
@@ -71,7 +89,11 @@ public class   ParamValueService {
 		ParamValue paramValue = new ParamValue();
 		paramValue.setParamLanguage(lang);
 		paramValue = paramValueDAO.getForgotPasswordMessage(userId, lang);
-
 		return paramValue;
+	}
+
+	public List<ParamValue> getMatchForecastsMessage(int pollaHeaderId, int matchId) {
+		List<ParamValue> paramValueList = paramValueDAO.getMatchForecastsMessage(pollaHeaderId, matchId);
+		return paramValueList;
 	}
 }

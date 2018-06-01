@@ -18,7 +18,8 @@
         <result property="sex" column="sex"/>
         <result property="lastLoginDate" column="last_login_date"/>
         <result property="flagNotification" column="flg_notif_bets"/>
-    </resultMap>
+		<result property="preferredLang" column="preferred_language"/>
+	</resultMap>
 
     <select id="selectUserById" parameterType="int" resultMap="selectResult">
         select user_id,
@@ -36,6 +37,13 @@
               sex
         from users where user_id = #{userId}
     </select>
+
+	<update id="actualizarLang" parameterType="User">
+        UPDATE users
+        SET
+            preferred_language = #{preferredLang}
+        WHERE user_id = #{userId}
+    </update>
 
     <update id="actualizarPerfil" parameterType="User">
         UPDATE users
@@ -68,7 +76,6 @@
         	#{username},
 			#{email},
 			#{password})
-
     </select>
 
     <select id="validateLogin" statementType="CALLABLE" parameterType="User" resultMap="selectResult">

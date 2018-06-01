@@ -13,4 +13,16 @@ public class TournamentService {
         List<Tournament> tournamentList = tournamentDAO.getAllTournaments();
         return tournamentList;
     }
+
+	public void createTournament(Tournament tournament) {
+		tournamentDAO.createTournament(tournament);
+	}
+
+	public void updateTournament(Tournament tournament) {
+		tournamentDAO.updateTournament(tournament);
+	}
+
+	public Tournament getTournamentById(int id) {
+		return tournamentDAO.getTournamentById(id);
+	}
 }

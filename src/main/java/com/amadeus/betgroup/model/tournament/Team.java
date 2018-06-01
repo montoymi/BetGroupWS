@@ -6,7 +6,7 @@ public class Team {
     private Integer sportId;
     private Sport sport;
     private String image;
-    private String enabled_flag;
+    private Integer enabled_flag;
 
     public Integer getTeamId() {
         return teamId;
@@ -48,11 +48,11 @@ public class Team {
         this.image = image;
     }
 
-    public String getEnabled_flag() {
+    public Integer getEnabled_flag() {
         return enabled_flag;
     }
 
-    public void setEnabled_flag(String enabled_flag) {
+    public void setEnabled_flag(Integer enabled_flag) {
         this.enabled_flag = enabled_flag;
     }
 }

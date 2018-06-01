@@ -107,4 +107,16 @@ public class PollaHeaderDAO {
         }
         return gameRules;
     }
+
+	public List<PollaHeader> getPollaHeaderListByMatchId(Integer matchId) {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<PollaHeader> pollaHeaders;
+		try {
+			pollaHeaders =session.selectList("PollaHeaders.getPollaHeaderListByMatchId", matchId);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		return pollaHeaders;
+	}
 }

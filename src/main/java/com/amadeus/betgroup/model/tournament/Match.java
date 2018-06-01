@@ -19,7 +19,7 @@ public class Match {
     private String resultMatch;
     private Integer scoreLocal;
     private Integer scoreVisitor;
-    private String enabled_flag;
+    private Integer enabled_flag;
 
     private Date lastUpdatedDate;
     private Integer lastUpdatedBy;
@@ -178,11 +178,11 @@ public class Match {
         this.scoreVisitor = scoreVisitor;
     }
 
-    public String getEnabled_flag() {
+    public Integer getEnabled_flag() {
         return enabled_flag;
     }
 
-    public void setEnabled_flag(String enabled_flag) {
+    public void setEnabled_flag(Integer enabled_flag) {
         this.enabled_flag = enabled_flag;
     }
 }

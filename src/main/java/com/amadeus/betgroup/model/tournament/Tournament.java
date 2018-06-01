@@ -9,7 +9,7 @@ public class Tournament {
     private Sport sport;
     private Integer tournamentId;
     private String tournamentName;
-    private String enabled_flag;
+    private Integer enabled_flag;
     private Date startDate;
     private List<Phase> phaseList;
 
@@ -53,11 +53,11 @@ public class Tournament {
         this.tournamentName = tournamentName;
     }
 
-    public String getEnabled_flag() {
+    public Integer getEnabled_flag() {
         return enabled_flag;
     }
 
-    public void setEnabled_flag(String enabled_flag) {
+    public void setEnabled_flag(Integer enabled_flag) {
         this.enabled_flag = enabled_flag;
     }
 

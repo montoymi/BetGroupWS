@@ -17,7 +17,17 @@ public class UserDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void actualizarPerfil(User user) {
+	public void actualizarLang(User user) {
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			session.update("User.actualizarLang", user);
+			session.commit();
+		} finally {
+			session.close();
+		}
+	}
+
+	public void actualizarPerfil(User user) {
         SqlSession session = sqlSessionFactory.openSession();
 
         try {

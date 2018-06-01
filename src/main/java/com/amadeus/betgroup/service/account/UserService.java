@@ -88,6 +88,10 @@ public class UserService {
         userDAO.actualizarPerfil(user);
     }
 
+	public void actualizarLang(User user) {
+		userDAO.actualizarLang(user);
+	}
+
     public User selectUserById(int userId) {
         return userDAO.selectUserById(userId);
     }

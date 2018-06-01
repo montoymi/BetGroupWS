@@ -51,6 +51,16 @@
         <result property="group.phase.tournament.sport.logo" column="logo"/>
     </resultMap>
 
+
+	<select id="selectMatchListDueStart"  resultMap="matchResult">
+        SELECT *
+        FROM matchs AS m
+       WHERE  now() >= m.match_date_with_timestamp AND
+       		  m.status = 1
+      order by m.match_date_with_timestamp;
+    </select>
+
+
     <select id="getMatchListWithBetsByUserId"  parameterType="int" resultMap="matchResult">
         SELECT DISTINCT sp.id  as ssport_id, sp.code, sp.name, sp.logo,
         t.id as ttournament_id, t.sport_id, t.tournament_name, t.status as tourna_status, t.start_date as tourna_start_date,

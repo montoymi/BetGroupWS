@@ -69,4 +69,10 @@ public class PollaParticipantService {
         List<PollaParticipant> participantList = pollaParticipantsDAO.getRankingPollaByHeaderId(pollaHeaderId);
         return participantList;
     }
+
+	public List<PollaParticipant> getParticipantListByPollaIdAndLang(Integer pollaId, String lang) {
+		List<PollaParticipant> participantList = pollaParticipantsDAO.getParticipantListByPollaIdAndLang(pollaId, lang);
+
+		return participantList;
+	}
 }

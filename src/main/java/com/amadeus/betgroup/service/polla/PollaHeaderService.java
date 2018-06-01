@@ -74,6 +74,11 @@ public class PollaHeaderService {
         return pollaHeaderDAO.getPollaGameRules(pollaHeader, lang);
     }
 
+	public List<PollaHeader> getPollaHeaderListByMatchId(Integer matchId) {
+		List<PollaHeader> pollaList = pollaHeaderDAO.getPollaHeaderListByMatchId(matchId);
+		return pollaList;
+    }
+
 
     /*
 

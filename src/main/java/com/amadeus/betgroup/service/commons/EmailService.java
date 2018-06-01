@@ -12,6 +12,11 @@ import java.util.Date;
 import java.util.Properties;
 
 public class EmailService {
+	private static String hostmail = "mail.betgroupsports.com";
+	private static String portmail = "8025";
+	private static String usermail = "admin@betgroupsports.com";
+	private static String passmail = "LaPollaDeMiAmigo2018";
+
     public static String sendEmail(String toAddress, String subject, String message) {
         String result = "";
 
@@ -64,4 +69,51 @@ public class EmailService {
 
         return result;
     }
+
+	public static String sendBCCEmail(String toAddress, String subject, String message) {
+		String result = "";
+
+		// sets SMTP server properties
+		try{
+			Properties properties = new Properties();
+			properties.put("mail.smtp.host", hostmail);
+			properties.put("mail.smtp.port", portmail);
+			properties.put("mail.smtp.auth", "true");
+			properties.put("mail.smtp.starttls.enable", "true");
+
+			// creates a new session with an authenticator
+			Authenticator auth = new Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(usermail, passmail);
+				}
+			};
+			Session session = Session.getInstance(properties, auth);
+// creates a new e-mail message
+			Message msg = new MimeMessage(session);
+
+			msg.setFrom(new InternetAddress(usermail));
+			InternetAddress[] toAddresses = InternetAddress.parse(toAddress);
+			msg.setRecipients(Message.RecipientType.BCC, toAddresses);
+			msg.setSubject(subject);
+			msg.setSentDate(new Date());
+
+			// creates message part
+			MimeBodyPart messageBodyPart = new MimeBodyPart();
+			messageBodyPart.setContent(message, "text/html");
+
+			// creates multi-part
+			Multipart multipart = new MimeMultipart();
+			multipart.addBodyPart(messageBodyPart);
+
+			// sets the multi-part as e-mail's content
+			msg.setContent(multipart);
+
+			// sends the e-mail
+			Transport.send(msg);
+		} catch(Exception e){
+			result = " Error con correo a" + toAddress + ". " + e.getMessage() + "<br/>";
+			throw new ApplicationException(result);
+		}
+		return result;
+	}
 }

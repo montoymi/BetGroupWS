@@ -4,23 +4,23 @@ import java.util.Date;
 
 public class CardIonic {
 
-	private String idCard;
+	private Integer idCard;
 	private String cardType;
 	private String title;
-
 	private String content1;
 	private String content2;
-
 	private String image1;
 	private String image2;
-
 	private Integer status;
+	private Date startDate;
+	private Date endDate;
+	private Date publicationDate;
 
-	public String getIdCard() {
+	public Integer getIdCard() {
 		return idCard;
 	}
 
-	public void setIdCard(String idCard) {
+	public void setIdCard(Integer idCard) {
 		this.idCard = idCard;
 	}
 
@@ -78,5 +78,29 @@ public class CardIonic {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Date getPublicationDate() {
+		return publicationDate;
+	}
+
+	public void setPublicationDate(Date publicationDate) {
+		this.publicationDate = publicationDate;
 	}
 }

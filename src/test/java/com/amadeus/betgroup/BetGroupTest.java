@@ -52,7 +52,7 @@ public class BetGroupTest {
     //       opcionActualizarPerfilUsuario();
    //         opcionMisPollas();
 
-     //       opcionAdminAdministrarEventos();
+            opcionAdminAdministrarEventos();
    //          opcionJuegosDisponibles();
     //        opcionCrearJuego();
  //           opcionMisPollas();

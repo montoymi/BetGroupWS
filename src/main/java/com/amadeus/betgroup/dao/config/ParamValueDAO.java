@@ -106,4 +106,33 @@ public class ParamValueDAO {
 		return paramValue;
 	}
 
+	public List<ParamValue> selectHomeCardList(int userId, String lang) {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<ParamValue> paramValueList;
+		try {
+			Map<String, Object> map = new HashMap<>();
+			map.put("userId", userId);
+			map.put("lang", lang);
+			paramValueList = session.selectList("ParamValues.selectHomeCardList", map);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		return paramValueList;
+	}
+
+	public List<ParamValue> getMatchForecastsMessage(int pollaHeaderId, int matchId) {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<ParamValue> paramValueList;
+		try {
+			Map<String, Object> map = new HashMap<>();
+			map.put("pollaHeaderId", pollaHeaderId);
+			map.put("matchId", matchId);
+			paramValueList = session.selectList("ParamValues.getMatchForecastsMessage", map);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		return paramValueList;
+	}
 }

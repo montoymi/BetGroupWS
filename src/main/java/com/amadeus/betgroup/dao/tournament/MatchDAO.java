@@ -92,7 +92,7 @@ public class MatchDAO {
         SqlSession session = sqlSessionFactory.openSession();
         List<Match> matchList;
         try{
-            matchList = session.selectList("selectAllMatchesByGroupId", groupId);
+            matchList = session.selectList("Match.selectAllMatchesByGroupId", groupId);
         } finally {
             session.close();
         }
@@ -100,4 +100,14 @@ public class MatchDAO {
     }
 
 
+	public List<Match> getMatchListDueStart() {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<Match> matchList;
+		try{
+			matchList = session.selectList("Match.selectMatchListDueStart");
+		} finally {
+			session.close();
+		}
+		return matchList;
+	}
 }

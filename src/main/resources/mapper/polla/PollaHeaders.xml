@@ -33,6 +33,14 @@
         <result property="numEvents" column="num_events"/>
     </resultMap>
 
+	<select id="getPollaHeaderListByMatchId" parameterType="int" resultMap="selectResult">
+        SELECT ph.*
+          FROM polla_headers AS ph, polla_matches as pm, matchs as ma
+         WHERE ph.id = pm.polla_header_id AND
+               pm.match_id = ma.id AND
+               ma.id = #{matchId}
+    </select>
+
     <select id="getMisPollasByUserId" parameterType="int" resultMap="selectResult">
         SELECT ph.*,
                (select count(pp1.*) as num_participants from polla_participants as pp1 where pp1.polla_header_id = ph.id),
