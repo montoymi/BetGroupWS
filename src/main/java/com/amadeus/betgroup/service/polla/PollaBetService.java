@@ -49,9 +49,9 @@ public class PollaBetService {
         List<PollaBet> pollaBetList;
         try{
             pollaBetList = pollaBetDAO.getListBetsByParticipantId( participantId );
-        }catch( Exception e){
-            e.printStackTrace();
-            throw e;
+        }catch( Exception b){
+            b.printStackTrace();
+            throw b;
         }
         return pollaBetList;
     }
