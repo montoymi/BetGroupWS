@@ -28,7 +28,6 @@ public class ParamValueResource {
     @Path("/terms")
     public Response getCondTerms(@QueryParam("lang") String lang) {
         String terms = paramValueService.getCondTerms(lang);
-        terms = "TERMINOS & CONDICIONES XYZ";
         String response = "{\"terms\":\"" + terms + "\"}";
         return Response.status(OK).entity(response).build();
     }

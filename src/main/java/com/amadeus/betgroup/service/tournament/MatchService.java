@@ -2,8 +2,10 @@ package com.amadeus.betgroup.service.tournament;
 
 import com.amadeus.betgroup.dao.tournament.MatchDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
+import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.tournament.Match;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
+import com.amadeus.betgroup.service.account.UserService;
 
 import java.util.List;
 
@@ -47,5 +49,21 @@ public class MatchService {
 	public List<Match> getMatchListDueStart() {
 		List<Match> matchList = matchDAO.getMatchListDueStart();
 		return matchList;
+	}
+
+	public void closeMatchStatus(Integer matchId) {
+		UserService userService = new UserService();
+    	User user = userService.getUserByEmail("er.morales@gmail.com");
+    	Match match = new Match();
+		match.setMatchId( matchId );
+		match.setEnabled_flag(0);
+		match.setLastUpdatedBy( user.getUserId() );
+
+		try{
+			matchDAO.updateMatchStatus(match);
+		}catch( Exception e){
+			e.printStackTrace();
+			throw e;
+		}
 	}
 }

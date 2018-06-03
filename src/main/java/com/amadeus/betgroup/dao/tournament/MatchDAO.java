@@ -49,10 +49,20 @@ public class MatchDAO {
         }
     }
 
+	public void updateMatchStatus(Match match) {
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			session.update("Match.updateMatchStatus", match);
+			session.commit();
+		} finally {
+			session.close();
+		}
+	}
+
     public void updateMatch(Match match) {
         SqlSession session = sqlSessionFactory.openSession();
         try {
-            session.update("Tournament.updateMatch", match);
+            session.update("Match.updateMatch", match);
             session.commit();
         } finally {
             session.close();
@@ -72,17 +82,17 @@ public class MatchDAO {
 
     public void updateMatchResult(Match match){
         SqlSession session = sqlSessionFactory.openSession();
-        String mensaje = "";
+		String mensaje = "";
+
         try {
             Map<String, Object> map = new HashMap<>();
-            map.put("match", match);
-            map.put("mensaje", mensaje);
+			map.put("match", match);
+			map.put("mensaje", mensaje);
+
             session.selectOne("Match.updateMatchResult", map );
-            mensaje = (String)map.get("mensaje");
+			mensaje = (String)map.get("mensaje");
             session.commit();
-            if( !mensaje.contentEquals("")){
-                throw new ApplicationException(mensaje);
-            }
+
         }finally {
             session.close();
         }
