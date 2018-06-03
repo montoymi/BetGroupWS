@@ -165,15 +165,24 @@
         #{enabled_flag}, #{matchCode}, #{matchPlace} )
     </insert>
 
-    <update id="updateMatch" parameterType="Match">
+	<update id="updateMatchStatus" parameterType="Match">
         UPDATE matchs
         SET
-        local_team_id = #{localId} AND
-        visitor_team_id = #{visitorId} AND
-        match_date = #{matchDate} AND
-        match_date_with_timestamp = #{matchDateWithTimezone} AND
-        status = #{enabled_flag} AND
-        match_code = #{matchCode} AND
+        status = #{enabled_flag},
+		last_updated_by = #{lastUpdatedBy},
+		last_updated_date = now()
+        WHERE id = #{matchId}
+    </update>
+
+	<update id="updateMatch" parameterType="Match">
+        UPDATE matchs
+        SET
+        local_team_id = #{localId},
+        visitor_team_id = #{visitorId},
+        match_date = #{matchDate},
+        match_date_with_timestamp = #{matchDateWithTimezone},
+        status = #{enabled_flag},
+        match_code = #{matchCode},
         match_place = #{matchPlace}
         WHERE id = #{matchId}
     </update>
@@ -196,7 +205,7 @@
         #{match.scoreVisitor, mode=IN, jdbcType=INTEGER},
         #{match.resultMatch, mode=IN, jdbcType=VARCHAR},
         #{match.lastUpdatedBy, mode=IN, jdbcType=INTEGER},
-        #{mensaje,mode=OUT, jdbcType=VARCHAR }
+        #{mensaje,mode=OUT, jdbcType=VARCHAR}
         )}
     </select>
 

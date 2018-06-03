@@ -57,6 +57,7 @@ public class PollaScheduler implements Job {
 						EmailService.sendBCCEmail( emailAll, subject, message);
 					}
 				}
+				matchService.closeMatchStatus(match.getMatchId());
 			}
 		}
     }
