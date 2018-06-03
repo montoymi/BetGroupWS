@@ -23,18 +23,18 @@ public class   ParamValueService {
     }
 
 	public List<CardIonic> getHomeCardList(int userId, String lang) {
-		List<ParamValue> paramValueList = paramValueDAO.selectHomeCardList(userId, lang);
+		//List<ParamValue> paramValueList = paramValueDAO.selectHomeCardList(userId, lang);
 		List<CardIonic> cardIonicList = new ArrayList<>();
 
-		for (ParamValue paramValue : paramValueList) {
+		//for (ParamValue paramValue : paramValueList) {
 			CardIonic card = new CardIonic();
 
 			card.setCardType("NEWS");
 			card.setContent1("Esperamos puedas pasarla bien durante esta BETA. Estamore comunicandote cualquier ");
-			card.setImage1("assets/img/");
+			card.setImage1("assets/img/home-card.jpeg");
 			card.setTitle("Bienvenido a Kiniela Sports");
 			cardIonicList.add(card);
-		}
+		//}
 
 		return cardIonicList;
 	}

@@ -1,5 +1,6 @@
 package com.amadeus.betgroup.rest.config;
 
+import com.amadeus.betgroup.model.config.CardIonic;
 import com.amadeus.betgroup.model.config.SlideIonic;
 import com.amadeus.betgroup.service.config.ParamValueService;
 
@@ -18,9 +19,9 @@ public class ParamValueResource {
 
     @GET
     @Path("/tutorial")
-    public Response getPersonById(@QueryParam("lang") String lang) {
-        List<SlideIonic> slideIonicList = paramValueService.getInitSlideIonicList(lang);
-        return Response.status(OK).entity(slideIonicList).build();
+    public Response getInitSlideIonicList(@QueryParam("lang") String lang) {
+        List<SlideIonic> slideList = paramValueService.getInitSlideIonicList(lang);
+        return Response.status(OK).entity(slideList).build();
     }
 
     @GET
@@ -30,5 +31,12 @@ public class ParamValueResource {
         terms = "TERMINOS & CONDICIONES XYZ";
         String response = "{\"terms\":\"" + terms + "\"}";
         return Response.status(OK).entity(response).build();
+    }
+
+    @GET
+    @Path("/home")
+    public Response getHomeCardList(@QueryParam("userId") int userId, @QueryParam("lang") String lang) {
+        List<CardIonic> cardList = paramValueService.getHomeCardList(userId, lang);
+        return Response.status(OK).entity(cardList).build();
     }
 }
