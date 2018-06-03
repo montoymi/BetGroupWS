@@ -8,6 +8,8 @@ import java.util.List;
 public class AdminScheduler {
 
     public static void main ( String args[] ) throws SchedulerException{
+
+
         JobDetail j = JobBuilder.newJob( PollaScheduler.class ).build();
         Trigger t = TriggerBuilder.newTrigger().withIdentity("JobPollaHeaderStatus").
                 withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInMinutes(5).repeatForever()).build();

@@ -119,16 +119,13 @@
     </update>
 
     <update id="updatePollaBet" parameterType="PollaBet">
-        UPDATE polla_bets
-        SET
-          local_bet_score = #{localBetScore},
-          visitor_bet_score = #{visitorBetScore},
-          updated_date = now(),
-          status = #{status},
-          result_bet = #{resultBet},
-          flg_wildcard = #{flagWildcard}
-        WHERE id = #{idBet}
-
+        select * from xx_update_bet(
+            #{idBet},--p_bet_id integer,
+            #{localBetScore},--p_score_local integer,
+            #{visitorBetScore},--p_score_visitor integer,
+            #{resultBet},--p_result_match varchar,
+            #{flagWildcard}--p_wildcard_flg integer,
+			)
     </update>
 
     <select id="getListBetsByParticipantId" parameterType="int" resultMap="pollaBetResults">

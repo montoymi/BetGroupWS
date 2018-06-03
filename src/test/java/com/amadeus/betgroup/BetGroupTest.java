@@ -45,7 +45,7 @@ import java.util.Scanner;
 public class BetGroupTest {
     public static void main(String args[]) throws Exception{
         try{
- 	     opcionCreditos();
+ 	//     opcionCreditos();
             //adminService.notifyUsersOfBetsByMatchId();
        //     opcionForgotPassword();
       //     opcionRegistrarUsuario();
@@ -55,7 +55,7 @@ public class BetGroupTest {
    //         opcionAdminAdministrarEventos();
    //          opcionJuegosDisponibles();
     //        opcionCrearJuego();
- //           opcionMisPollas();
+            opcionMisPollas();
         //    opcionMisPollas();
     //      opcionAmigos();
 
@@ -467,7 +467,7 @@ public class BetGroupTest {
                 System.out.println( (i+1) + "#: " + participante.getUser().getEmail() + " - " + participante.getUser().getUsername() + " - " +
                         participante.getUser().getFirstName() + " " + participante.getUser().getLastName() );
             }
-
+/*
             System.out.println( "Seleccionar participante a seguir:");
             String sNumParticipante = in.nextLine();
             Integer participanteNum = Integer.parseInt(sNumParticipante );
@@ -477,7 +477,7 @@ public class BetGroupTest {
 
             FriendService friendService = new FriendService();
             friendService.followFriend( userBE.getUserId(), userParticipante.getUserId() );
-
+*/
             System.out.println( "*********************");
             System.out.println( "actualizando pronosticos para usuario: " + userBE.getUsername());
 
