@@ -40,7 +40,7 @@ public class PollaBetService {
                 pollaBetDAO.updatePollaBet(pollaBet);
             }
         }catch( Exception e){
-            throw e;
+			throw new ApplicationException(e.getMessage());
         }
     }
 
