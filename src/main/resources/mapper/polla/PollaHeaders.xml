@@ -39,7 +39,7 @@
          WHERE ph.id = pm.polla_header_id AND
                pm.match_id = ma.id AND
                ma.id = #{matchId} AND
-               ph.status = 1
+               ph.status in (1,2)
     </select>
 
     <select id="getMisPollasByUserId" parameterType="int" resultMap="selectResult">

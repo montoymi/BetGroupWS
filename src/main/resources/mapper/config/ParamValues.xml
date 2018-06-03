@@ -66,6 +66,7 @@
 	<select id="getMatchForecastsMessage" parameterType="map" resultMap="paramValueResult">
         SELECT r_out_subject as param_value_string1,
                r_out_body as param_value_string2,
+               r_out_participants as param_value_string3,
                r_out_language as param_language
         FROM xx_send_mail_bet_results( #{pollaHeaderId}, #{matchId} )
     </select>

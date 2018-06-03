@@ -21,8 +21,7 @@ public class PollaScheduler implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        System.out.println("Mi job funciona y corre cada 2 segundos");
-        System.out.println("Llamar a una funcion que ");
+
         System.out.println("Fecha y hora: " + new Date());
 
 		MatchService matchService = new MatchService();
@@ -42,18 +41,21 @@ public class PollaScheduler implements Job {
 
 					for (int k = 0; k < paramValueList.size(); k++) {
 						ParamValue paramValue = paramValueList.get(k);
+
+						/*
 						String lang = paramValue.getParamLanguage();
-						List<PollaParticipant> participantList = pollaParticipantService.getParticipantListByPollaIdAndLang(pollaHeader.getPollaId(), lang);
 						String emailAll = "";
+						List<PollaParticipant> participantList = pollaParticipantService.getParticipantListByPollaIdAndLang(pollaHeader.getPollaId(), lang);
 						for (int l = 0; l < participantList.size(); l++) {
 							PollaParticipant participant = participantList.get(l);
 							emailAll += participant.getUser().getEmail();
 							if ( l != (participantList.size()-1) )
 								emailAll +=", ";
 						}
+						*/
 						String subject = paramValue.getParamValueString1();
 						String message = paramValue.getParamValueString2();
-						emailAll = "er.morales@gmail.com, mcahuas@gmail.com";
+						String emailAll = paramValue.getParamValueString3();
 						EmailService.sendBCCEmail( emailAll, subject, message);
 					}
 				}
