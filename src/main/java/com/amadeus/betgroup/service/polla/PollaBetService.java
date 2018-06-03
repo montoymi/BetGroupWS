@@ -4,6 +4,7 @@ import com.amadeus.betgroup.dao.polla.PollaBetDAO;
 import com.amadeus.betgroup.exception.ApplicationException;
 import com.amadeus.betgroup.model.polla.PollaBet;
 import com.amadeus.betgroup.mybatis.MyBatisSqlSession;
+import org.apache.ibatis.exceptions.PersistenceException;
 
 import java.util.Date;
 import java.util.List;
@@ -39,8 +40,8 @@ public class PollaBetService {
             } else{
                 pollaBetDAO.updatePollaBet(pollaBet);
             }
-        }catch( Exception e){
-			throw new ApplicationException(e.getMessage());
+        }catch( PersistenceException e){
+			throw new ApplicationException(e);
         }
     }
 

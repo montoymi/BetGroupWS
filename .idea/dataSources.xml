@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="polla@173.249.6.111" uuid="9e24802c-176b-48d4-a830-8a49f8bc72a6">
+    <data-source source="LOCAL" name="polla_dev@5.189.151.80" uuid="1bd004fa-71f0-452e-aea2-3074172c0ee9">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://173.249.6.111:5489/polla</jdbc-url>
+      <jdbc-url>jdbc:postgresql://5.189.151.80:5432/polla_dev</jdbc-url>
     </data-source>
   </component>
 </project>
