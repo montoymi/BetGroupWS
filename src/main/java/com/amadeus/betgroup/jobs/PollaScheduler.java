@@ -56,9 +56,13 @@ public class PollaScheduler implements Job {
 						String subject = paramValue.getParamValueString1();
 						String message = paramValue.getParamValueString2();
 						String emailAll = paramValue.getParamValueString3();
+
 						EmailService.sendBCCEmail( emailAll, subject, message);
+						System.out.println("Email: " +  emailAll);
 					}
+					System.out.println("Polla: " + pollaHeader.getPollaId() );
 				}
+				System.out.println("Match: " +  match.getMatchId() );
 				matchService.closeMatchStatus(match.getMatchId());
 			}
 		}

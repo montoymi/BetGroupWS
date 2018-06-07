@@ -34,12 +34,7 @@ public class PollaBetService {
 
     public void updatePollaBetByBetId (PollaBet pollaBet) {
         try{
-            if (  (new Date()).after( pollaBet.getPollaMatch().getMatch().getMatchDate() ) ){
-                throw new ApplicationException("BET001");
-                //Este pronostico no puede ser actualizado, dado que el evento ya empezo segun la fecha y hora actual definidos.
-            } else{
-                pollaBetDAO.updatePollaBet(pollaBet);
-            }
+        	pollaBetDAO.updatePollaBet(pollaBet);
         }catch( PersistenceException e){
 			throw new ApplicationException(e);
         }

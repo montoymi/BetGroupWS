@@ -28,12 +28,27 @@ public class   ParamValueService {
 
 		//for (ParamValue paramValue : paramValueList) {
 			CardIonic card = new CardIonic();
-
+//ó á é ú í ñ
 			card.setCardType("NEWS");
-			card.setContent1("Esperamos puedas pasarla bien durante esta BETA. Estamore comunicandote cualquier ");
-			card.setImage1("assets/img/home-card.jpeg");
+			String content = "La copa del mundo está por empezar, y aquí en Kiniela Sports, ";
+			content += "esperamos puedas vivir este mundial más de cerca, compitiendo  contra tus amigos partido a partido ";
+			content += " con el objetivo de ganar el máximo premio! Buena Suerte!";
+			card.setContent1(content);
+			card.setImage1("assets/img/tournam/card-mundial-rusia2018.jpg");
 			card.setTitle("Bienvenido a Kiniela Sports");
 			cardIonicList.add(card);
+
+			CardIonic card2 = new CardIonic();
+
+			card2.setCardType("NEWS");
+			String content2 = "Bueeeenas! Si no te haz inscrito o creado un juego, que esperas! A la fecha se tiene ";
+			content2 += "una kiniela que empieza el 14 de Junio y que cubrira todos los partidos del mundial. Invita a tus amigos y ";
+			content2 += "haz que se inscriban! A mayor numero de participantes, mayor el pozo para el ganador!";
+			card2.setContent1(content2);
+			card2.setImage1("assets/img/tournam/card-mundial-rusia2018-3.jpg");
+			card2.setTitle("Nuevos juegos Disponibles!");
+			cardIonicList.add(card2);
+
 		//}
 
 		return cardIonicList;

@@ -35,9 +35,9 @@
             <!--  connecting to Local MySql -->
             <dataSource type="POOLED">
                 <property name="driver" value="org.postgresql.Driver"/>
-                <property name="url" value="jdbc:postgresql://5.189.151.80:5432/polla_dev"/>
-                <property name="username" value="polla_dev_user"/>
-                <property name="password" value="PollaDev2018"/>
+                <property name="url" value="jdbc:postgresql://5.189.151.80:5432/polla"/>
+                <property name="username" value="polla_user"/>
+                <property name="password" value="IntiTec02"/>
             </dataSource>
         </environment>
     </environments>

@@ -35,7 +35,7 @@ public class PollaHeaderService {
         Credit credit = creditS.getCreditSummaryByUserId(userBE.getUserId());
 
         if (pollaHeader.getPollaCost() > credit.getTotalCreditos()) {
-            System.out.println(" No tiene creditos suficientes para inscribirse en la polla.");
+            System.out.println(" No tiene creditos suficientes para inscribirse en la   polla.");
         }
     }
 
