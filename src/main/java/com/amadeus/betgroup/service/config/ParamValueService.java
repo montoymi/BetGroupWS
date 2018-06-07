@@ -30,7 +30,7 @@ public class   ParamValueService {
 			CardIonic card = new CardIonic();
 //ó á é ú í ñ
 			card.setCardType("NEWS");
-			String content = "La copa del mundo está por empezar, y aquí en Kiniela Sports, ";
+			String content = "La copa del mundo Rusia 2018 está por empezar, y aquí en Kiniela Sports, ";
 			content += "esperamos puedas vivir este mundial más de cerca, compitiendo  contra tus amigos partido a partido ";
 			content += " con el objetivo de ganar el máximo premio! Buena suerte !";
 			card.setContent1(content);
