@@ -32,7 +32,7 @@ public class   ParamValueService {
 			card.setCardType("NEWS");
 			String content = "La copa del mundo está por empezar, y aquí en Kiniela Sports, ";
 			content += "esperamos puedas vivir este mundial más de cerca, compitiendo  contra tus amigos partido a partido ";
-			content += " con el objetivo de ganar el máximo premio! Buena Suerte!";
+			content += " con el objetivo de ganar el máximo premio! Buena suerte !";
 			card.setContent1(content);
 			card.setImage1("assets/img/tournam/card-mundial-rusia2018.jpg");
 			card.setTitle("Bienvenido a Kiniela Sports");
