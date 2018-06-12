@@ -32,7 +32,7 @@ public class   ParamValueService {
 			card.setCardType("NEWS");
 			String content = "La copa del mundo Rusia 2018 está por empezar, y aquí en Kiniela Sports ";
 			content += "esperamos puedas vivir este mundial más de cerca, compitiendo  contra tus amigos partido a partido ";
-			content += " con el objetivo de ganar el máximo premio! Buena suerte !";
+			content += "con el objetivo de ganar el máximo premio! Buena suerte !";
 			card.setContent1(content);
 			card.setImage1("assets/img/tournam/card-mundial-rusia2018.jpg");
 			card.setTitle("BIENVENIDO A KINIELA SPORTS");
@@ -52,15 +52,15 @@ public class   ParamValueService {
 		CardIonic card3 = new CardIonic();
 
 		card3.setCardType("NEWS");
-		String content3 = "Deseamos el mejor de los exitos a la selecion peruana en esta copa del mundo que est por empezar!";
-		content3 += "<br> Motivo por el cual estaremos abriendo juegos para que podamos seguir los pasos de la seleccion peruana! ";
-		content3 += "Nos vemos en la arena!!!";
+		String content3 = "Deseamos el mejor de los éxitos a la selección peruana en esta copa del mundo que está por empezar!";
+		content3 += "Motivo por el cual estaremos abriendo juegos para que podamos seguir los pasos de la seleccion peruana! ";
+		content3 += "Nos vemos en la cancha!!!";
 		card3.setContent1(content3);
 		card3.setImage1("assets/img/tournam/card-mundial-rusia2018-4.jpg");
 		card3.setTitle("ARRIBA PERU!");
 		cardIonicList.add(card3);
 
-		//}
+		//}á,é,í,ó,ú
 
 		return cardIonicList;
 	}
