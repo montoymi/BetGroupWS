@@ -63,8 +63,7 @@ public class EmailService {
             // sends the e-mail
             Transport.send(msg);
         } catch(Exception e){
-            result = " Error con correo a" + toAddress + ". " + e.getMessage() + "<br/>";
-            throw new ApplicationException(result);
+            throw new ApplicationException(e);
         }
 
         return result;

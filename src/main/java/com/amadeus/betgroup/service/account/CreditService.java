@@ -45,7 +45,7 @@ public class CreditService {
                 //Existe una transaccion de compra pendiente de aprobacion. Esper a que se procese, para proceder con una nueva compra.
             } else{
                 creditDetail.setStatus( 0 ); // 2pending to be approved by ADMIN
-                creditDetail.setComments(" Creditos comprados ");
+                creditDetail.setComments("Créditos comprados ");
                 creditDAO.addCreditTransaction(creditDetail);
             }
         }else{

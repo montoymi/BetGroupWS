@@ -35,7 +35,7 @@ public class   ParamValueService {
 			content += " con el objetivo de ganar el máximo premio! Buena suerte !";
 			card.setContent1(content);
 			card.setImage1("assets/img/tournam/card-mundial-rusia2018.jpg");
-			card.setTitle("Bienvenido a Kiniela Sports");
+			card.setTitle("BIENVENIDO A KINIELA SPORTS");
 			cardIonicList.add(card);
 
 			CardIonic card2 = new CardIonic();
@@ -46,8 +46,19 @@ public class   ParamValueService {
 			content2 += "haz que se inscriban! A mayor numero de participantes, mayor el pozo para el ganador!";
 			card2.setContent1(content2);
 			card2.setImage1("assets/img/tournam/card-mundial-rusia2018-3.jpg");
-			card2.setTitle("Nuevos juegos Disponibles!");
+			card2.setTitle("NUEVOS JUEGOS DISPONIBLES!");
 			cardIonicList.add(card2);
+
+		CardIonic card3 = new CardIonic();
+
+		card3.setCardType("NEWS");
+		String content3 = "Deseamos el mejor de los exitos a la selecion peruana en esta copa del mundo que est por empezar!";
+		content3 += "<br> Motivo por el cual estaremos abriendo juegos para que podamos seguir los pasos de la seleccion peruana! ";
+		content3 += "Nos vemos en la arena!!!";
+		card3.setContent1(content3);
+		card3.setImage1("assets/img/tournam/card-mundial-rusia2018-4.jpg");
+		card3.setTitle("ARRIBA PERU!");
+		cardIonicList.add(card3);
 
 		//}
 
