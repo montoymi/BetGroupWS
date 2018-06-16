@@ -3,12 +3,14 @@ package com.amadeus.betgroup;
 import com.amadeus.betgroup.model.account.Friend;
 import com.amadeus.betgroup.model.account.User;
 import com.amadeus.betgroup.model.config.SlideIonic;
+import com.amadeus.betgroup.model.polla.PollaBet;
 import com.amadeus.betgroup.model.polla.PollaHeader;
 import com.amadeus.betgroup.model.polla.PollaParticipant;
 import com.amadeus.betgroup.model.template.TemplateDetail;
 import com.amadeus.betgroup.model.template.TemplateHeader;
 import com.amadeus.betgroup.service.account.FriendService;
 import com.amadeus.betgroup.service.admin.AdminService;
+import com.amadeus.betgroup.service.polla.PollaBetService;
 import com.amadeus.betgroup.service.polla.PollaHeaderService;
 import com.amadeus.betgroup.service.polla.PollaParticipantService;
 import com.amadeus.betgroup.service.template.TemplateDetailService;
@@ -248,7 +250,39 @@ public class PollaHeaderTest {
     }
 
     private static void subOpcionRanking(User userBE, PollaHeader pollaHeaderBE) {
-    }
+		PollaParticipantService pollaParticipantService = new PollaParticipantService();
+		List<PollaParticipant> pollaParticipantList = pollaParticipantService.getRankingPollaByHeaderId(pollaHeaderBE.getPollaId());
+
+		System.out.println( "Mostrando Ranking de la polla: ");
+		for (int i = 0; i < pollaParticipantList.size(); i++) {
+			PollaParticipant pollaParticipant = pollaParticipantList.get(i);
+			System.out.println( "#" + (i+1) + " - " + pollaParticipant.getUser().getUsername() + " - Posicion: " + pollaParticipant.getPosition());
+		}
+		System.out.println( "Seleccione el # participante a ver detalle de pronosticos hechos:");
+		Integer numParticipant = Integer.parseInt((new Scanner(System.in)).nextLine());
+
+		PollaParticipant pollaParticipant = pollaParticipantList.get(numParticipant);
+
+		PollaBetService pollaBetService = new PollaBetService();
+		List<PollaBet> pollaBetList = pollaBetService.getListBetsByParticipantId(pollaParticipant.getPollaParticipantId());
+
+		for (int i = 0; i < pollaBetList.size(); i++) {
+			PollaBet pollaBet = pollaBetList.get(i);
+			pollaBet.getPollaMatch().getMatch().getMatch_code();
+
+			pollaBet.getPollaMatch().getMatch().getScoreLocal();
+			pollaBet.getPollaMatch().getMatch().getScoreVisitor();
+			pollaBet.getPollaMatch().getMatch().getResultMatch();
+
+			pollaBet.getLocalBetScore();
+			pollaBet.getVisitorBetScore();
+			pollaBet.getResultBet();
+			pollaBet.getFlagWildcard();
+			pollaBet.getPoints();
+		}
+
+
+	}
 
     private static void subOpcionPronosticos(User userBE, PollaHeader pollaHeaderBE) {
     }

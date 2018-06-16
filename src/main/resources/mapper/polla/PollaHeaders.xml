@@ -118,6 +118,7 @@
             #{pollaHeader.numWildcards},--p_num_wildcards integer,
             1,--p_num_players_prize_polla integer,
             1,--p_num_players_prize_pollita integer,
+            2,
             #{lang})
 
     </select>
